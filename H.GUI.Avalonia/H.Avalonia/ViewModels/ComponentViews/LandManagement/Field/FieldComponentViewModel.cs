@@ -31,24 +31,19 @@ public class FieldComponentViewModel : ViewModelBase
     #region Fields
 
     /// <summary>
-    /// A collection of all <see cref="IFieldComponentDto"/> that represent all the <see cref="FieldSystemComponent"/>s
-    /// </summary>
-    private Dictionary<Guid, IFieldComponentDto> _fieldComponentDtos;
-
-    /// <summary>
     /// The selected field
     /// </summary>
     private FieldSystemComponent _selectedFieldSystemComponent;
 
     /// <summary>
-    /// The selected crop
-    /// </summary>
-    private CropViewItem _selectedCropViewItem;
-
-    /// <summary>
     /// The field DTO that is bound to the view and is based on the values from the <see cref="_selectedFieldSystemComponent"/> model object
     /// </summary>
     private IFieldComponentDto _selectedFieldSystemComponentDto;
+
+    /// <summary>
+    /// The selected crop
+    /// </summary>
+    private CropViewItem _selectedCropViewItem;
 
     /// <summary>
     /// The crop DTO that is bound to the view and is based on the values from the <see cref="_selectedCropViewItem"/>
@@ -61,11 +56,9 @@ public class FieldComponentViewModel : ViewModelBase
     private readonly IFieldComponentService _fieldComponentService;
 
     /// <summary>
-    /// A helper class to convert user input from one units of measurement system to another
+    /// A logger instance
     /// </summary>
-    private readonly IUnitsOfMeasurementCalculator _unitsOfMeasurementCalculator;
-
-    private ILogger _logger;
+    private readonly ILogger _logger;
 
     #endregion
 
@@ -80,7 +73,6 @@ public class FieldComponentViewModel : ViewModelBase
         IEventAggregator eventAggregator, 
         IStorageService storageService,
         IFieldComponentService fieldComponentService,
-        IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator,
         ILogger logger) : base(regionManager, eventAggregator, storageService)
     {
         if (logger != null)
@@ -90,15 +82,6 @@ public class FieldComponentViewModel : ViewModelBase
         else
         {
             throw new ArgumentNullException(nameof(logger));
-        }
-
-        if (unitsOfMeasurementCalculator != null)
-        {
-            _unitsOfMeasurementCalculator = unitsOfMeasurementCalculator;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(unitsOfMeasurementCalculator));
         }
 
         if (fieldComponentService != null)
@@ -112,8 +95,6 @@ public class FieldComponentViewModel : ViewModelBase
 
         this.AddCropCommand = new DelegateCommand<object>(OnAddCropExecute, AddCropCanExecute);
         this.RemoveCropCommand = new DelegateCommand<object>(OnRemoveCropExecute, RemoveCropCanExecute);
-
-        _fieldComponentDtos = new Dictionary<Guid, IFieldComponentDto>();
     }
 
     #endregion
@@ -159,41 +140,36 @@ public class FieldComponentViewModel : ViewModelBase
     /// <param name="component">The <see cref="FieldSystemComponent"/> to display to the user</param>
     public override void InitializeViewModel(ComponentBase component)
     {
-        _logger.LogDebug("Initializing " + component);
+        _logger.LogDebug("initializing " + component);
 
         if (component is FieldSystemComponent fieldSystemComponent)
         {
             this.PropertyChanged += OnPropertyChanged;
 
-            // Keep a reference to the model/domain object
+            // Hold a reference to the selected field system object
             _selectedFieldSystemComponent = fieldSystemComponent;
 
-            if (_fieldComponentDtos.TryGetValue(component.Guid, out var componentDto))
-            {
-                this.SelectedFieldSystemComponentDto = componentDto;
-            }
-            else
-            {
-                // Build a DTO to represent the model/domain object
-                var dto  = _fieldComponentService.TransferToFieldComponentDto(_selectedFieldSystemComponent);
+            // Build a DTO to represent the model/domain object
+            var dto = _fieldComponentService.TransferToFieldComponentDto(_selectedFieldSystemComponent);
 
-                // Listen for changes on the DTO
-                dto.PropertyChanged += FieldSystemComponentDtoOnPropertyChanged;
+            // Listen for changes on the DTO
+            dto.PropertyChanged += FieldSystemComponentDtoOnPropertyChanged;
 
-                this.SelectedFieldSystemComponentDto = dto;
+            // Assign the DTO to the property that is bound to the view
+            this.SelectedFieldSystemComponentDto = dto;
 
-                _fieldComponentDtos.Add(component.Guid, dto);
-            }
-
+            // If there are any crops associated with the field, select the first one by default
             if (this.SelectedFieldSystemComponentDto.CropDtos.Any())
             {
                 this.SelectedCropDto = this.SelectedFieldSystemComponentDto.CropDtos.First();
             }
             else
             {
+                // There are no crops associated with this field, add a new one
                 this.AddCropDto();
             }
 
+            // Hold a reference to the selected crop view item
             _selectedCropViewItem = _fieldComponentService.GetCropViewItemFromDto(this.SelectedCropDto, _selectedFieldSystemComponent);
         }
     }
@@ -213,15 +189,6 @@ public class FieldComponentViewModel : ViewModelBase
                 this.InitializeViewModel(fieldSystemComponent);
             }
         }
-    }
-
-    /// <summary>
-    /// Use to perform any cleanup when the user selects another/different component or when leaving the <see cref="MyComponentsView"/>.
-    /// </summary>
-    /// <param name="navigationContext">Passed up to base implementation</param>
-    public override void OnNavigatedFrom(NavigationContext navigationContext)
-    {
-        base.OnNavigatedFrom(navigationContext);
     }
 
     #endregion
@@ -265,14 +232,26 @@ public class FieldComponentViewModel : ViewModelBase
         }
     }
 
+    /// <summary>
+    /// Some property on the <see cref="SelectedCropDto"/> has changed. Check if we need to validate any user
+    /// input before assigning the value on to the associated <see cref="CropViewItem"/>
+    /// </summary>
     private void CropDtoOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (sender is CropDto cropDto)
         {
-            var viewItem = _fieldComponentService.GetCropViewItemFromDto(cropDto, _selectedFieldSystemComponent);
+            /*
+             * Before assigning values from the bound DTOs, check for any validation errors. If there are any validation errors
+             * we should not proceed with the transfer of user input from the DTO to the model until the validation errors are fixed
+             */
 
-            // Persist the changes to the system
-            _fieldComponentService.TransferCropDtoToSystem(cropDto, viewItem);
+            if (!cropDto.HasErrors)
+            {
+                var viewItem = _fieldComponentService.GetCropViewItemFromDto(cropDto, _selectedFieldSystemComponent);
+
+                // Persist the changes to the system
+                _fieldComponentService.TransferCropDtoToSystem(cropDto, viewItem);
+            }
         }
     }
 
