@@ -20,6 +20,7 @@ public class CropDto : DtoBase, ICropDto
     private int _year;
     private CropType _cropType;
     private ObservableCollection<CropType> _cropTypes;
+    private double _wetYield;
 
     #endregion
 
@@ -64,9 +65,29 @@ public class CropDto : DtoBase, ICropDto
         set => SetProperty(ref _amountOfIrrigation, value);
     }
 
+    [Units(MetricUnitsOfMeasurement.KilogramsPerHectare)]
+    public double WetYield
+    {
+        get => _wetYield;
+        set => SetProperty(ref _wetYield, value);
+    }
+
     #endregion
 
     #region Event Handlers
+
+    private void ValidateWetYield()
+    {
+        var key = nameof(WetYield);
+        if (this.WetYield < 0)
+        {
+            AddError(key, "Wet yield cannot be negative");
+        }
+        else
+        {
+            RemoveError(key);
+        }
+    }
 
     /// <summary>
     /// The user must specify a crop type before proceeding
@@ -107,6 +128,12 @@ public class CropDto : DtoBase, ICropDto
         else if (e.PropertyName.Equals(nameof(AmountOfIrrigation)))
         {
             this.ValidateAmountOfIrrigation();
+        }
+        else if (e.PropertyName.Equals(nameof(WetYield)))
+        {
+            
+
+            this.ValidateWetYield();
         }
     }
 

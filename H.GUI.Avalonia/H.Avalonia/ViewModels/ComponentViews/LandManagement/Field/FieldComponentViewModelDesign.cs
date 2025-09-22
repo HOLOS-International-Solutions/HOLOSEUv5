@@ -32,6 +32,8 @@ public class FieldComponentViewModelDesign : FieldComponentViewModel
             DisplayUnitStrings = new DisplayUnitStrings()
             {
                 HectaresString = "(ha)",
+                MillimetersPerHectareString = "(mm ha⁻¹)",
+                KilogramsPerHectareString = "(kg ha⁻¹)"
             }
         };
 

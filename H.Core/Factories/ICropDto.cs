@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using H.Core.CustomAttributes;
 using H.Core.Enumerations;
 using H.Core.Models.LandManagement.Fields;
 
@@ -31,4 +32,12 @@ public interface ICropDto : INotifyPropertyChanged, IDto
     /// (mm)
     /// </summary>
     double AmountOfIrrigation { get; set; }
+
+
+    /// <summary>
+    /// Total wet weight yield of the crop
+    ///
+    /// (kg ha^-1)
+    /// </summary>
+    double WetYield { get; set; }
 }
