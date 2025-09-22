@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace H.Avalonia;
 
-public partial class CropView : UserControl
+public partial class SelectedCropGeneralTabView : UserControl
 {
-    public CropView()
+    public SelectedCropGeneralTabView()
     {
         InitializeComponent();
     }
