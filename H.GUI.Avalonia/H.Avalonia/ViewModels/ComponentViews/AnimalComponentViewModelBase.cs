@@ -1,4 +1,4 @@
-﻿using H.Avalonia.ViewModels.ComponentViews.AnimalCommon;
+﻿using H.Core.Factories;
 using H.Core.Models;
 using H.Core.Models.Animals;
 using H.Core.Models.LandManagement.Fields;
@@ -12,6 +12,8 @@ namespace H.Avalonia.ViewModels.ComponentViews;
 public abstract class AnimalComponentViewModelBase : ViewModelBase
 {
     #region Fields
+
+    private AnimalComponentBase _selectedAnimalComponent;
 
     protected IAnimalComponentDto _selectedAnimalComponentDto;
 
@@ -63,6 +65,8 @@ public abstract class AnimalComponentViewModelBase : ViewModelBase
 
         if (component is AnimalComponentBase animalComponentBase)
         {
+            _selectedAnimalComponent = animalComponentBase;
+
             this.AnimalComponentService.InitializeAnimalComponent(base.StorageService.GetActiveFarm(), animalComponentBase);
         }
     } 

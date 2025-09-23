@@ -150,5 +150,6 @@
 
   <ItemGroup>
     <Folder Include="Models\DTO\FarmDTO\" />
+    <Folder Include="ViewModels\ComponentViews\AnimalCommon\" />
   </ItemGroup>
 </Project>

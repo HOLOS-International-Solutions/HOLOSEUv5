@@ -1,4 +1,4 @@
-﻿namespace H.Avalonia.ViewModels.ComponentViews.AnimalCommon;
+﻿namespace H.Core.Factories;
 
 public interface IAnimalComponentDto
 {
