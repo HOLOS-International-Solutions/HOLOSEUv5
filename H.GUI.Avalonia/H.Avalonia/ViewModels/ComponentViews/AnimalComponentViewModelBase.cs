@@ -79,7 +79,7 @@ public abstract class AnimalComponentViewModelBase : ViewModelBase
 
             _selectedAnimalComponent = animalComponentBase;
 
-            this.AnimalComponentService.InitializeAnimalComponent(base.StorageService.GetActiveFarm(), animalComponentBase);
+            this.AnimalComponentService.InitializeComponent(base.StorageService.GetActiveFarm(), animalComponentBase);
 
             // Build a DTO to represent the model/domain object
             var dto = this.AnimalComponentService.TransferToAnimalComponentDto(animalComponentBase);

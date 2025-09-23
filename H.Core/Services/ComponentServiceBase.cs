@@ -61,7 +61,18 @@ public abstract class ComponentServiceBase : IComponentService
         }
 
         return proposedName;
-    } 
+    }
+
+    public void InitializeComponent(Farm farm, ComponentBase component)
+    {
+        if (component.IsInitialized)
+        {
+            return;
+        }
+
+        component.IsInitialized = true;
+        component.Name = this.GetUniqueComponentName(farm, component);
+    }
 
     #endregion
 }

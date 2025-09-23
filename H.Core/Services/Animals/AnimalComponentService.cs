@@ -42,17 +42,6 @@ public class AnimalComponentService : ComponentServiceBase, IAnimalComponentServ
 
     #region Public Methods
 
-    public void InitializeAnimalComponent(Farm farm, AnimalComponentBase animalComponent)
-    {
-        if (animalComponent.IsInitialized)
-        {
-            return;
-        }
-
-        animalComponent.IsInitialized = true;
-        animalComponent.Name = base.GetUniqueComponentName(farm, animalComponent);
-    }
-
     public IAnimalComponentDto TransferToAnimalComponentDto(AnimalComponentBase animalComponent)
     {
         var animalComponentDto = new AnimalComponentDto();

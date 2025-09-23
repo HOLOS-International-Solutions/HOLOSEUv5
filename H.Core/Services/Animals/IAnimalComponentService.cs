@@ -5,9 +5,8 @@ using H.Core.Models.Animals;
 
 namespace H.Core.Services.Animals;
 
-public interface IAnimalComponentService
+public interface IAnimalComponentService : IComponentService
 {
-    public void InitializeAnimalComponent(Farm farm, AnimalComponentBase animalComponent);
     public IAnimalComponentDto TransferToAnimalComponentDto(AnimalComponentBase animalComponent);
     public IAnimalComponentDto TransferAnimalComponentDtoToSystem(IAnimalComponentDto animalComponentDto, AnimalComponentBase animalComponent);
 }

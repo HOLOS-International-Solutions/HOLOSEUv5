@@ -22,7 +22,7 @@ public class AnimalComponentServiceTests
 {
     #region Fields
 
-    private AnimalComponentService _sut;
+    private AnimalComponentService _service;
     private Mock<IAnimalComponentFactory> _mockAnimalComponentFactory;
 
     #endregion
@@ -52,7 +52,7 @@ public class AnimalComponentServiceTests
             cfg.AddProfile<AnimalComponentDtoToAnimalComponentMapper>();
         }).CreateMapper());
 
-        _sut = new AnimalComponentService(mockLogger.Object, mockContainerProvider.Object, _mockAnimalComponentFactory.Object, mockUnitsOfMeasurementCalculator.Object);
+        _service = new AnimalComponentService(mockLogger.Object, mockContainerProvider.Object, _mockAnimalComponentFactory.Object, mockUnitsOfMeasurementCalculator.Object);
     }
 
     [TestCleanup]
@@ -72,7 +72,7 @@ public class AnimalComponentServiceTests
         mockAnimalComponent.Object.IsInitialized = false;
 
         // Act
-        _sut.InitializeAnimalComponent(farm, mockAnimalComponent.Object);
+        _service.InitializeComponent(farm, mockAnimalComponent.Object);
 
         // Assert
         Assert.IsTrue(mockAnimalComponent.Object.IsInitialized);
@@ -88,7 +88,7 @@ public class AnimalComponentServiceTests
         mockAnimalComponent.Object.IsInitialized = true;
 
         // Act
-        _sut.InitializeAnimalComponent(farm, mockAnimalComponent.Object);
+        _service.InitializeComponent(farm, mockAnimalComponent.Object);
 
         // Assert
         Assert.IsTrue(mockAnimalComponent.Object.IsInitialized); // Remains true
@@ -109,7 +109,7 @@ public class AnimalComponentServiceTests
             .Returns(expectedCopy);
 
         // Act
-        var result = _sut.TransferAnimalComponentDtoToSystem(originalDto, animalComponent);
+        var result = _service.TransferAnimalComponentDtoToSystem(originalDto, animalComponent);
 
         // Assert
         Assert.AreSame(expectedCopy, result);
