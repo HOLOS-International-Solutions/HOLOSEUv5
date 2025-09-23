@@ -1,23 +1,47 @@
-﻿using H.Core.Models;
+﻿using H.Avalonia.ViewModels.ComponentViews.AnimalCommon;
+using H.Core.Models;
 using H.Core.Models.Animals;
 using H.Core.Models.LandManagement.Fields;
 using H.Core.Services.Animals;
 using H.Core.Services.StorageService;
+using Microsoft.Extensions.Logging;
 using Prism.Regions;
 
 namespace H.Avalonia.ViewModels.ComponentViews;
 
-public abstract class AnimalViewModelBase : ViewModelBase
+public abstract class AnimalComponentViewModelBase : ViewModelBase
 {
+    #region Fields
+
+    protected IAnimalComponentDto _selectedAnimalComponentDto;
+
     protected IAnimalComponentService AnimalComponentService;
 
-    protected AnimalViewModelBase()
+    #endregion
+
+    #region Constructors
+
+    protected AnimalComponentViewModelBase()
     {
     }
 
-    protected AnimalViewModelBase(IStorageService storageService) : base(storageService)
+    protected AnimalComponentViewModelBase(ILogger logger, IStorageService storageService) : base(storageService, logger)
     {
     }
+
+    #endregion
+
+    #region Properties
+
+    protected IAnimalComponentDto SelectedAnimalComponentDto
+    {
+        get => _selectedAnimalComponentDto;
+        set => SetProperty(ref _selectedAnimalComponentDto, value);
+    }
+
+    #endregion
+
+    #region Public Methods
 
     public override void OnNavigatedTo(NavigationContext navigationContext)
     {
@@ -41,5 +65,7 @@ public abstract class AnimalViewModelBase : ViewModelBase
         {
             this.AnimalComponentService.InitializeAnimalComponent(base.StorageService.GetActiveFarm(), animalComponentBase);
         }
-    }
+    } 
+
+    #endregion
 }

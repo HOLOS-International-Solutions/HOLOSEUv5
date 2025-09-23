@@ -16,6 +16,7 @@ using Avalonia.Threading;
 using System;
 using System.Threading.Tasks;
 using H.Core.Helpers;
+using Microsoft.Extensions.Logging;
 
 namespace H.Avalonia.ViewModels
 {
@@ -30,6 +31,7 @@ namespace H.Avalonia.ViewModels
         private IRegionManager _regionManager;
         private IStorageService _storageService;
         private string _viewName;
+        protected ILogger Logger;
 
         #endregion
 
@@ -49,6 +51,18 @@ namespace H.Avalonia.ViewModels
             else
             {
                 throw new ArgumentNullException(nameof(storageService));
+            }
+        }
+
+        protected ViewModelBase(IStorageService storageService, ILogger logger) : this(storageService)
+        {
+            if (logger != null)
+            {
+                Logger = logger;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(logger));
             }
         }
 

@@ -6,11 +6,12 @@ using H.Core.Models;
 using H.Core.Models.Animals;
 using H.Core.Services.Animals;
 using H.Core.Services.StorageService;
+using Microsoft.Extensions.Logging;
 using Prism.Regions;
 
 namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
 {
-    public abstract class OtherAnimalsViewModelBase : AnimalViewModelBase
+    public abstract class OtherAnimalsViewModelBase : AnimalComponentViewModelBase
     {
         #region Fields
 
@@ -26,13 +27,13 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
         {
         }
 
-        public OtherAnimalsViewModelBase(IStorageService storageService) : base(storageService)
+        public OtherAnimalsViewModelBase(ILogger logger, IStorageService storageService) : base(logger, storageService)
         {
             ManagementPeriodViewModels = new ObservableCollection<ManagementPeriodViewModel>();
             Groups = new ObservableCollection<AnimalGroup>();
         }
 
-        public OtherAnimalsViewModelBase(IAnimalComponentService animalComponentService, IStorageService storageService) : base(storageService)
+        public OtherAnimalsViewModelBase(ILogger logger, IAnimalComponentService animalComponentService, IStorageService storageService) : base(logger, storageService)
         {
             if (animalComponentService != null)
             {

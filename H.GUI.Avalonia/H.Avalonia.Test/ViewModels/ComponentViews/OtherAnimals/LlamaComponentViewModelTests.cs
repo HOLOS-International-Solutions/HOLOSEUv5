@@ -3,6 +3,7 @@ using H.Core;
 using H.Core.Enumerations;
 using H.Core.Models;
 using H.Core.Services.StorageService;
+using Microsoft.Extensions.Logging;
 using Moq;
 
 namespace H.Avalonia.Test.ViewModels.ComponentViews.OtherAnimals
@@ -37,7 +38,9 @@ namespace H.Avalonia.Test.ViewModels.ComponentViews.OtherAnimals
             _applicationData = new ApplicationData();
             _mockStorage.Setup(x => x.ApplicationData).Returns(_applicationData);
             _mockStorageService.Setup(x => x.Storage).Returns(_storageMock);
-            _viewModel = new LlamaComponentViewModel(_storageServiceMock);
+            var mockLogger = new Mock<ILogger>();
+
+            _viewModel = new LlamaComponentViewModel(mockLogger.Object, _storageServiceMock);
         }
 
         [TestCleanup]
