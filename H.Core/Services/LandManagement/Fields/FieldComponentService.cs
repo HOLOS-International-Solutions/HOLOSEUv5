@@ -229,17 +229,17 @@ public class FieldComponentService : ComponentServiceBase, IFieldComponentServic
     {
         var fieldComponentDto = new FieldSystemComponentDto();
 
-        // Create a copy of the field component by copying all properties into the DTO
+        // Create a copy of the component by copying all properties into the DTO
         _fieldComponentToDtoMapper.Map(template, fieldComponentDto);
 
         // All numerical values are stored internally as metric values
-        var fieldComponentDtoPropertyConverter = new PropertyConverter<IFieldComponentDto>(fieldComponentDto);
+        var propertyConverter = new PropertyConverter<IFieldComponentDto>(fieldComponentDto);
 
         // Get all properties that might need to be converted to imperial units before being shown to the user
-        foreach (var property in fieldComponentDtoPropertyConverter.PropertyInfos)
+        foreach (var property in propertyConverter.PropertyInfos)
         {
             // Convert the value from metric to imperial as needed. Note the converter won't convert anything if the display is in metric units
-            var bindingValue = fieldComponentDtoPropertyConverter.GetBindingValueFromSystem(property, base.UnitsOfMeasurementCalculator.GetUnitsOfMeasurement());
+            var bindingValue = propertyConverter.GetBindingValueFromSystem(property, base.UnitsOfMeasurementCalculator.GetUnitsOfMeasurement());
 
             // Set the value of the property before displaying to the user
             property.SetValue(fieldComponentDto, bindingValue);

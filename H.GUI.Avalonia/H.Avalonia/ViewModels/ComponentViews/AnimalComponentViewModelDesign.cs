@@ -4,6 +4,7 @@ using H.Core.Models.Animals;
 using H.Core.Services.StorageService;
 using Microsoft.Extensions.Logging;
 using System;
+using H.Core.Services.Animals;
 
 namespace H.Avalonia.ViewModels.ComponentViews;
 
@@ -17,7 +18,7 @@ public class AnimalComponentViewModelDesign : AnimalComponentViewModelBase
         ViewName = "Bison";
     }
 
-    protected AnimalComponentViewModelDesign(ILogger logger, IStorageService storageService) : base(logger, storageService)
+    protected AnimalComponentViewModelDesign(IAnimalComponentService animalComponentService, ILogger logger, IStorageService storageService) : base(animalComponentService, logger, storageService)
     {
     }
 }

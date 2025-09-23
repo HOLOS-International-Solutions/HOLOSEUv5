@@ -8,6 +8,6 @@ public class FieldDtoToFieldComponentMapper : Profile
 {
     public FieldDtoToFieldComponentMapper()
     {
-        CreateMap<FieldSystemComponentDto, FieldSystemComponent>();
+        CreateMap<IFieldComponentDto, FieldSystemComponent>();
     }
 }

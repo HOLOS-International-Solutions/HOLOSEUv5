@@ -1,8 +1,10 @@
+using AutoMapper;
 using H.Core.Calculators.Infrastructure;
 using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Emissions.Results;
 using H.Core.Enumerations;
 using H.Core.Factories;
+using H.Core.Mappers;
 using H.Core.Models;
 using H.Core.Models.Animals;
 using H.Core.Models.Infrastructure;
@@ -21,6 +23,7 @@ public class AnimalComponentServiceTests
     #region Fields
 
     private AnimalComponentService _sut;
+    private Mock<IAnimalComponentFactory> _mockAnimalComponentFactory;
 
     #endregion
 
@@ -39,12 +42,17 @@ public class AnimalComponentServiceTests
     [TestInitialize]
     public void TestInitialize()
     {
-        var mockAnimalComponentFactory = new Mock<IAnimalComponentFactory>();
+        _mockAnimalComponentFactory = new Mock<IAnimalComponentFactory>();
         var mockLogger = new Mock<ILogger>();
         var mockContainerProvider = new Mock<IContainerProvider>();
         var mockUnitsOfMeasurementCalculator = new Mock<IUnitsOfMeasurementCalculator>();
 
-        _sut = new AnimalComponentService(mockLogger.Object, mockContainerProvider.Object, mockAnimalComponentFactory.Object, mockUnitsOfMeasurementCalculator.Object);
+        mockContainerProvider.Setup(x => x.Resolve(typeof(IMapper), It.IsAny<string>())).Returns(new MapperConfiguration(cfg =>
+        {
+            cfg.AddProfile<AnimalComponentDtoToAnimalComponentMapper>();
+        }).CreateMapper());
+
+        _sut = new AnimalComponentService(mockLogger.Object, mockContainerProvider.Object, _mockAnimalComponentFactory.Object, mockUnitsOfMeasurementCalculator.Object);
     }
 
     [TestCleanup]
@@ -89,18 +97,6 @@ public class AnimalComponentServiceTests
     [TestMethod]
     public void TransferToAnimalComponentDtoToSystem_CallsFactoryAndReturnsCopy()
     {
-        // Arrange
-        var mockFactory = new Mock<IAnimalComponentFactory>();
-        var mockLogger = new Mock<ILogger>();
-        var mockContainerProvider = new Mock<IContainerProvider>();
-        var mockUnitsOfMeasurementCalculator = new Mock<IUnitsOfMeasurementCalculator>();
-
-        var service = new AnimalComponentService(
-            mockLogger.Object,
-            mockContainerProvider.Object,
-            mockFactory.Object,
-            mockUnitsOfMeasurementCalculator.Object);
-
         var originalDto = new Mock<IAnimalComponentDto>().Object;
         var mockAnimalComponent = new Mock<AnimalComponentBase>();
         mockAnimalComponent.CallBase = true;
@@ -108,15 +104,15 @@ public class AnimalComponentServiceTests
         var animalComponent = mockAnimalComponent.Object;
         var expectedCopy = new Mock<IAnimalComponentDto>().Object;
 
-        mockFactory
+        _mockAnimalComponentFactory
             .Setup(f => f.CreateAnimalComponentDto(originalDto))
             .Returns(expectedCopy);
 
         // Act
-        var result = service.TransferToAnimalComponentDtoToSystem(originalDto, animalComponent);
+        var result = _sut.TransferAnimalComponentDtoToSystem(originalDto, animalComponent);
 
         // Assert
         Assert.AreSame(expectedCopy, result);
-        mockFactory.Verify(f => f.CreateAnimalComponentDto(originalDto), Times.Once);
+        _mockAnimalComponentFactory.Verify(f => f.CreateAnimalComponentDto(originalDto), Times.Once);
     }
 }

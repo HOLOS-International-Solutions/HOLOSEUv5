@@ -1,6 +1,5 @@
 ﻿namespace H.Core.Factories;
 
-public interface IAnimalComponentDto
+public interface IAnimalComponentDto : IDto
 {
-    string Name { get; set; }
 }

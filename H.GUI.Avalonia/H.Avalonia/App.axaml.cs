@@ -231,6 +231,7 @@ namespace H.Avalonia
             containerRegistry.RegisterSingleton<IFieldComponentDtoFactory, FieldComponentDtoFactory>();
             containerRegistry.RegisterSingleton<IDietFactory, DietFactory>();
             containerRegistry.RegisterSingleton<IFarmFactory, FarmFactory>();
+            containerRegistry.RegisterSingleton<IAnimalComponentFactory, AnimalComponentFactory>();
 
             // Tables
             containerRegistry.RegisterSingleton<ITable50FuelEnergyEstimatesProvider, Table50FuelEnergyEstimatesProvider>();
@@ -353,6 +354,16 @@ namespace H.Avalonia
                 expression.AddProfile<AnimalComponentDtoToAnimalComponentMapper>();
             });
 
+            var animalComponentDtoToAnimalComponentDtoConfiguration = new MapperConfiguration(expression =>
+            {
+                expression.AddProfile<AnimalComponentDtoToAnimalComponentDtoMapper>();
+            });
+
+            var animalComponentToAnimalComponentDtoConfiguration = new MapperConfiguration(expression =>
+            {
+                expression.AddProfile<AnimalComponentBaseToAnimalComponentDtoMapper>();
+            });
+
             // Register named mappers
             containerRegistry.RegisterInstance(cropDtoToCropDtoConfiguration.CreateMapper(), nameof(CropDtoToCropDtoMapper));
             containerRegistry.RegisterInstance(cropDtoToCropVieItemConfiguration.CreateMapper(), nameof(CropDtoToCropViewItemMapper));
@@ -362,6 +373,8 @@ namespace H.Avalonia
             containerRegistry.RegisterInstance(fieldDtoToFieldDtoConfiguration.CreateMapper(), nameof(FieldDtoToFieldDtoMapper));
             containerRegistry.RegisterInstance(feedIngredientToFeedIngredientConfiguration.CreateMapper(), nameof(FeedIngredientToFeedIngredientMapper));
             containerRegistry.RegisterInstance(animalComponentDtoToAnimalComponentConfiguration.CreateMapper(), nameof(AnimalComponentDtoToAnimalComponentMapper));
+            containerRegistry.RegisterInstance(animalComponentDtoToAnimalComponentDtoConfiguration.CreateMapper(), nameof(AnimalComponentDtoToAnimalComponentDtoMapper));
+            containerRegistry.RegisterInstance(animalComponentToAnimalComponentDtoConfiguration.CreateMapper(), nameof(AnimalComponentBaseToAnimalComponentDtoMapper));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using H.Core.Factories;
 using H.Core.Models;
 using H.Core.Models.Animals;
@@ -25,10 +26,6 @@ public abstract class AnimalComponentViewModelBase : ViewModelBase
     #region Constructors
 
     protected AnimalComponentViewModelBase()
-    {
-    }
-
-    protected AnimalComponentViewModelBase(ILogger logger, IStorageService storageService) : base(storageService, logger)
     {
     }
 
@@ -74,18 +71,38 @@ public abstract class AnimalComponentViewModelBase : ViewModelBase
 
     public override void InitializeViewModel(ComponentBase component)
     {
-        base.InitializeViewModel(component);
-
         if (component is AnimalComponentBase animalComponentBase)
         {
+            base.InitializeViewModel(component);
+
+            this.PropertyChanged += OnPropertyChanged;
+
             _selectedAnimalComponent = animalComponentBase;
 
             this.AnimalComponentService.InitializeAnimalComponent(base.StorageService.GetActiveFarm(), animalComponentBase);
 
             // Build a DTO to represent the model/domain object
             var dto = this.AnimalComponentService.TransferToAnimalComponentDto(animalComponentBase);
+
+            this.SelectedAnimalComponentDto = dto;
+
+            dto.PropertyChanged += OnAnimalComponentDtoPropertyChanged;
         }
-    } 
+    }
+
+    private void OnAnimalComponentDtoPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (sender is IAnimalComponentDto dto)
+        {
+            // A property on the DTO has been changed by the user, assign the new value to the system object after any unit conversion (if necessary)
+            this.AnimalComponentService.TransferAnimalComponentDtoToSystem(dto, _selectedAnimalComponent);
+        }
+    }
+
+    private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        
+    }
 
     #endregion
 }
