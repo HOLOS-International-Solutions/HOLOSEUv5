@@ -4,7 +4,7 @@ public class AnimalComponentFactory : IAnimalComponentFactory
 {
     #region Public Methods
     
-    public IAnimalComponentDto CreateAnimalComponentDto()
+    public IAnimalComponentDto CreateAnimalComponentDto(IAnimalComponentDto animalComponentDto)
     {
         var result = new AnimalComponentDto();
 

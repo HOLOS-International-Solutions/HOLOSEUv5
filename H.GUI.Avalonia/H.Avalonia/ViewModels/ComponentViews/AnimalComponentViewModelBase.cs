@@ -1,4 +1,5 @@
-﻿using H.Core.Factories;
+﻿using System;
+using H.Core.Factories;
 using H.Core.Models;
 using H.Core.Models.Animals;
 using H.Core.Models.LandManagement.Fields;
@@ -29,6 +30,18 @@ public abstract class AnimalComponentViewModelBase : ViewModelBase
 
     protected AnimalComponentViewModelBase(ILogger logger, IStorageService storageService) : base(storageService, logger)
     {
+    }
+
+    protected AnimalComponentViewModelBase(IAnimalComponentService animalComponentService, ILogger logger, IStorageService storageService) : base(storageService, logger)
+    {
+        if (animalComponentService != null)
+        {
+            AnimalComponentService = animalComponentService; 
+        }
+        else
+        {
+            throw new ArgumentNullException(nameof(animalComponentService));
+        }
     }
 
     #endregion
@@ -68,6 +81,9 @@ public abstract class AnimalComponentViewModelBase : ViewModelBase
             _selectedAnimalComponent = animalComponentBase;
 
             this.AnimalComponentService.InitializeAnimalComponent(base.StorageService.GetActiveFarm(), animalComponentBase);
+
+            // Build a DTO to represent the model/domain object
+            var dto = this.AnimalComponentService.TransferToAnimalComponentDto(animalComponentBase);
         }
     } 
 

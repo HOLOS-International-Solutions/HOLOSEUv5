@@ -2,5 +2,5 @@
 
 public interface IAnimalComponentFactory
 {
-    IAnimalComponentDto CreateAnimalComponentDto();
+    IAnimalComponentDto CreateAnimalComponentDto(IAnimalComponentDto animalComponentDto);
 }

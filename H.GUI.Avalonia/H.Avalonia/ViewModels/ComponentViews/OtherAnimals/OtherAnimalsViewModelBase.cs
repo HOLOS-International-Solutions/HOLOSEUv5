@@ -33,17 +33,8 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
             Groups = new ObservableCollection<AnimalGroup>();
         }
 
-        public OtherAnimalsViewModelBase(ILogger logger, IAnimalComponentService animalComponentService, IStorageService storageService) : base(logger, storageService)
+        public OtherAnimalsViewModelBase(ILogger logger, IAnimalComponentService animalComponentService, IStorageService storageService) : base(animalComponentService, logger, storageService)
         {
-            if (animalComponentService != null)
-            {
-                AnimalComponentService = animalComponentService; 
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(animalComponentService));
-            }
-            
             ManagementPeriodViewModels = new ObservableCollection<ManagementPeriodViewModel>();
             Groups = new ObservableCollection<AnimalGroup>();
         }

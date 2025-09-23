@@ -11,9 +11,10 @@ public class AnimalComponentFactoryTests
     {
         // Arrange
         var factory = new AnimalComponentFactory();
+        var inputDto = new AnimalComponentDto();
 
         // Act
-        var dto = factory.CreateAnimalComponentDto();
+        var dto = factory.CreateAnimalComponentDto(inputDto);
 
         // Assert
         Assert.IsNotNull(dto);
@@ -24,10 +25,11 @@ public class AnimalComponentFactoryTests
     {
         // Arrange
         var factory = new AnimalComponentFactory();
+        var inputDto = new AnimalComponentDto();
 
         // Act
-        var dto1 = factory.CreateAnimalComponentDto();
-        var dto2 = factory.CreateAnimalComponentDto();
+        var dto1 = factory.CreateAnimalComponentDto(inputDto);
+        var dto2 = factory.CreateAnimalComponentDto(inputDto);
 
         // Assert
         Assert.AreNotSame(dto1, dto2);
@@ -38,9 +40,10 @@ public class AnimalComponentFactoryTests
     {
         // Arrange
         var factory = new AnimalComponentFactory();
+        var inputDto = new AnimalComponentDto();
 
         // Act
-        var dto = factory.CreateAnimalComponentDto();
+        var dto = factory.CreateAnimalComponentDto(inputDto);
 
         // Assert
         Assert.IsInstanceOfType(dto, typeof(IAnimalComponentDto));

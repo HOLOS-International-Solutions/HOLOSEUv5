@@ -348,14 +348,20 @@ namespace H.Avalonia
                 expression.AddProfile<FeedIngredientToFeedIngredientMapper>();
             });
 
+            var animalComponentDtoToAnimalComponentConfiguration = new MapperConfiguration(expression =>
+            {
+                expression.AddProfile<AnimalComponentDtoToAnimalComponentMapper>();
+            });
+
             // Register named mappers
-            containerRegistry.RegisterInstance<IMapper>(cropDtoToCropDtoConfiguration.CreateMapper(), nameof(CropDtoToCropDtoMapper));
-            containerRegistry.RegisterInstance<IMapper>(cropDtoToCropVieItemConfiguration.CreateMapper(), nameof(CropDtoToCropViewItemMapper));
-            containerRegistry.RegisterInstance<IMapper>(cropViewItemToCropVieItemConfiguration.CreateMapper(), nameof(CropViewItemToCropDtoMapper));
-            containerRegistry.RegisterInstance<IMapper>(fieldComponentToFieldDtoConfiguration.CreateMapper(), nameof(FieldComponentToDtoMapper));
-            containerRegistry.RegisterInstance<IMapper>(fieldDtoToFieldComponentConfiguration.CreateMapper(), nameof(FieldDtoToFieldComponentMapper));
-            containerRegistry.RegisterInstance<IMapper>(fieldDtoToFieldDtoConfiguration.CreateMapper(), nameof(FieldDtoToFieldDtoMapper));
-            containerRegistry.RegisterInstance<IMapper>(feedIngredientToFeedIngredientConfiguration.CreateMapper(), nameof(FeedIngredientToFeedIngredientMapper));
+            containerRegistry.RegisterInstance(cropDtoToCropDtoConfiguration.CreateMapper(), nameof(CropDtoToCropDtoMapper));
+            containerRegistry.RegisterInstance(cropDtoToCropVieItemConfiguration.CreateMapper(), nameof(CropDtoToCropViewItemMapper));
+            containerRegistry.RegisterInstance(cropViewItemToCropVieItemConfiguration.CreateMapper(), nameof(CropViewItemToCropDtoMapper));
+            containerRegistry.RegisterInstance(fieldComponentToFieldDtoConfiguration.CreateMapper(), nameof(FieldComponentToDtoMapper));
+            containerRegistry.RegisterInstance(fieldDtoToFieldComponentConfiguration.CreateMapper(), nameof(FieldDtoToFieldComponentMapper));
+            containerRegistry.RegisterInstance(fieldDtoToFieldDtoConfiguration.CreateMapper(), nameof(FieldDtoToFieldDtoMapper));
+            containerRegistry.RegisterInstance(feedIngredientToFeedIngredientConfiguration.CreateMapper(), nameof(FeedIngredientToFeedIngredientMapper));
+            containerRegistry.RegisterInstance(animalComponentDtoToAnimalComponentConfiguration.CreateMapper(), nameof(AnimalComponentDtoToAnimalComponentMapper));
         }
     }
 }

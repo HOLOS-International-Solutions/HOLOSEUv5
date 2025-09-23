@@ -19,49 +19,19 @@ public class FieldComponentService : ComponentServiceBase, IFieldComponentServic
     
     private readonly IFieldComponentDtoFactory _fieldComponentDtoFactory;
     private readonly ICropFactory _cropFactory;
-    private readonly IUnitsOfMeasurementCalculator _unitsOfMeasurementCalculator;
 
     private readonly IMapper _fieldDtoToComponentMapper;
     private readonly IMapper _fieldComponentToDtoMapper;
 
     private readonly IMapper _cropDtoToCropViewItemMapper;
     private readonly IMapper _cropViewItemToCropDtoMapper;
-    private IContainerProvider _containerProvider;
-    private ILogger _logger;
 
     #endregion
 
     #region Constructors
 
-    public FieldComponentService(IFieldComponentDtoFactory fieldComponentDtoFactory, ICropFactory cropFactory, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator, IContainerProvider containerProvider, ILogger logger)
+    public FieldComponentService(IFieldComponentDtoFactory fieldComponentDtoFactory, ICropFactory cropFactory, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator, IContainerProvider containerProvider, ILogger logger) : base(logger, containerProvider, unitsOfMeasurementCalculator)
     {
-        if (logger != null)
-        {
-            _logger = logger; 
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(logger));
-        }
-
-        if (containerProvider != null)
-        {
-            _containerProvider = containerProvider;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(containerProvider));
-        }
-
-        if (unitsOfMeasurementCalculator != null)
-        {
-            _unitsOfMeasurementCalculator = unitsOfMeasurementCalculator;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(unitsOfMeasurementCalculator));
-        }
-
         if (cropFactory != null)
         {
             _cropFactory = cropFactory;
@@ -80,10 +50,10 @@ public class FieldComponentService : ComponentServiceBase, IFieldComponentServic
             throw new ArgumentNullException(nameof(fieldComponentDtoFactory));
         }
 
-        _fieldDtoToComponentMapper = containerProvider.Resolve<IMapper>(nameof(FieldDtoToFieldComponentMapper));
-        _fieldComponentToDtoMapper = containerProvider.Resolve<IMapper>(nameof(FieldComponentToDtoMapper));
-        _cropDtoToCropViewItemMapper = containerProvider.Resolve<IMapper>(nameof(CropDtoToCropViewItemMapper));
-        _cropViewItemToCropDtoMapper = containerProvider.Resolve<IMapper>(nameof(CropViewItemToCropDtoMapper));
+        _fieldDtoToComponentMapper = base.ContainerProvider.Resolve<IMapper>(nameof(FieldDtoToFieldComponentMapper));
+        _fieldComponentToDtoMapper = base.ContainerProvider.Resolve<IMapper>(nameof(FieldComponentToDtoMapper));
+        _cropDtoToCropViewItemMapper = base.ContainerProvider.Resolve<IMapper>(nameof(CropDtoToCropViewItemMapper));
+        _cropViewItemToCropDtoMapper = base.ContainerProvider.Resolve<IMapper>(nameof(CropViewItemToCropDtoMapper));
     }
 
     #endregion
@@ -198,7 +168,7 @@ public class FieldComponentService : ComponentServiceBase, IFieldComponentServic
         foreach (var propertyInfo in cropDtoPropertyConverter.PropertyInfos)
         {
             // Convert the value from metric to imperial as needed. Note the converter won't convert anything if the display is in metric units
-            var bindingValue = cropDtoPropertyConverter.GetBindingValueFromSystem(propertyInfo, _unitsOfMeasurementCalculator.GetUnitsOfMeasurement());
+            var bindingValue = cropDtoPropertyConverter.GetBindingValueFromSystem(propertyInfo, base.UnitsOfMeasurementCalculator.GetUnitsOfMeasurement());
 
             // Set the value of the property before displaying to the user
             propertyInfo.SetValue(dto, bindingValue);
@@ -213,13 +183,13 @@ public class FieldComponentService : ComponentServiceBase, IFieldComponentServic
         var copy = _cropFactory.CreateCropDto(cropDto);
 
         // All numerical values are stored internally as metric values
-        var cropViewItemPropertyConverter = new PropertyConverter<ICropDto>(copy);
+        var propertyConverter = new PropertyConverter<ICropDto>(copy);
 
         // Get all properties that might need to be converted to imperial units before being shown to the user
-        foreach (var property in cropViewItemPropertyConverter.PropertyInfos)
+        foreach (var property in propertyConverter.PropertyInfos)
         {
             // Convert the value from imperial to metric as needed (no conversion will occur if display is using metric)
-            var bindingValue = cropViewItemPropertyConverter.GetSystemValueFromBinding(property, _unitsOfMeasurementCalculator.GetUnitsOfMeasurement());
+            var bindingValue = propertyConverter.GetSystemValueFromBinding(property, base.UnitsOfMeasurementCalculator.GetUnitsOfMeasurement());
 
             // Set the value on the copy of the DTO
             property.SetValue(copy, bindingValue);
@@ -243,7 +213,7 @@ public class FieldComponentService : ComponentServiceBase, IFieldComponentServic
         foreach (var property in fieldComponentDtoPropertyConverter.PropertyInfos)
         {
             // Convert the value from imperial to metric as needed (no conversion will occur if display is using metric)
-            var bindingValue = fieldComponentDtoPropertyConverter.GetSystemValueFromBinding(property, _unitsOfMeasurementCalculator.GetUnitsOfMeasurement());
+            var bindingValue = fieldComponentDtoPropertyConverter.GetSystemValueFromBinding(property, base.UnitsOfMeasurementCalculator.GetUnitsOfMeasurement());
 
             // Set the value on the copy of the DTO
             property.SetValue(copy, bindingValue);
@@ -269,7 +239,7 @@ public class FieldComponentService : ComponentServiceBase, IFieldComponentServic
         foreach (var property in fieldComponentDtoPropertyConverter.PropertyInfos)
         {
             // Convert the value from metric to imperial as needed. Note the converter won't convert anything if the display is in metric units
-            var bindingValue = fieldComponentDtoPropertyConverter.GetBindingValueFromSystem(property, _unitsOfMeasurementCalculator.GetUnitsOfMeasurement());
+            var bindingValue = fieldComponentDtoPropertyConverter.GetBindingValueFromSystem(property, base.UnitsOfMeasurementCalculator.GetUnitsOfMeasurement());
 
             // Set the value of the property before displaying to the user
             property.SetValue(fieldComponentDto, bindingValue);
