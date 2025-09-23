@@ -16,9 +16,19 @@ namespace H.Core.Models
             base.Message = msg;
         }
 
+        public ErrorInformation(string message, Exception exception, bool isCritical)
+        {
+            base.Message = message;
+            Exception = exception;
+            IsCritical = isCritical;
+        }
+
+
         #endregion
 
         #region Properties
+        public Exception Exception { get; }
+        public bool IsCritical { get; }
         #endregion 
     }
 }

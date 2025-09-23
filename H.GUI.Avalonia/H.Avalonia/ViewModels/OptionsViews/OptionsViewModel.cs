@@ -47,36 +47,28 @@ namespace H.Avalonia.ViewModels.OptionsViews
                     case "Open Farm":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.FarmCreationViews.FileOpenFarmView));
                         break;
-
                     case "Close Farm":
                         this.ClearActiveView();
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(FarmOptionsView));
                         break;
-
                     case "Farms":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.OptionsViews.FileMenuViews.FarmManagementView));
                         break;
-
                     case "Save Options":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.OptionsViews.FileMenuViews.FileSaveOptionsView));
                         break;
-
                     case "Export Farm(s)":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.OptionsViews.FileMenuViews.FileExportFarmView));
                         break;
-
                     case "Import Farm":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.OptionsViews.FileMenuViews.FileImportFarmView));
                         break;
-
                     case "Export Climate":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.OptionsViews.FileMenuViews.FileExportClimateView));
                         break;
-
                     case "Export Manure":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.OptionsViews.FileMenuViews.FileExportManureView));
                         break;
-
                     // Settings Menu
                     case "Farm":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.OptionsViews.OptionFarmView));
@@ -105,7 +97,6 @@ namespace H.Avalonia.ViewModels.OptionsViews
                     case "Default Manure Composition":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.OptionsViews.DefaultManureCompositionView));
                         break;
-
                     case "User Settings":
                         base.RegionManager.RequestNavigate(UiRegions.ContentRegion, nameof(Views.OptionsViews.OptionUserSettingsView));
                         break;

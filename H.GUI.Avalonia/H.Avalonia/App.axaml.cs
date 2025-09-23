@@ -27,7 +27,7 @@ using H.Avalonia.ViewModels.SupportingViews.Start;
 using H.Avalonia.Views;
 using H.Avalonia.Views.ComponentViews;
 using H.Avalonia.Views.FarmCreationViews;
-using H.Avalonia.Views.ResultViews;
+using H.Avalonia.Services;
 using H.Avalonia.Views.SupportingViews.CountrySelection;
 using H.Avalonia.Views.SupportingViews.Disclaimer;
 using H.Avalonia.Views.SupportingViews.MeasurementProvince;
@@ -46,6 +46,8 @@ using H.Core.Services.LandManagement.Fields;
 using H.Core.Services.Provinces;
 using H.Core.Services.StorageService;
 using H.Infrastructure;
+using H.Infrastructure.Services;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using Prism.DryIoc;
@@ -54,8 +56,7 @@ using Prism.Regions;
 using System;
 using System.Text.RegularExpressions;
 using System.Threading;
-using H.Infrastructure.Services;
-using Microsoft.Extensions.Caching.Memory;
+using System.Threading.Tasks;
 using ClimateResultsView = H.Avalonia.Views.ResultViews.ClimateResultsView;
 using KmlHelpers = H.Avalonia.Infrastructure.KmlHelpers;
 using SoilResultsView = H.Avalonia.Views.ResultViews.SoilResultsView;
@@ -206,6 +207,7 @@ namespace H.Avalonia
             containerRegistry.RegisterSingleton<IFieldComponentService, FieldComponentService>();
             containerRegistry.RegisterSingleton<IFarmResultsService_NEW, FarmResultsService_NEW>();
             containerRegistry.RegisterSingleton<IDietService, DefaultDietService>();
+            containerRegistry.RegisterSingleton<IErrorHandlerService, ErrorHandlerService>();
 
             // Unit conversion
             containerRegistry.RegisterSingleton<IUnitsOfMeasurementCalculator, UnitsOfMeasurementCalculator>();
