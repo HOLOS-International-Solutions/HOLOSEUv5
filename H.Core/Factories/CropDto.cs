@@ -131,8 +131,6 @@ public class CropDto : DtoBase, ICropDto
         }
         else if (e.PropertyName.Equals(nameof(WetYield)))
         {
-            
-
             this.ValidateWetYield();
         }
     }

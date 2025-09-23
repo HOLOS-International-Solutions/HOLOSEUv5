@@ -59,6 +59,7 @@ using System.Threading;
 using H.Avalonia.Views.ComponentViews.LandManagement.Field;
 using H.Core.Factories.FarmFactory;
 using H.Core.Providers.Energy;
+using H.Core.Services.Animals;
 using H.Core.Services.Initialization;
 using H.Infrastructure.Services;
 using Microsoft.Extensions.Caching.Memory;
@@ -217,6 +218,7 @@ namespace H.Avalonia
             containerRegistry.RegisterSingleton<IFarmResultsService_NEW, FarmResultsService_NEW>();
             containerRegistry.RegisterSingleton<IDietService, DefaultDietService>();
             containerRegistry.RegisterSingleton<ICropInitializationService, CropInitializationService>();
+            containerRegistry.RegisterSingleton<IAnimalComponentService, AnimalComponentService>();
 
             // Unit conversion
             containerRegistry.RegisterSingleton<IUnitsOfMeasurementCalculator, UnitsOfMeasurementCalculator>();

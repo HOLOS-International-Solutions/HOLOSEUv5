@@ -13,7 +13,7 @@ namespace H.Core.Services.LandManagement.Fields;
 /// <summary>
 /// A general service class to assist with various operations needing to be done on a <see cref="FieldSystemComponent"/> or <see cref="FieldSystemComponentDto"/>
 /// </summary>
-public class FieldComponentService : IFieldComponentService
+public class FieldComponentService : ComponentServiceBase, IFieldComponentService
 {
     #region Fields
     
@@ -98,7 +98,7 @@ public class FieldComponentService : IFieldComponentService
             return;
         }
 
-        fieldSystemComponent.Name = this.GetUniqueFieldName(farm.FieldSystemComponents);
+        fieldSystemComponent.Name = base.GetUniqueComponentName(farm, fieldSystemComponent);
 
         fieldSystemComponent.IsInitialized = true;
     }
@@ -108,22 +108,6 @@ public class FieldComponentService : IFieldComponentService
         cropDto.Year = this.GetNextCropYear(fieldComponentDto);
 
         fieldComponentDto.CropDtos.Add(cropDto);
-    }
-
-    public string GetUniqueFieldName(IEnumerable<FieldSystemComponent> components)
-    {
-        var i = 1;
-        var fieldSystemComponents = components;
-
-        var proposedName = string.Format(Properties.Resources.InterpolatedFieldNumber, i);
-
-        // While proposedName isn't unique, create a unique name for this component so we don't have two or more components with same name
-        while (fieldSystemComponents.Any(x => x.Name == proposedName))
-        {
-            proposedName = string.Format(Properties.Resources.InterpolatedFieldNumber, ++i);
-        }
-
-        return proposedName;
     }
 
     public int GetNextCropYear(IFieldComponentDto fieldComponentDto)

@@ -34,11 +34,6 @@ public interface IFieldComponentService :  IFieldComponentDtoFactory, ICropFacto
     void ResetAllYears(IEnumerable<ICropDto> cropDtos);
 
     /// <summary>
-    /// Crates a unique component name when adding a field to the farm
-    /// </summary>
-    string GetUniqueFieldName(IEnumerable<FieldSystemComponent> components);
-
-    /// <summary>
     /// Responsible for transferring user input bound to a <see cref="FieldSystemComponentDto"/> to an internal <see cref="FieldSystemComponent"/> before being stored internally.
     /// Method will convert values according to the selected units of measurement.
     /// </summary>

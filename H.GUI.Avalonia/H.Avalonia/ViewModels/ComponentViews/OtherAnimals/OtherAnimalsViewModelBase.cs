@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using Avalonia.Rendering.Composition.Animations;
 using H.Core.Enumerations;
 using H.Core.Models;
 using H.Core.Models.Animals;
+using H.Core.Services.Animals;
 using H.Core.Services.StorageService;
 using Prism.Regions;
 
 namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
 {
-    public abstract class OtherAnimalsViewModelBase : ViewModelBase
+    public abstract class OtherAnimalsViewModelBase : AnimalViewModelBase
     {
         #region Fields
 
@@ -20,13 +22,29 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
 
         #region Constructors
 
+        public OtherAnimalsViewModelBase()
+        {
+        }
+
         public OtherAnimalsViewModelBase(IStorageService storageService) : base(storageService)
         {
             ManagementPeriodViewModels = new ObservableCollection<ManagementPeriodViewModel>();
             Groups = new ObservableCollection<AnimalGroup>();
         }
-        public OtherAnimalsViewModelBase() 
-        { 
+
+        public OtherAnimalsViewModelBase(IAnimalComponentService animalComponentService, IStorageService storageService) : base(storageService)
+        {
+            if (animalComponentService != null)
+            {
+                AnimalComponentService = animalComponentService; 
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(animalComponentService));
+            }
+            
+            ManagementPeriodViewModels = new ObservableCollection<ManagementPeriodViewModel>();
+            Groups = new ObservableCollection<AnimalGroup>();
         }
 
         #endregion
