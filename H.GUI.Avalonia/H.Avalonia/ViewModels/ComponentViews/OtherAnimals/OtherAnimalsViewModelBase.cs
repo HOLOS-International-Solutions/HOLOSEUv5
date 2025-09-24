@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using Avalonia.Rendering.Composition.Animations;
 using H.Core.Enumerations;
+using H.Core.Factories;
 using H.Core.Models;
 using H.Core.Models.Animals;
 using H.Core.Services.Animals;

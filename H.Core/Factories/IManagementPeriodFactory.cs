@@ -1,7 +1,3 @@
-﻿using H.Avalonia.ViewModels.ComponentViews;
-using H.Core.Models;
-using H.Core.Models.Animals;
-
 namespace H.Core.Factories;
 
 public interface IManagementPeriodFactory
