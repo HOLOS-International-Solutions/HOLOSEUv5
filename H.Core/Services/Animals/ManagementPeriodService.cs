@@ -55,13 +55,16 @@ public class ManagementPeriodService : ComponentServiceBase, IManagementPeriodSe
         var propertyConverter = new PropertyConverter<IManagementPeriodDto>(managementPeriodDto);
 
         // Get all properties that might need to be converted to imperial units before being shown to the user
-        foreach (var property in propertyConverter.PropertyInfos)
+        if (propertyConverter.PropertyInfos != null)
         {
-            // Convert the value from metric to imperial as needed. Note the converter won't convert anything if the display is in metric units
-            var bindingValue = propertyConverter.GetBindingValueFromSystem(property, base.UnitsOfMeasurementCalculator.GetUnitsOfMeasurement());
+            foreach (var property in propertyConverter.PropertyInfos)
+            {
+                // Convert the value from metric to imperial as needed. Note the converter won't convert anything if the display is in metric units
+                var bindingValue = propertyConverter.GetBindingValueFromSystem(property, base.UnitsOfMeasurementCalculator.GetUnitsOfMeasurement());
 
-            // Set the value of the property before displaying to the user
-            property.SetValue(managementPeriodDto, bindingValue);
+                // Set the value of the property before displaying to the user
+                property.SetValue(managementPeriodDto, bindingValue);
+            }
         }
 
         return managementPeriodDto;
@@ -75,13 +78,16 @@ public class ManagementPeriodService : ComponentServiceBase, IManagementPeriodSe
         var propertyConverter = new PropertyConverter<IManagementPeriodDto>(copy);
 
         // Get all properties that might need to be converted to imperial units before being shown to the user
-        foreach (var property in propertyConverter.PropertyInfos)
+        if (propertyConverter.PropertyInfos != null)
         {
-            // Convert the value from imperial to metric as needed (no conversion will occur if display is using metric)
-            var bindingValue = propertyConverter.GetSystemValueFromBinding(property, base.UnitsOfMeasurementCalculator.GetUnitsOfMeasurement());
+            foreach (var property in propertyConverter.PropertyInfos)
+            {
+                // Convert the value from imperial to metric as needed (no conversion will occur if display is using metric)
+                var bindingValue = propertyConverter.GetSystemValueFromBinding(property, base.UnitsOfMeasurementCalculator.GetUnitsOfMeasurement());
 
-            // Set the value on the copy of the DTO
-            property.SetValue(copy, bindingValue);
+                // Set the value on the copy of the DTO
+                property.SetValue(copy, bindingValue);
+            }
         }
 
         // Map values from the copy of the DTO to the internal system object
