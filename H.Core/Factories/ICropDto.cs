@@ -9,7 +9,7 @@ namespace H.Core.Factories;
 /// <summary>
 /// A data transfer object used to validate and collection information about a <see cref="CropViewItem"/>
 /// </summary>
-public interface ICropDto : INotifyPropertyChanged, IDto
+public interface ICropDto : IDto
 {
     /// <summary>
     /// The crop type being grown

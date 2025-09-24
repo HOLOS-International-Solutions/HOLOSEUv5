@@ -3,9 +3,9 @@
 namespace H.Avalonia.Test.ViewModels.ComponentViews
 {
     [TestClass]
-    public class ManagementPeriodViewModelTests
+    public class ManagementPeriodDtoTests
     {
-        private ManagementPeriodViewModel _viewModel;
+        private ManagementPeriodDto _dto;
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
@@ -20,11 +20,11 @@ namespace H.Avalonia.Test.ViewModels.ComponentViews
         [TestInitialize]
         public void TestInitialize()
         {
-            _viewModel = new ManagementPeriodViewModel();
-            _viewModel.StartDate = new DateTime(2000, 01, 01);
-            _viewModel.EndDate = new DateTime(2010, 01, 01);
-            _viewModel.PeriodName = "Test Period";
-            _viewModel.NumberOfDays = 365;
+            _dto = new ManagementPeriodDto();
+            _dto.StartDate = new DateTime(2000, 01, 01);
+            _dto.EndDate = new DateTime(2010, 01, 01);
+            _dto.Name = "Test Period";
+            _dto.NumberOfDays = 365;
         }
 
         [TestCleanup]
@@ -36,18 +36,18 @@ namespace H.Avalonia.Test.ViewModels.ComponentViews
         [TestMethod]
         public void TestConstructor()
         {
-            Assert.IsNotNull(_viewModel);
+            Assert.IsNotNull(_dto);
         }
 
         [TestMethod]
         public void TestValidatePeriodName()
         {
-            Assert.IsFalse(_viewModel.HasErrors);
+            Assert.IsFalse(_dto.HasErrors);
 
-            _viewModel.PeriodName = "";
+            _dto.Name = "";
             
-            Assert.IsTrue(_viewModel.HasErrors);
-            var errors = _viewModel.GetErrors(nameof(_viewModel.PeriodName)) as IEnumerable<string>;
+            Assert.IsTrue(_dto.HasErrors);
+            var errors = _dto.GetErrors(nameof(_dto.Name)) as IEnumerable<string>;
             Assert.IsNotNull(errors);
             Assert.AreEqual("Name cannot be empty.", errors.ToList()[0]);
         }
@@ -55,12 +55,12 @@ namespace H.Avalonia.Test.ViewModels.ComponentViews
         [TestMethod]
         public void TestValidateStartDate()
         {
-            Assert.IsFalse(_viewModel.HasErrors);
+            Assert.IsFalse(_dto.HasErrors);
 
-            _viewModel.StartDate = new DateTime(2020, 01, 01);
-            Assert.IsTrue(_viewModel.HasErrors);
+            _dto.StartDate = new DateTime(2020, 01, 01);
+            Assert.IsTrue(_dto.HasErrors);
 
-            var errors = _viewModel.GetErrors(nameof(_viewModel.StartDate)) as IEnumerable<string>;
+            var errors = _dto.GetErrors(nameof(_dto.StartDate)) as IEnumerable<string>;
             Assert.IsNotNull(errors);
             Assert.AreEqual("Must be a valid date before the End Date.", errors.ToList()[0]);
         }
@@ -68,12 +68,12 @@ namespace H.Avalonia.Test.ViewModels.ComponentViews
         [TestMethod]
         public void TestValidateEndDate()
         {
-            Assert.IsFalse(_viewModel.HasErrors);
+            Assert.IsFalse(_dto.HasErrors);
 
-            _viewModel.EndDate = new DateTime(1998, 02, 08);
-            Assert.IsTrue(_viewModel.HasErrors);
+            _dto.EndDate = new DateTime(1998, 02, 08);
+            Assert.IsTrue(_dto.HasErrors);
 
-            var errors = _viewModel.GetErrors(nameof(_viewModel.EndDate)) as IEnumerable<string>;
+            var errors = _dto.GetErrors(nameof(_dto.EndDate)) as IEnumerable<string>;
             Assert.IsNotNull(errors);
             Assert.AreEqual("Must be a valid date later than the Start Date.", errors.ToList()[0]);
         }
@@ -81,12 +81,12 @@ namespace H.Avalonia.Test.ViewModels.ComponentViews
         [TestMethod]
         public void TestValidateNumberOfDays()
         {
-            Assert.IsFalse(_viewModel.HasErrors);
+            Assert.IsFalse(_dto.HasErrors);
 
-            _viewModel.NumberOfDays = -1;
-            Assert.IsTrue(_viewModel.HasErrors);
+            _dto.NumberOfDays = -1;
+            Assert.IsTrue(_dto.HasErrors);
 
-            var errors = _viewModel.GetErrors(nameof(_viewModel.NumberOfDays)) as IEnumerable<string>;
+            var errors = _dto.GetErrors(nameof(_dto.NumberOfDays)) as IEnumerable<string>;
             Assert.IsNotNull (errors);
             Assert.AreEqual("Must be greater than 0.", errors.ToList()[0]);
         }

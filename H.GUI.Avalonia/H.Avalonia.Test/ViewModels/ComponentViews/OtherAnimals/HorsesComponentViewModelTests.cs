@@ -100,7 +100,7 @@ namespace H.Avalonia.Test.ViewModels.ComponentViews.OtherAnimals
             _viewModel.HandleAddManagementPeriodEvent();
 
             Assert.AreEqual(1, _viewModel.ManagementPeriodViewModels.Count);
-            Assert.AreEqual(expectedPeriodName, _viewModel.ManagementPeriodViewModels[0].PeriodName);
+            Assert.AreEqual(expectedPeriodName, _viewModel.ManagementPeriodViewModels[0].Name);
             Assert.AreEqual(expectedStartDate, _viewModel.ManagementPeriodViewModels[0].StartDate);
             Assert.AreEqual(expectedEndDate, _viewModel.ManagementPeriodViewModels[0].EndDate);
             Assert.AreEqual(expectedDays, _viewModel.ManagementPeriodViewModels[0].NumberOfDays);
@@ -121,7 +121,7 @@ namespace H.Avalonia.Test.ViewModels.ComponentViews.OtherAnimals
             
            _viewModel.AddExistingManagementPeriods();
 
-            Assert.AreEqual(testManagementPeriod.GroupName, _viewModel.ManagementPeriodViewModels[0].PeriodName);
+            Assert.AreEqual(testManagementPeriod.GroupName, _viewModel.ManagementPeriodViewModels[0].Name);
             Assert.AreEqual(testManagementPeriod.Start, _viewModel.ManagementPeriodViewModels[0].StartDate);
             Assert.AreEqual(testManagementPeriod.End, _viewModel.ManagementPeriodViewModels[0].EndDate);
             Assert.AreEqual(testManagementPeriod.NumberOfDays, _viewModel.ManagementPeriodViewModels[0].NumberOfDays);

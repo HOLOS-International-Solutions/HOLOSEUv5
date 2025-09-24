@@ -12,7 +12,7 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
             ViewName = "Llamas";
             OtherAnimalType = AnimalType.Llamas;
             Groups.Add(new AnimalGroup { GroupType = OtherAnimalType });
-            ManagementPeriodViewModels.Add(new ManagementPeriodViewModel { PeriodName = "Test Group #1", StartDate = new DateTime(2000, 01, 01), EndDate = new DateTime(2001, 01, 01), NumberOfDays = 364 });
+            ManagementPeriodViewModels.Add(new ManagementPeriodDto { Name = "Test Group #1", StartDate = new DateTime(2000, 01, 01), EndDate = new DateTime(2001, 01, 01), NumberOfDays = 364 });
         }
     }
 }
