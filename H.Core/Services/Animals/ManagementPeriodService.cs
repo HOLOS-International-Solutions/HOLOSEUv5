@@ -6,17 +6,19 @@ using H.Core.Factories;
 using H.Core.Mappers;
 using H.Core.Models;
 using H.Core.Models.Animals;
-using H.Core.Services;
 using Microsoft.Extensions.Logging;
 using Prism.Ioc;
 
 namespace H.Core.Services.Animals;
 
-public class ManagementPeriodService : ComponentServiceBase, IManagementPeriodService
+public class ManagementPeriodService : IManagementPeriodService
 {
     #region Fields
 
+    private readonly ILogger _logger;
+    private readonly IContainerProvider _containerProvider;
     private readonly IManagementPeriodFactory _managementPeriodFactory;
+    private readonly IUnitsOfMeasurementCalculator _unitsOfMeasurementCalculator;
 
     private readonly IMapper _managementPeriodDtoToManagementPeriodMapper;
     private readonly IMapper _managementPeriodToManagementPeriodDtoMapper;
@@ -25,8 +27,26 @@ public class ManagementPeriodService : ComponentServiceBase, IManagementPeriodSe
 
     #region Constructors
 
-    public ManagementPeriodService(ILogger logger, IContainerProvider containerProvider, IManagementPeriodFactory managementPeriodFactory, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator) : base(logger, containerProvider, unitsOfMeasurementCalculator)
+    public ManagementPeriodService(ILogger logger, IContainerProvider containerProvider, IManagementPeriodFactory managementPeriodFactory, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator)
     {
+        if (logger != null)
+        {
+            _logger = logger;
+        }
+        else
+        {
+            throw new ArgumentNullException(nameof(logger));
+        }
+
+        if (containerProvider != null)
+        {
+            _containerProvider = containerProvider;
+        }
+        else
+        {
+            throw new ArgumentNullException(nameof(containerProvider));
+        }
+
         if (managementPeriodFactory != null)
         {
             _managementPeriodFactory = managementPeriodFactory;
@@ -36,8 +56,17 @@ public class ManagementPeriodService : ComponentServiceBase, IManagementPeriodSe
             throw new ArgumentNullException(nameof(managementPeriodFactory));
         }
 
-        _managementPeriodDtoToManagementPeriodMapper = base.ContainerProvider.Resolve<IMapper>(nameof(ManagementPeriodDtoToManagementPeriodMapper));
-        _managementPeriodToManagementPeriodDtoMapper = base.ContainerProvider.Resolve<IMapper>(nameof(ManagementPeriodToManagementPeriodDtoMapper));
+        if (unitsOfMeasurementCalculator != null)
+        {
+            _unitsOfMeasurementCalculator = unitsOfMeasurementCalculator;
+        }
+        else
+        {
+            throw new ArgumentNullException(nameof(unitsOfMeasurementCalculator));
+        }
+
+        _managementPeriodDtoToManagementPeriodMapper = _containerProvider.Resolve<IMapper>(nameof(ManagementPeriodDtoToManagementPeriodMapper));
+        _managementPeriodToManagementPeriodDtoMapper = _containerProvider.Resolve<IMapper>(nameof(ManagementPeriodToManagementPeriodDtoMapper));
     }
 
     #endregion
@@ -60,7 +89,7 @@ public class ManagementPeriodService : ComponentServiceBase, IManagementPeriodSe
             foreach (var property in propertyConverter.PropertyInfos)
             {
                 // Convert the value from metric to imperial as needed. Note the converter won't convert anything if the display is in metric units
-                var bindingValue = propertyConverter.GetBindingValueFromSystem(property, base.UnitsOfMeasurementCalculator.GetUnitsOfMeasurement());
+                var bindingValue = propertyConverter.GetBindingValueFromSystem(property, _unitsOfMeasurementCalculator.GetUnitsOfMeasurement());
 
                 // Set the value of the property before displaying to the user
                 property.SetValue(managementPeriodDto, bindingValue);
@@ -83,7 +112,7 @@ public class ManagementPeriodService : ComponentServiceBase, IManagementPeriodSe
             foreach (var property in propertyConverter.PropertyInfos)
             {
                 // Convert the value from imperial to metric as needed (no conversion will occur if display is using metric)
-                var bindingValue = propertyConverter.GetSystemValueFromBinding(property, base.UnitsOfMeasurementCalculator.GetUnitsOfMeasurement());
+                var bindingValue = propertyConverter.GetSystemValueFromBinding(property, _unitsOfMeasurementCalculator.GetUnitsOfMeasurement());
 
                 // Set the value on the copy of the DTO
                 property.SetValue(copy, bindingValue);
