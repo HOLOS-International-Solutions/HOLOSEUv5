@@ -18,7 +18,7 @@ public class AnimalComponentViewModelDesign : AnimalComponentViewModelBase
         ViewName = "Bison";
     }
 
-    protected AnimalComponentViewModelDesign(IAnimalComponentService animalComponentService, ILogger logger, IStorageService storageService) : base(animalComponentService, logger, storageService)
+    protected AnimalComponentViewModelDesign(IAnimalComponentService animalComponentService, ILogger logger, IStorageService storageService, IManagementPeriodService managementPeriodService) : base(animalComponentService, logger, storageService, managementPeriodService)
     {
     }
 }

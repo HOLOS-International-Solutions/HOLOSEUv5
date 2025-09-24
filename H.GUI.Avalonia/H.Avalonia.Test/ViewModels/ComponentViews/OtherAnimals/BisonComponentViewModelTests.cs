@@ -47,8 +47,9 @@ namespace H.Avalonia.Test.ViewModels.ComponentViews.OtherAnimals
             _mockStorageService.Setup(x => x.Storage).Returns(_storageMock);
             var mockAnimalComponentService = new Mock<IAnimalComponentService>();
             var mockLogger = new Mock<ILogger>();
+            var mockManagementPeriodService = new Mock<IManagementPeriodService>();
 
-            _viewModel = new BisonComponentViewModel(mockLogger.Object, mockAnimalComponentService.Object, _storageServiceMock);
+            _viewModel = new BisonComponentViewModel(mockLogger.Object, mockAnimalComponentService.Object, _storageServiceMock, mockManagementPeriodService.Object);
         }
 
         [TestCleanup]

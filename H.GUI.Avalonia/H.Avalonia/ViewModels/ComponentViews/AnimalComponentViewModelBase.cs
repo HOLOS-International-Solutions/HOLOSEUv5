@@ -29,7 +29,10 @@ public abstract class AnimalComponentViewModelBase : ViewModelBase
     {
     }
 
-    protected AnimalComponentViewModelBase(IAnimalComponentService animalComponentService, ILogger logger, IStorageService storageService) : base(storageService, logger)
+    protected AnimalComponentViewModelBase(
+        IAnimalComponentService animalComponentService, ILogger logger,
+        IStorageService storageService, 
+        IManagementPeriodService managementPeriodService) : base(storageService, logger)
     {
         if (animalComponentService != null)
         {

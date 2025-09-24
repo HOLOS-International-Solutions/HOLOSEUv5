@@ -28,7 +28,7 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
         {
         }
 
-        public OtherAnimalsViewModelBase(ILogger logger, IAnimalComponentService animalComponentService, IStorageService storageService) : base(animalComponentService, logger, storageService)
+        public OtherAnimalsViewModelBase(ILogger logger, IAnimalComponentService animalComponentService, IStorageService storageService, IManagementPeriodService managementPeriodService) : base(animalComponentService, logger, storageService, managementPeriodService)
         {
             ManagementPeriodViewModels = new ObservableCollection<ManagementPeriodDto>();
             Groups = new ObservableCollection<AnimalGroup>();
