@@ -219,6 +219,7 @@ namespace H.Avalonia
             containerRegistry.RegisterSingleton<IDietService, DefaultDietService>();
             containerRegistry.RegisterSingleton<ICropInitializationService, CropInitializationService>();
             containerRegistry.RegisterSingleton<IAnimalComponentService, AnimalComponentService>();
+            containerRegistry.RegisterSingleton<IManagementPeriodService, ManagementPeriodService>();
 
             // Unit conversion
             containerRegistry.RegisterSingleton<IUnitsOfMeasurementCalculator, UnitsOfMeasurementCalculator>();
