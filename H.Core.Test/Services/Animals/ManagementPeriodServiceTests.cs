@@ -1,7 +1,13 @@
 using System.Collections.Generic;
+using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Enumerations;
+using H.Core.Factories;
+using H.Core.Models.Animals;
 using H.Core.Services.Animals;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using Prism.Ioc;
 
 namespace H.Core.Test.Services.Animals
 {
@@ -9,11 +15,23 @@ namespace H.Core.Test.Services.Animals
     public class ManagementPeriodServiceTests
     {
         private ManagementPeriodService _service;
+        private Mock<ILogger> _mockLogger;
+        private Mock<IContainerProvider> _mockContainerProvider;
+        private Mock<IManagementPeriodFactory> _mockManagementPeriodFactory;
+        private Mock<IUnitsOfMeasurementCalculator> _mockUnitsOfMeasurementCalculator;
 
         [TestInitialize]
         public void Setup()
         {
-            _service = new ManagementPeriodService();
+            _mockLogger = new Mock<ILogger>();
+            _mockContainerProvider = new Mock<IContainerProvider>();
+            _mockManagementPeriodFactory = new Mock<IManagementPeriodFactory>();
+            _mockUnitsOfMeasurementCalculator = new Mock<IUnitsOfMeasurementCalculator>();
+            
+            // For the existing bedding material tests, we can create a simplified service 
+            // that doesn't require the new dependencies
+            _service = new ManagementPeriodService(_mockLogger.Object, _mockContainerProvider.Object, 
+                _mockManagementPeriodFactory.Object, _mockUnitsOfMeasurementCalculator.Object);
         }
 
         [TestMethod]
