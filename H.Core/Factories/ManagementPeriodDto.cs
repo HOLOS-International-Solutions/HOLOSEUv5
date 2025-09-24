@@ -6,8 +6,8 @@ namespace H.Core.Factories
     {
         #region Fields
 
-        private DateTime _startDate;
-        private DateTime _endDate;
+        private DateTime _start;
+        private DateTime _end;
         private int _numberOfDays;
 
         #endregion
@@ -23,16 +23,16 @@ namespace H.Core.Factories
 
         #region Properties
 
-        public DateTime StartDate
+        public DateTime Start
         {
-            get => _startDate;
-            set => SetProperty(ref _startDate, value);
+            get => _start;
+            set => SetProperty(ref _start, value);
         }
 
-        public DateTime EndDate
+        public DateTime End
         {
-            get => _endDate;
-            set => SetProperty(ref _endDate, value);
+            get => _end;
+            set => SetProperty(ref _end, value);
         }
 
         public int NumberOfDays
@@ -57,27 +57,27 @@ namespace H.Core.Factories
             }
         }
 
-        private void ValidateStartDate()
+        private void ValidateStart()
         {
-            if ((StartDate >= EndDate && EndDate != default) || StartDate == default)
+            if ((Start >= End && End != default) || Start == default)
             {
-                AddError(nameof(StartDate), H.Core.Properties.Resources.ErrorStartDate);
+                AddError(nameof(Start), H.Core.Properties.Resources.ErrorStartDate);
             }
             else
             {
-                RemoveError(nameof(StartDate));
+                RemoveError(nameof(Start));
             }
         }
 
-        private void ValidateEndDate()
+        private void ValidateEnd()
         {
-            if ((EndDate <= StartDate && StartDate != default) || EndDate == default)
+            if ((End <= Start && Start != default) || End == default)
             {
-                AddError(nameof(EndDate), H.Core.Properties.Resources.ErrorEndDate);
+                AddError(nameof(End), H.Core.Properties.Resources.ErrorEndDate);
             }
             else
             {
-                RemoveError(nameof(EndDate));
+                RemoveError(nameof(End));
             }
         }
 
@@ -105,13 +105,13 @@ namespace H.Core.Factories
                 {
                     this.ValidateNumberOfDays();
                 }
-                else if (e.PropertyName.Equals(nameof(StartDate)))
+                else if (e.PropertyName.Equals(nameof(Start)))
                 {
-                    this.ValidateStartDate();
+                    this.ValidateStart();
                 }
-                else if (e.PropertyName.Equals(nameof(EndDate)))
+                else if (e.PropertyName.Equals(nameof(End)))
                 {
-                    this.ValidateEndDate();
+                    this.ValidateEnd();
                 }
             }
         }
