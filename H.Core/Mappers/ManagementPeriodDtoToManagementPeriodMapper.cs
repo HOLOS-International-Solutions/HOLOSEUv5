@@ -8,6 +8,6 @@ public class ManagementPeriodDtoToManagementPeriodMapper : Profile
 {
     public ManagementPeriodDtoToManagementPeriodMapper()
     {
-        CreateMap<IManagementPeriodDto, ManagementPeriod>();
+        CreateMap<ManagementPeriodDto, ManagementPeriod>();
     }
 }

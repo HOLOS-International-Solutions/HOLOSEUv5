@@ -93,16 +93,16 @@ namespace H.Avalonia.Test.ViewModels.ComponentViews.OtherAnimals
         public void TestHandleAddManagementPeriodEvent()
         {
             string expectedPeriodName = "Period #0";
-            DateTime expectedStartDate = new DateTime(2024, 01, 01);
-            DateTime expectedEndDate = new DateTime(2025, 01, 01);
+            DateTime expectedStart = new DateTime(2024, 01, 01);
+            DateTime expectedEnd = new DateTime(2025, 01, 01);
             int expectedDays = 364;
 
             _viewModel.HandleAddManagementPeriodEvent();
 
             Assert.AreEqual(1, _viewModel.ManagementPeriodViewModels.Count);
             Assert.AreEqual(expectedPeriodName, _viewModel.ManagementPeriodViewModels[0].Name);
-            Assert.AreEqual(expectedStartDate, _viewModel.ManagementPeriodViewModels[0].StartDate);
-            Assert.AreEqual(expectedEndDate, _viewModel.ManagementPeriodViewModels[0].EndDate);
+            Assert.AreEqual(expectedStart, _viewModel.ManagementPeriodViewModels[0].Start);
+            Assert.AreEqual(expectedEnd, _viewModel.ManagementPeriodViewModels[0].End);
             Assert.AreEqual(expectedDays, _viewModel.ManagementPeriodViewModels[0].NumberOfDays);
         }
 
@@ -122,8 +122,8 @@ namespace H.Avalonia.Test.ViewModels.ComponentViews.OtherAnimals
            _viewModel.AddExistingManagementPeriods();
 
             Assert.AreEqual(testManagementPeriod.GroupName, _viewModel.ManagementPeriodViewModels[0].Name);
-            Assert.AreEqual(testManagementPeriod.Start, _viewModel.ManagementPeriodViewModels[0].StartDate);
-            Assert.AreEqual(testManagementPeriod.End, _viewModel.ManagementPeriodViewModels[0].EndDate);
+            Assert.AreEqual(testManagementPeriod.Start, _viewModel.ManagementPeriodViewModels[0].Start);
+            Assert.AreEqual(testManagementPeriod.End, _viewModel.ManagementPeriodViewModels[0].End);
             Assert.AreEqual(testManagementPeriod.NumberOfDays, _viewModel.ManagementPeriodViewModels[0].NumberOfDays);
         }
 

@@ -22,8 +22,8 @@ namespace H.Avalonia.Test.ViewModels.ComponentViews
         public void TestInitialize()
         {
             _dto = new ManagementPeriodDto();
-            _dto.StartDate = new DateTime(2000, 01, 01);
-            _dto.EndDate = new DateTime(2010, 01, 01);
+            _dto.Start = new DateTime(2000, 01, 01);
+            _dto.End = new DateTime(2010, 01, 01);
             _dto.Name = "Test Period";
             _dto.NumberOfDays = 365;
         }
@@ -54,27 +54,27 @@ namespace H.Avalonia.Test.ViewModels.ComponentViews
         }
 
         [TestMethod]
-        public void TestValidateStartDate()
+        public void TestValidateStart()
         {
             Assert.IsFalse(_dto.HasErrors);
 
-            _dto.StartDate = new DateTime(2020, 01, 01);
+            _dto.Start = new DateTime(2020, 01, 01);
             Assert.IsTrue(_dto.HasErrors);
 
-            var errors = _dto.GetErrors(nameof(_dto.StartDate)) as IEnumerable<string>;
+            var errors = _dto.GetErrors(nameof(_dto.Start)) as IEnumerable<string>;
             Assert.IsNotNull(errors);
             Assert.AreEqual("Must be a valid date before the End Date.", errors.ToList()[0]);
         }
 
         [TestMethod]
-        public void TestValidateEndDate()
+        public void TestValidateEnd()
         {
             Assert.IsFalse(_dto.HasErrors);
 
-            _dto.EndDate = new DateTime(1998, 02, 08);
+            _dto.End = new DateTime(1998, 02, 08);
             Assert.IsTrue(_dto.HasErrors);
 
-            var errors = _dto.GetErrors(nameof(_dto.EndDate)) as IEnumerable<string>;
+            var errors = _dto.GetErrors(nameof(_dto.End)) as IEnumerable<string>;
             Assert.IsNotNull(errors);
             Assert.AreEqual("Must be a valid date later than the Start Date.", errors.ToList()[0]);
         }

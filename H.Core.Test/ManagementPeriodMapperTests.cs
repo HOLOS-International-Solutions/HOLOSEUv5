@@ -41,7 +41,7 @@ public class ManagementPeriodMapperTests
         source.NumberOfDays = 366;
 
         // Act
-        var result = _dtoToDtoMapper.Map<IManagementPeriodDto>(source);
+        var result = _dtoToDtoMapper.Map<ManagementPeriodDto>(source);
 
         // Assert
         Assert.IsNotNull(result);
@@ -62,7 +62,7 @@ public class ManagementPeriodMapperTests
         source.NumberOfDays = 92;
 
         // Act
-        var result = _domainToDtoMapper.Map<IManagementPeriodDto>(source);
+        var result = _domainToDtoMapper.Map<ManagementPeriodDto>(source);
 
         // Assert
         Assert.IsNotNull(result);

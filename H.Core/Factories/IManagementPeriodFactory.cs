@@ -1,3 +1,5 @@
+using H.Core.Models.Animals;
+
 namespace H.Core.Factories;
 
 public interface IManagementPeriodFactory
