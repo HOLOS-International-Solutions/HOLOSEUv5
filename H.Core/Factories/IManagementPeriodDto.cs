@@ -1,7 +1,4 @@
-﻿using System;
-using H.Core.Factories;
-
-namespace H.Avalonia.ViewModels.ComponentViews;
+﻿namespace H.Core.Factories;
 
 public interface IManagementPeriodDto : IDto
 {

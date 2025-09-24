@@ -364,6 +364,11 @@ namespace H.Avalonia
                 expression.AddProfile<AnimalComponentBaseToAnimalComponentDtoMapper>();
             });
 
+            var managementPeriodDtoToManagementPeriodDtoConfiguration = new MapperConfiguration(expression =>
+            {
+                expression.AddProfile<ManagementPeriodDtoToManagementPeriodDtoMapper>();
+            });
+
             // Register named mappers
             containerRegistry.RegisterInstance(cropDtoToCropDtoConfiguration.CreateMapper(), nameof(CropDtoToCropDtoMapper));
             containerRegistry.RegisterInstance(cropDtoToCropVieItemConfiguration.CreateMapper(), nameof(CropDtoToCropViewItemMapper));
@@ -375,6 +380,7 @@ namespace H.Avalonia
             containerRegistry.RegisterInstance(animalComponentDtoToAnimalComponentConfiguration.CreateMapper(), nameof(AnimalComponentDtoToAnimalComponentMapper));
             containerRegistry.RegisterInstance(animalComponentDtoToAnimalComponentDtoConfiguration.CreateMapper(), nameof(AnimalComponentDtoToAnimalComponentDtoMapper));
             containerRegistry.RegisterInstance(animalComponentToAnimalComponentDtoConfiguration.CreateMapper(), nameof(AnimalComponentBaseToAnimalComponentDtoMapper));
+            containerRegistry.RegisterInstance(managementPeriodDtoToManagementPeriodDtoConfiguration.CreateMapper(), nameof(ManagementPeriodDtoToManagementPeriodDtoMapper));
         }
     }
 }
