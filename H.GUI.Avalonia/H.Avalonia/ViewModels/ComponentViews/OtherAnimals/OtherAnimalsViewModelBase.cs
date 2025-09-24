@@ -87,8 +87,8 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
             {
                 var newManagementPeriodViewModel = new ManagementPeriodDto();
                 newManagementPeriodViewModel.Name = managementPeriod.GroupName;
-                newManagementPeriodViewModel.StartDate = managementPeriod.Start;
-                newManagementPeriodViewModel.EndDate = managementPeriod.End;
+                newManagementPeriodViewModel.Start = managementPeriod.Start;
+                newManagementPeriodViewModel.End = managementPeriod.End;
                 newManagementPeriodViewModel.NumberOfDays = managementPeriod.NumberOfDays;
                 ManagementPeriodViewModels.Add(newManagementPeriodViewModel);
             }
@@ -108,7 +108,7 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
         public void HandleAddManagementPeriodEvent()
         {
             int numPeriods = ManagementPeriodViewModels.Count;
-            var newManagementPeriodViewModel = new ManagementPeriodDto { Name = $"Period #{numPeriods}", StartDate = new DateTime(2024, 01, 01), EndDate = new DateTime(2025, 01, 01), NumberOfDays = 364};
+            var newManagementPeriodViewModel = new ManagementPeriodDto { Name = $"Period #{numPeriods}", Start = new DateTime(2024, 01, 01), End = new DateTime(2025, 01, 01), NumberOfDays = 364};
             ManagementPeriodViewModels.Add(newManagementPeriodViewModel);
         }
 

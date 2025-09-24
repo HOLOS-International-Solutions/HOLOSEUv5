@@ -17,8 +17,8 @@
 				<DataGrid ItemsSource="{Binding Path=ManagementPeriodViewModels}" AutoGenerateColumns="False" Margin="10,20,0,0" HorizontalAlignment="Left" BorderThickness="1" GridLinesVisibility="All" Height="100">
 					<DataGrid.Columns>
 						<DataGridTextColumn Width="Auto" Header="{x:Static properties:Resources.LabelManagementPeriodName}" Binding="{Binding Path=Name}"/>
-						<DataGridTextColumn Width="Auto" Header="{x:Static properties:Resources.LabelStartDate}" Binding="{Binding Path=StartDate}"/>
-						<DataGridTextColumn Width="Auto" Header="{x:Static properties:Resources.LabelEndDate}" Binding="{Binding Path=EndDate}"/>
+						<DataGridTextColumn Width="Auto" Header="{x:Static properties:Resources.LabelStartDate}" Binding="{Binding Path=Start}"/>
+						<DataGridTextColumn Width="Auto" Header="{x:Static properties:Resources.LabelEndDate}" Binding="{Binding Path=End}"/>
 						<DataGridTextColumn Width="Auto" Header="{x:Static properties:Resources.LabelNumberOfDays}" Binding="{Binding Path=NumberOfDays}"/>
 					</DataGrid.Columns>
 				</DataGrid>
