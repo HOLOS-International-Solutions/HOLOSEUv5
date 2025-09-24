@@ -1,8 +1,6 @@
-﻿using System;
-using System.ComponentModel;
-using H.Core.Factories;
+﻿using System.ComponentModel;
 
-namespace H.Avalonia.ViewModels.ComponentViews
+namespace H.Core.Factories
 {
     public class ManagementPeriodDto : DtoBase, IManagementPeriodDto
     {

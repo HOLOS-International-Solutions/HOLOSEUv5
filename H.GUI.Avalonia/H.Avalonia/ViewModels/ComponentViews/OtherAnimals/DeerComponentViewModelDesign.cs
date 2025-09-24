@@ -1,6 +1,7 @@
 ﻿using System;
 using H.Core.Models.Animals;
 using H.Core.Enumerations;
+using H.Core.Factories;
 using H.Core.Services.StorageService;
 
 namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals

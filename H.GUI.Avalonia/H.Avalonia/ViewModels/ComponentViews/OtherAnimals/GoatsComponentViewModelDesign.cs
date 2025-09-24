@@ -1,6 +1,7 @@
 ﻿using System;
 using H.Core;
 using H.Core.Enumerations;
+using H.Core.Factories;
 using H.Core.Models.Animals;
 using H.Core.Services.StorageService;
 

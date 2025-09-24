@@ -1,4 +1,5 @@
 ﻿using H.Avalonia.ViewModels.ComponentViews;
+using H.Core.Factories;
 
 namespace H.Avalonia.Test.ViewModels.ComponentViews
 {
