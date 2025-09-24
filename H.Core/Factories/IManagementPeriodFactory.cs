@@ -17,19 +17,9 @@ public interface IManagementPeriodFactory
     IManagementPeriodDto CreateManagementPeriodDto(IManagementPeriodDto template);
     
     /// <summary>
-    /// Creates a new ManagementPeriodDto from a ManagementPeriodViewItem
-    /// </summary>
-    IManagementPeriodDto CreateManagementPeriodDto(ManagementPeriodViewItem template);
-    
-    /// <summary>
     /// Creates a new ManagementPeriodDto from a domain ManagementPeriod
     /// </summary>
     IManagementPeriodDto CreateManagementPeriodDto(ManagementPeriod managementPeriod);
-    
-    /// <summary>
-    /// Creates a new ManagementPeriodViewItem from a ManagementPeriodDto
-    /// </summary>
-    ManagementPeriodViewItem CreateManagementPeriodViewItem(IManagementPeriodDto dto);
     
     /// <summary>
     /// Creates a new domain ManagementPeriod from a ManagementPeriodDto

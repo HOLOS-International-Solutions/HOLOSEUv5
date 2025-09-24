@@ -41,16 +41,6 @@ public class ManagementPeriodFactoryTests
             cfg.AddProfile<ManagementPeriodDtoToManagementPeriodDtoMapper>();
         }).CreateMapper());
 
-        _mockContainerProvider.Setup(x => x.Resolve(typeof(IMapper), nameof(ManagementPeriodViewItemToManagementPeriodDtoMapper))).Returns(new MapperConfiguration(cfg =>
-        {
-            cfg.AddProfile<ManagementPeriodViewItemToManagementPeriodDtoMapper>();
-        }).CreateMapper());
-
-        _mockContainerProvider.Setup(x => x.Resolve(typeof(IMapper), nameof(ManagementPeriodDtoToManagementPeriodViewItemMapper))).Returns(new MapperConfiguration(cfg =>
-        {
-            cfg.AddProfile<ManagementPeriodDtoToManagementPeriodViewItemMapper>();
-        }).CreateMapper());
-
         _mockContainerProvider.Setup(x => x.Resolve(typeof(IMapper), nameof(ManagementPeriodToManagementPeriodDtoMapper))).Returns(new MapperConfiguration(cfg =>
         {
             cfg.AddProfile<ManagementPeriodToManagementPeriodDtoMapper>();
@@ -116,27 +106,6 @@ public class ManagementPeriodFactoryTests
     }
 
     [TestMethod]
-    public void CreateManagementPeriodDto_FromViewItem_ReturnsNewInstanceWithSameValues()
-    {
-        // Arrange
-        var viewItem = new ManagementPeriodViewItem();
-        viewItem.Name = "Test ViewItem Period";
-        viewItem.StartDate = new DateTime(2024, 6, 1);
-        viewItem.EndDate = new DateTime(2024, 8, 31);
-        
-        // Act
-        var dto = _factory.CreateManagementPeriodDto(viewItem);
-
-        // Assert
-        Assert.IsNotNull(dto);
-        Assert.IsInstanceOfType(dto, typeof(IManagementPeriodDto));
-        Assert.AreEqual("Test ViewItem Period", dto.Name);
-        Assert.AreEqual(viewItem.StartDate, dto.StartDate);
-        Assert.AreEqual(viewItem.EndDate, dto.EndDate);
-        Assert.AreEqual(viewItem.NumberOfDays, dto.NumberOfDays);
-    }
-
-    [TestMethod]
     public void CreateManagementPeriodDto_FromDomainModel_ReturnsNewInstanceWithSameValues()
     {
         // Arrange
@@ -156,28 +125,6 @@ public class ManagementPeriodFactoryTests
         Assert.AreEqual(managementPeriod.Start, dto.StartDate);
         Assert.AreEqual(managementPeriod.End, dto.EndDate);
         Assert.AreEqual(managementPeriod.NumberOfDays, dto.NumberOfDays);
-    }
-
-    [TestMethod]
-    public void CreateManagementPeriodViewItem_FromDto_ReturnsNewViewItemWithSameValues()
-    {
-        // Arrange
-        var dto = new ManagementPeriodDto();
-        dto.Name = "Test DTO Period";
-        dto.StartDate = new DateTime(2024, 7, 1);
-        dto.EndDate = new DateTime(2024, 9, 30);
-        dto.NumberOfDays = 92;
-
-        // Act
-        var viewItem = _factory.CreateManagementPeriodViewItem(dto);
-
-        // Assert
-        Assert.IsNotNull(viewItem);
-        Assert.IsInstanceOfType(viewItem, typeof(ManagementPeriodViewItem));
-        Assert.AreEqual("Test DTO Period", viewItem.Name);
-        Assert.AreEqual(dto.StartDate, viewItem.StartDate);
-        Assert.AreEqual(dto.EndDate, viewItem.EndDate);
-        Assert.AreEqual(dto.NumberOfDays, viewItem.NumberOfDays);
     }
 
     [TestMethod]
