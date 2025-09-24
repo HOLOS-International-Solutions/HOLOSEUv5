@@ -36,8 +36,8 @@ public class ManagementPeriodMapperTests
         // Arrange
         var source = new ManagementPeriodDto();
         source.Name = "Test Period";
-        source.StartDate = new DateTime(2024, 1, 1);
-        source.EndDate = new DateTime(2024, 12, 31);
+        source.Start = new DateTime(2024, 1, 1);
+        source.End = new DateTime(2024, 12, 31);
         source.NumberOfDays = 366;
 
         // Act
@@ -46,8 +46,8 @@ public class ManagementPeriodMapperTests
         // Assert
         Assert.IsNotNull(result);
         Assert.AreEqual(source.Name, result.Name);
-        Assert.AreEqual(source.StartDate, result.StartDate);
-        Assert.AreEqual(source.EndDate, result.EndDate);
+        Assert.AreEqual(source.Start, result.Start);
+        Assert.AreEqual(source.End, result.End);
         Assert.AreEqual(source.NumberOfDays, result.NumberOfDays);
     }
 
@@ -67,8 +67,8 @@ public class ManagementPeriodMapperTests
         // Assert
         Assert.IsNotNull(result);
         Assert.AreEqual(source.Name, result.Name);
-        Assert.AreEqual(source.Start, result.StartDate);
-        Assert.AreEqual(source.End, result.EndDate);
+        Assert.AreEqual(source.Start, result.Start);
+        Assert.AreEqual(source.End, result.End);
         Assert.AreEqual(source.NumberOfDays, result.NumberOfDays);
     }
 
@@ -78,8 +78,8 @@ public class ManagementPeriodMapperTests
         // Arrange
         var source = new ManagementPeriodDto();
         source.Name = "Test DTO to Domain Period";
-        source.StartDate = new DateTime(2024, 4, 1);
-        source.EndDate = new DateTime(2024, 6, 30);
+        source.Start = new DateTime(2024, 4, 1);
+        source.End = new DateTime(2024, 6, 30);
         source.NumberOfDays = 91;
 
         // Act
@@ -88,8 +88,8 @@ public class ManagementPeriodMapperTests
         // Assert
         Assert.IsNotNull(result);
         Assert.AreEqual(source.Name, result.Name);
-        Assert.AreEqual(source.StartDate, result.Start);
-        Assert.AreEqual(source.EndDate, result.End);
+        Assert.AreEqual(source.Start, result.Start);
+        Assert.AreEqual(source.End, result.End);
         Assert.AreEqual(source.NumberOfDays, result.NumberOfDays);
     }
 }

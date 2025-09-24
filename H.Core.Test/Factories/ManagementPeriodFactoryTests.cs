@@ -88,8 +88,8 @@ public class ManagementPeriodFactoryTests
         // Arrange
         var template = new ManagementPeriodDto();
         template.Name = "Test Period";
-        template.StartDate = new DateTime(2024, 1, 1);
-        template.EndDate = new DateTime(2024, 12, 31);
+        template.Start = new DateTime(2024, 1, 1);
+        template.End = new DateTime(2024, 12, 31);
         template.NumberOfDays = 366;
 
         // Act
@@ -99,8 +99,8 @@ public class ManagementPeriodFactoryTests
         Assert.IsNotNull(dto);
         Assert.IsInstanceOfType(dto, typeof(IManagementPeriodDto));
         Assert.AreEqual("Test Period", dto.Name);
-        Assert.AreEqual(template.StartDate, dto.StartDate);
-        Assert.AreEqual(template.EndDate, dto.EndDate);
+        Assert.AreEqual(template.Start, dto.Start);
+        Assert.AreEqual(template.End, dto.End);
         Assert.AreEqual(template.NumberOfDays, dto.NumberOfDays);
         Assert.AreNotSame(template, dto); // Should be a different instance
     }
@@ -122,8 +122,8 @@ public class ManagementPeriodFactoryTests
         Assert.IsNotNull(dto);
         Assert.IsInstanceOfType(dto, typeof(IManagementPeriodDto));
         Assert.AreEqual("Test Domain Period", dto.Name);
-        Assert.AreEqual(managementPeriod.Start, dto.StartDate);
-        Assert.AreEqual(managementPeriod.End, dto.EndDate);
+        Assert.AreEqual(managementPeriod.Start, dto.Start);
+        Assert.AreEqual(managementPeriod.End, dto.End);
         Assert.AreEqual(managementPeriod.NumberOfDays, dto.NumberOfDays);
     }
 
@@ -133,8 +133,8 @@ public class ManagementPeriodFactoryTests
         // Arrange
         var dto = new ManagementPeriodDto();
         dto.Name = "Test DTO to Domain Period";
-        dto.StartDate = new DateTime(2024, 4, 1);
-        dto.EndDate = new DateTime(2024, 6, 30);
+        dto.Start = new DateTime(2024, 4, 1);
+        dto.End = new DateTime(2024, 6, 30);
         dto.NumberOfDays = 91;
 
         // Act
@@ -144,8 +144,8 @@ public class ManagementPeriodFactoryTests
         Assert.IsNotNull(managementPeriod);
         Assert.IsInstanceOfType(managementPeriod, typeof(ManagementPeriod));
         Assert.AreEqual("Test DTO to Domain Period", managementPeriod.Name);
-        Assert.AreEqual(dto.StartDate, managementPeriod.Start);
-        Assert.AreEqual(dto.EndDate, managementPeriod.End);
+        Assert.AreEqual(dto.Start, managementPeriod.Start);
+        Assert.AreEqual(dto.End, managementPeriod.End);
         Assert.AreEqual(dto.NumberOfDays, managementPeriod.NumberOfDays);
     }
 }

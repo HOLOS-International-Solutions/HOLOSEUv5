@@ -38,9 +38,9 @@ public class ManagementPeriodFactory : IManagementPeriodFactory
     {
         var dto = new ManagementPeriodDto();
         dto.Name = "New Management Period";
-        dto.StartDate = new DateTime(DateTime.Now.Year, 1, 1);
-        dto.EndDate = new DateTime(DateTime.Now.Year, 12, 31);
-        dto.NumberOfDays = (dto.EndDate - dto.StartDate).Days + 1;
+        dto.Start = new DateTime(DateTime.Now.Year, 1, 1);
+        dto.End = new DateTime(DateTime.Now.Year, 12, 31);
+        dto.NumberOfDays = (dto.End - dto.Start).Days + 1;
         
         return dto;
     }
