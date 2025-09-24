@@ -18,7 +18,6 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
 
         private AnimalType _otherAnimalType;
         private ObservableCollection<AnimalGroup> _animalGroups;
-        private ObservableCollection<ManagementPeriodDto> _managementPeriodViewModels;
 
         #endregion
 
@@ -30,7 +29,7 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
 
         public OtherAnimalsViewModelBase(ILogger logger, IAnimalComponentService animalComponentService, IStorageService storageService, IManagementPeriodService managementPeriodService) : base(animalComponentService, logger, storageService, managementPeriodService)
         {
-            ManagementPeriodViewModels = new ObservableCollection<ManagementPeriodDto>();
+            ManagementPeriodDtos = new ObservableCollection<ManagementPeriodDto>();
             Groups = new ObservableCollection<AnimalGroup>();
         }
 
@@ -45,15 +44,6 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
         {
             get => _otherAnimalType;
             set => SetProperty(ref _otherAnimalType, value);
-        }
-
-        /// <summary>
-        /// An Observable Collection that holds <see cref="ManagementPeriodDto"/> objects, bound to a DataGrid in the view(s).
-        /// </summary>
-        public ObservableCollection<ManagementPeriodDto> ManagementPeriodViewModels
-        {
-            get => _managementPeriodViewModels;
-            set => SetProperty(ref _managementPeriodViewModels, value);
         }
 
         /// <summary>
@@ -77,7 +67,7 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
         }
 
         /// <summary>
-        /// Adds <see cref="ManagementPeriodViewModels"/> that correspond to existing <see cref="ManagementPeriod"/> objects associated with the current <see cref="Farm"/>
+        /// Adds <see cref="AnimalComponentViewModelBase.ManagementPeriodDtos"/> that correspond to existing <see cref="ManagementPeriod"/> objects associated with the current <see cref="Farm"/>
         /// </summary>
         public void AddExistingManagementPeriods()
         {
@@ -90,7 +80,7 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
                 newManagementPeriodViewModel.Start = managementPeriod.Start;
                 newManagementPeriodViewModel.End = managementPeriod.End;
                 newManagementPeriodViewModel.NumberOfDays = managementPeriod.NumberOfDays;
-                ManagementPeriodViewModels.Add(newManagementPeriodViewModel);
+                ManagementPeriodDtos.Add(newManagementPeriodViewModel);
             }
         }
 
@@ -100,16 +90,6 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
         public void HandleAddGroupEvent()
         {
             Groups.Add(new AnimalGroup { GroupType = OtherAnimalType });
-        }
-
-        /// <summary>
-        ///  bound to a button in the view, adds an item to the <see cref="ManagementPeriodViewModels"/> collection / a row to the respective bound DataGrid. Seeded with some default values.
-        /// </summary>
-        public void HandleAddManagementPeriodEvent()
-        {
-            int numPeriods = ManagementPeriodViewModels.Count;
-            var newManagementPeriodViewModel = new ManagementPeriodDto { Name = $"Period #{numPeriods}", Start = new DateTime(2024, 01, 01), End = new DateTime(2025, 01, 01), NumberOfDays = 364};
-            ManagementPeriodViewModels.Add(newManagementPeriodViewModel);
         }
 
         #endregion

@@ -18,7 +18,7 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
             ViewName = "Bison";
             OtherAnimalType = AnimalType.Bison;
             Groups.Add(new AnimalGroup { GroupType = OtherAnimalType });
-            ManagementPeriodViewModels.Add(new ManagementPeriodDto { Name = "Test Group #1", Start = new DateTime(2000, 01, 01), End = new DateTime(2001, 01, 01), NumberOfDays = 364 });
+            ManagementPeriodDtos.Add(new ManagementPeriodDto { Name = "Test Group #1", Start = new DateTime(2000, 01, 01), End = new DateTime(2001, 01, 01), NumberOfDays = 364 });
         }
 
         public BisonComponentViewModelDesign(ILogger logger, IAnimalComponentService componentService, IStorageService storageService, IManagementPeriodService managementPeriodService) : base(logger, componentService, storageService, managementPeriodService)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using H.Core.Factories;
 using H.Core.Models;
@@ -20,6 +21,7 @@ public abstract class AnimalComponentViewModelBase : ViewModelBase
     protected IAnimalComponentDto _selectedAnimalComponentDto;
 
     protected IAnimalComponentService AnimalComponentService;
+    private ObservableCollection<ManagementPeriodDto> _managementPeriodDtos;
 
     #endregion
 
@@ -27,10 +29,12 @@ public abstract class AnimalComponentViewModelBase : ViewModelBase
 
     protected AnimalComponentViewModelBase()
     {
+        this.Construct();
     }
 
     protected AnimalComponentViewModelBase(
-        IAnimalComponentService animalComponentService, ILogger logger,
+        IAnimalComponentService animalComponentService, 
+        ILogger logger,
         IStorageService storageService, 
         IManagementPeriodService managementPeriodService) : base(storageService, logger)
     {
@@ -42,6 +46,8 @@ public abstract class AnimalComponentViewModelBase : ViewModelBase
         {
             throw new ArgumentNullException(nameof(animalComponentService));
         }
+
+        this.Construct();
     }
 
     #endregion
@@ -52,6 +58,15 @@ public abstract class AnimalComponentViewModelBase : ViewModelBase
     {
         get => _selectedAnimalComponentDto;
         set => SetProperty(ref _selectedAnimalComponentDto, value);
+    }
+
+    /// <summary>
+    /// An Observable Collection that holds <see cref="ManagementPeriodDto"/> objects, bound to a DataGrid in the view(s).
+    /// </summary>
+    public ObservableCollection<ManagementPeriodDto> ManagementPeriodDtos
+    {
+        get => _managementPeriodDtos;
+        set => SetProperty(ref _managementPeriodDtos, value);
     }
 
     #endregion
@@ -105,6 +120,29 @@ public abstract class AnimalComponentViewModelBase : ViewModelBase
     private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         
+    }
+
+    #endregion
+
+    #region Private Methods
+
+    private void Construct()
+    {
+        this.ManagementPeriodDtos = new ObservableCollection<ManagementPeriodDto>();
+    }
+
+    #endregion
+
+    #region Event Handlers
+
+    /// <summary>
+    ///  bound to a button in the view, adds an item to the <see cref="ManagementPeriodDtos"/> collection / a row to the respective bound DataGrid. Seeded with some default values.
+    /// </summary>
+    public void HandleAddManagementPeriodEvent()
+    {
+        int numPeriods = ManagementPeriodDtos.Count;
+        var newManagementPeriodViewModel = new ManagementPeriodDto { Name = $"Period #{numPeriods}", Start = new DateTime(2024, 01, 01), End = new DateTime(2025, 01, 01), NumberOfDays = 364 };
+        ManagementPeriodDtos.Add(newManagementPeriodViewModel);
     }
 
     #endregion

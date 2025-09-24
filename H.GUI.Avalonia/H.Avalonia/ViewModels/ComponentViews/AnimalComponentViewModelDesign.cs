@@ -16,6 +16,8 @@ public class AnimalComponentViewModelDesign : AnimalComponentViewModelBase
         base.SelectedAnimalComponentDto.Name = "Bison #2";
 
         ViewName = "Bison";
+
+        base.ManagementPeriodDtos.Add(new ManagementPeriodDto() { Name = "Bison Management Period" });
     }
 
     protected AnimalComponentViewModelDesign(IAnimalComponentService animalComponentService, ILogger logger, IStorageService storageService, IManagementPeriodService managementPeriodService) : base(animalComponentService, logger, storageService, managementPeriodService)
