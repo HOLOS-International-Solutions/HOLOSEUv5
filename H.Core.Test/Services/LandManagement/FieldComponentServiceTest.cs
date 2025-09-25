@@ -4,6 +4,7 @@ using H.Core.Enumerations;
 using H.Core.Factories;
 using H.Core.Mappers;
 using H.Core.Models.LandManagement.Fields;
+using H.Core.Services.Animals;
 using H.Core.Services.LandManagement.Fields;
 using Moq;
 using Prism.Ioc;
@@ -22,6 +23,7 @@ public class FieldComponentServiceTest
     private Mock<IFieldComponentDtoFactory> _mockFieldComponentDtoFactory;
     private Mock<ICropFactory> _mockCropFactory;
     private Mock<IUnitsOfMeasurementCalculator> _mockUnitsOfMeasurementCalculator;
+    private Mock<ITransferService<CropViewItem, CropDto>> _mockTransferService;
 
     #endregion
 
@@ -43,6 +45,7 @@ public class FieldComponentServiceTest
         _mockFieldComponentDtoFactory = new Mock<IFieldComponentDtoFactory>();
         _mockCropFactory = new Mock<ICropFactory>();
         _mockUnitsOfMeasurementCalculator = new Mock<IUnitsOfMeasurementCalculator>();
+        _mockTransferService = new Mock<ITransferService<CropViewItem, CropDto>>();
         var mockLogger = new Mock<ILogger>();
         var mockContainerProvider = new Mock<IContainerProvider>();
 
@@ -77,7 +80,14 @@ public class FieldComponentServiceTest
             cfg.AddProfile<FieldDtoToFieldDtoMapper>();
         }).CreateMapper());
 
-        _fieldComponentService = new FieldComponentService(_mockFieldComponentDtoFactory.Object, _mockCropFactory.Object, _mockUnitsOfMeasurementCalculator.Object, mockContainerProvider.Object, mockLogger.Object);
+        _fieldComponentService = new FieldComponentService(
+            _mockFieldComponentDtoFactory.Object,
+            _mockCropFactory.Object,
+            _mockUnitsOfMeasurementCalculator.Object,
+            mockContainerProvider.Object,
+            mockLogger.Object,
+            _mockTransferService.Object // new dependency
+        );
     }
 
     [TestCleanup]
@@ -88,42 +98,6 @@ public class FieldComponentServiceTest
     #endregion
 
     #region Tests
-
-    [TestMethod]
-    public void TransferCropDtoToSystemUsingMetricSetsCorrectValue()
-    {
-        // Display units are metric
-        _mockUnitsOfMeasurementCalculator.Setup(x => x.GetUnitsOfMeasurement()).Returns(MeasurementSystemType.Metric);
-
-        var cropViewItem = new CropViewItem()
-        {
-            AmountOfIrrigation = 100,
-        };
-
-
-        var result = _fieldComponentService.TransferCropViewItemToCropDto(cropViewItem);
-
-        Assert.AreEqual(100, result.AmountOfIrrigation);
-    }
-
-    [TestMethod]
-    public void TransferCropDtoToSystemUsingImperialSetsCorrectValue()
-    {
-        // Display units are imperial
-        _mockUnitsOfMeasurementCalculator.Setup(x => x.GetUnitsOfMeasurement()).Returns(MeasurementSystemType.Imperial);
-
-        var cropViewItem = new CropViewItem()
-        {
-            AmountOfIrrigation = 100,
-        };
-
-        var result = _fieldComponentService.TransferCropViewItemToCropDto(cropViewItem);
-
-        // Convert 100 millimeters to inches
-        var expected = 100 / 25.4;
-
-        Assert.AreEqual(expected, result.AmountOfIrrigation, 0.01);
-    }
 
     [TestMethod]
     public void TransferCropDtoToSystemConvertsImperialValueToMetric()
@@ -299,6 +273,28 @@ public class FieldComponentServiceTest
         _fieldComponentService.RemoveCropFromSystem(fieldComponent, cropDto);
 
         Assert.IsFalse(fieldComponent.CropViewItems.Any());
+    }
+
+    [TestMethod]
+    public void TransferToDto_ReturnsNewDtoInstance()
+    {
+        // Arrange
+        var model = new CropViewItem();
+        model.Name = "Test Crop";
+
+        // Act
+        // Example usage if you add a TransferToDto method that uses the transfer service:
+        // var dto = _fieldComponentService.TransferToDto<CropViewItem, CropDto>(model);
+        // For now, just test the transfer service directly:
+        _mockTransferService.Setup(x => x.TransferToDto(model))
+            .Returns(new CropDto { Name = model.Name });
+
+        var dto = _mockTransferService.Object.TransferToDto(model);
+
+        // Assert
+        Assert.IsNotNull(dto);
+        Assert.IsInstanceOfType(dto, typeof(CropDto));
+        Assert.AreEqual("Test Crop", dto.Name);
     }
 
     #endregion

@@ -220,6 +220,7 @@ namespace H.Avalonia
             containerRegistry.RegisterSingleton<ICropInitializationService, CropInitializationService>();
             containerRegistry.RegisterSingleton<IAnimalComponentService, AnimalComponentService>();
             containerRegistry.RegisterSingleton<IManagementPeriodService, ManagementPeriodService>();
+            containerRegistry.Register(typeof(ITransferService<,>), typeof(TransferService<,>));
 
             // Unit conversion
             containerRegistry.RegisterSingleton<IUnitsOfMeasurementCalculator, UnitsOfMeasurementCalculator>();
@@ -233,6 +234,7 @@ namespace H.Avalonia
             containerRegistry.RegisterSingleton<IDietFactory, DietFactory>();
             containerRegistry.RegisterSingleton<IFarmFactory, FarmFactory>();
             containerRegistry.RegisterSingleton<IAnimalComponentFactory, AnimalComponentFactory>();
+            containerRegistry.RegisterSingleton<IManagementPeriodFactory, ManagementPeriodFactory>();
 
             // Tables
             containerRegistry.RegisterSingleton<ITable50FuelEnergyEstimatesProvider, Table50FuelEnergyEstimatesProvider>();
@@ -370,6 +372,16 @@ namespace H.Avalonia
                 expression.AddProfile<ManagementPeriodDtoToManagementPeriodDtoMapper>();
             });
 
+            var managementPeriodToManagementPeriodDtoConfiguration = new MapperConfiguration(expression =>
+            {
+                expression.AddProfile<ManagementPeriodToManagementPeriodDtoMapper>();
+            });
+
+            var managementPeriodDtoToManagementPeriodConfiguration = new MapperConfiguration(expression =>
+            {
+                expression.AddProfile<ManagementPeriodDtoToManagementPeriodMapper>();
+            });
+
             // Register named mappers
             containerRegistry.RegisterInstance(cropDtoToCropDtoConfiguration.CreateMapper(), nameof(CropDtoToCropDtoMapper));
             containerRegistry.RegisterInstance(cropDtoToCropVieItemConfiguration.CreateMapper(), nameof(CropDtoToCropViewItemMapper));
@@ -382,6 +394,8 @@ namespace H.Avalonia
             containerRegistry.RegisterInstance(animalComponentDtoToAnimalComponentDtoConfiguration.CreateMapper(), nameof(AnimalComponentDtoToAnimalComponentDtoMapper));
             containerRegistry.RegisterInstance(animalComponentToAnimalComponentDtoConfiguration.CreateMapper(), nameof(AnimalComponentBaseToAnimalComponentDtoMapper));
             containerRegistry.RegisterInstance(managementPeriodDtoToManagementPeriodDtoConfiguration.CreateMapper(), nameof(ManagementPeriodDtoToManagementPeriodDtoMapper));
+            containerRegistry.RegisterInstance(managementPeriodToManagementPeriodDtoConfiguration.CreateMapper(), nameof(ManagementPeriodToManagementPeriodDtoMapper));
+            containerRegistry.RegisterInstance(managementPeriodDtoToManagementPeriodConfiguration.CreateMapper(), nameof(ManagementPeriodDtoToManagementPeriodMapper));
         }
     }
 }

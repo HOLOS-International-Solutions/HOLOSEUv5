@@ -5,6 +5,7 @@ using H.Core.Factories;
 using H.Core.Mappers;
 using H.Core.Models;
 using H.Core.Models.LandManagement.Fields;
+using H.Core.Services.Animals;
 using Microsoft.Extensions.Logging;
 using Prism.Ioc;
 
@@ -25,13 +26,23 @@ public class FieldComponentService : ComponentServiceBase, IFieldComponentServic
 
     private readonly IMapper _cropDtoToCropViewItemMapper;
     private readonly IMapper _cropViewItemToCropDtoMapper;
+    private ITransferService<CropViewItem, CropDto> _transferService;
 
     #endregion
 
     #region Constructors
 
-    public FieldComponentService(IFieldComponentDtoFactory fieldComponentDtoFactory, ICropFactory cropFactory, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator, IContainerProvider containerProvider, ILogger logger) : base(logger, containerProvider, unitsOfMeasurementCalculator)
+    public FieldComponentService(IFieldComponentDtoFactory fieldComponentDtoFactory, ICropFactory cropFactory, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator, IContainerProvider containerProvider, ILogger logger, ITransferService<CropViewItem, CropDto> transferService) : base(logger, containerProvider, unitsOfMeasurementCalculator)
     {
+        if (transferService != null)
+        {
+            _transferService = transferService; 
+        }
+        else
+        {
+            throw new ArgumentNullException(nameof(transferService));
+        }
+
         if (cropFactory != null)
         {
             _cropFactory = cropFactory;
@@ -156,25 +167,7 @@ public class FieldComponentService : ComponentServiceBase, IFieldComponentServic
 
     public ICropDto TransferCropViewItemToCropDto(CropViewItem cropViewItem)
     {
-        var dto = new CropDto();
-
-        // Create a copy of the view item by copying all properties into the DTO
-        _cropViewItemToCropDtoMapper.Map(cropViewItem, dto);
-
-        // All numerical values are stored internally as metric values
-        var cropDtoPropertyConverter = new PropertyConverter<ICropDto>(dto);
-
-        // Get all properties that might need to be converted to imperial units before being shown to the user
-        foreach (var propertyInfo in cropDtoPropertyConverter.PropertyInfos)
-        {
-            // Convert the value from metric to imperial as needed. Note the converter won't convert anything if the display is in metric units
-            var bindingValue = cropDtoPropertyConverter.GetBindingValueFromSystem(propertyInfo, base.UnitsOfMeasurementCalculator.GetUnitsOfMeasurement());
-
-            // Set the value of the property before displaying to the user
-            propertyInfo.SetValue(dto, bindingValue);
-        }
-
-        return dto;
+        return _transferService.TransferToDto(cropViewItem);
     }
 
     public CropViewItem TransferCropDtoToSystem(ICropDto cropDto, CropViewItem cropViewItem)
