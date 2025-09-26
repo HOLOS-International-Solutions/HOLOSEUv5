@@ -60,6 +60,8 @@ public class FieldComponentViewModel : ViewModelBase
     /// </summary>
     private readonly ILogger _logger;
 
+    private ICropFactory _cropFactory;
+
     #endregion
 
     #region Constructors
@@ -73,11 +75,21 @@ public class FieldComponentViewModel : ViewModelBase
         IEventAggregator eventAggregator, 
         IStorageService storageService,
         IFieldComponentService fieldComponentService,
-        ILogger logger) : base(regionManager, eventAggregator, storageService)
+        ILogger logger,
+        ICropFactory cropFactory) : base(regionManager, eventAggregator, storageService)
     {
+        if (cropFactory != null)
+        {
+            _cropFactory = cropFactory; 
+        }
+        else
+        {
+            throw new ArgumentNullException(nameof(cropFactory));
+        }
+
         if (logger != null)
         {
-            _logger = logger; 
+            _logger = logger;
         }
         else
         {
@@ -303,7 +315,7 @@ public class FieldComponentViewModel : ViewModelBase
     /// </summary>
     private void AddCropDto()
     {
-        var dto = _fieldComponentService.CreateCropDto(base.ActiveFarm);
+        CropDto dto = _cropFactory.Create(base.ActiveFarm);
         _fieldComponentService.InitializeCropDto(this.SelectedFieldSystemComponentDto, dto);
 
         // Use this as the new selected instance

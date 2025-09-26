@@ -3,6 +3,7 @@ using Avalonia.Markup.Xaml.Templates;
 using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Converters;
 using H.Core.Mappers;
+using H.Core.Models;
 using H.Core.Models.LandManagement.Fields;
 using Prism.Ioc;
 
@@ -62,12 +63,17 @@ public class FieldComponentDtoFactory : IFieldComponentDtoFactory
     /// <summary>
     /// Create a new instance with no additional configuration to a default instance.
     /// </summary>
-    public IFieldComponentDto Create()
+    public FieldSystemComponentDto Create()
     {
         return new FieldSystemComponentDto();
     }
 
-    public IFieldComponentDto CreateFieldDto(IFieldComponentDto template)
+    public FieldSystemComponentDto Create(Farm farm)
+    {
+        return new FieldSystemComponentDto();
+    }
+
+    public FieldSystemComponentDto CreateFieldDto(IFieldComponentDto template)
     {
         var fieldComponentDto = new FieldSystemComponentDto();
 
@@ -81,4 +87,15 @@ public class FieldComponentDtoFactory : IFieldComponentDtoFactory
     #region Private Methods
 
     #endregion
+
+
+
+    public IDto CreateFromTemplate(IDto template)
+    {
+        var fieldComponentDto = new FieldSystemComponentDto();
+
+        _fieldDtoToDtoMapper.Map(template, fieldComponentDto);
+
+        return fieldComponentDto;
+    }
 }

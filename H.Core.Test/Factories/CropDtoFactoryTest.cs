@@ -69,7 +69,7 @@ public class CropDtoFactoryTest
     [TestMethod]
     public void CreateReturnsNonNull()
     {
-        var result = _factory.CreateCropDto(new Farm());
+        var result = _factory.Create(new Farm());
 
         Assert.IsNotNull(result);
     } 

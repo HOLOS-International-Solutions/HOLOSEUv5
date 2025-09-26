@@ -24,6 +24,7 @@ public class FieldComponentViewModelTest
     private FieldComponentViewModel _viewModel;
     private Mock<IFieldComponentDtoFactory> _mockFieldComponentDtoFactory;
     private Mock<IFieldComponentService> _mockFieldComponentService;
+    private Mock<ICropFactory> _mockCropFactory;
 
     #endregion
 
@@ -51,12 +52,13 @@ public class FieldComponentViewModelTest
 
         _mockFieldComponentDtoFactory = new Mock<IFieldComponentDtoFactory>();
         _mockFieldComponentService = new Mock<IFieldComponentService>();
-        var mockUnitsOfMeasurementCalculator = new Mock<IUnitsOfMeasurementCalculator>();
+        _mockCropFactory = new Mock<ICropFactory>();
 
-        _mockFieldComponentService.Setup(x => x.Create()).Returns(new FieldSystemComponentDto());
+        _mockFieldComponentDtoFactory.Setup(x => x.Create()).Returns(new FieldSystemComponentDto());
         _mockFieldComponentService.Setup(x => x.TransferToFieldComponentDto(It.IsAny<FieldSystemComponent>())).Returns(new FieldSystemComponentDto());
 
-        _viewModel = new FieldComponentViewModel(mockRegionManager.Object, mockEventAggregator.Object, mockStorageService.Object, _mockFieldComponentService.Object, mockLogger.Object);
+        _viewModel = new FieldComponentViewModel(mockRegionManager.Object, mockEventAggregator.Object,
+            mockStorageService.Object, _mockFieldComponentService.Object, mockLogger.Object, _mockCropFactory.Object);
     }
 
     [TestCleanup]
@@ -71,7 +73,7 @@ public class FieldComponentViewModelTest
     [TestMethod]
     public void InitializeViewModelSetFieldSystemComponentToNonNull()
     {
-        _mockFieldComponentService.Setup(x => x.CreateCropDto(It.IsAny<Farm>())).Returns(new CropDto());
+        _mockCropFactory.Setup(x => x.Create(It.IsAny<Farm>())).Returns(new CropDto());
         _mockFieldComponentDtoFactory.Setup(factory => factory.Create()).Returns(new FieldSystemComponentDto());
 
         _viewModel.InitializeViewModel(new FieldSystemComponent());
@@ -90,7 +92,7 @@ public class FieldComponentViewModelTest
     [TestMethod]
     public void InitializeViewModelSetCropViewItemToNotNull()
     {
-        _mockFieldComponentService.Setup(x => x.CreateCropDto(It.IsAny<Farm>())).Returns(new CropDto());
+        _mockCropFactory.Setup(x => x.Create(It.IsAny<Farm>())).Returns(new CropDto());
 
         _viewModel.InitializeViewModel(new FieldSystemComponent() {CropViewItems = new ObservableCollection<CropViewItem>()});
 
@@ -100,7 +102,7 @@ public class FieldComponentViewModelTest
     [TestMethod]
     public void InitializeViewModelSetCropDtoCollectionToEmpty()
     {
-        _mockFieldComponentService.Setup(x => x.CreateCropDto(It.IsAny<Farm>())).Returns(new CropDto());
+        _mockCropFactory.Setup(x => x.Create(It.IsAny<Farm>())).Returns(new CropDto());
 
         _viewModel.InitializeViewModel(new FieldSystemComponent() { CropViewItems = new ObservableCollection<CropViewItem>() {  } });
 

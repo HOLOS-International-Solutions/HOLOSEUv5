@@ -39,13 +39,13 @@ public class CropFactory : ICropFactory
         _cropViewItemToDtoMapper = containerProvider.Resolve<IMapper>(nameof(CropViewItemToCropDtoMapper));
         _cropDtoToDtoMapper = containerProvider.Resolve<IMapper>(nameof(CropDtoToCropDtoMapper));
         _cropDtoToViewItemMapper = containerProvider.Resolve<IMapper>(nameof(CropDtoToCropViewItemMapper));
-    } 
+    }
 
     #endregion
 
     #region Public Methods
 
-    public ICropDto CreateCropDto(Farm farm)
+    public CropDto Create(Farm farm)
     {
         var cropViewItem = new CropViewItem();
 
@@ -60,7 +60,7 @@ public class CropFactory : ICropFactory
         return dto;
     }
 
-    public ICropDto CreateCropDto(ICropDto template)
+    public IDto CreateFromTemplate(IDto template)
     {
         var cropDto = new CropDto();
 
@@ -69,7 +69,7 @@ public class CropFactory : ICropFactory
         return cropDto;
     }
 
-    public ICropDto CreateCropDto(CropViewItem template)
+    public CropDto CreateCropDto(CropViewItem template)
     {
         var cropDto = new CropDto();
 

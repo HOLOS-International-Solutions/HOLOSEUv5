@@ -7,6 +7,7 @@ namespace H.Core.Services.Animals
         where TModelBase : ModelBase
         where TDto : IDto, new()
     {
-        TDto TransferToDto(TModelBase model);
+        TDto TransferDomainObjectToDto(TModelBase model);
+        TModelBase TransferDtoToDomainObject(TDto dto, TModelBase model);
     }
 }

@@ -34,6 +34,8 @@ namespace H.Core.Test.Services.Animals
         #region Fields
 
         private Mock<IUnitsOfMeasurementCalculator> _mockUnitsCalculator;
+        private Mock<IFactory<CropDto>> _mockCropDtoFactory;
+        private Mock<IFactory<TestDto>> _mockTestDtoFactory;
 
         #endregion
 
@@ -45,6 +47,12 @@ namespace H.Core.Test.Services.Animals
             _mockUnitsCalculator = new Mock<IUnitsOfMeasurementCalculator>();
             _mockUnitsCalculator.Setup(x => x.GetUnitsOfMeasurement())
                 .Returns(MeasurementSystemType.Metric);
+
+            _mockCropDtoFactory = new Mock<IFactory<CropDto>>();
+            _mockCropDtoFactory.Setup(f => f.Create(It.IsAny<Farm>())).Returns(new CropDto());
+
+            _mockTestDtoFactory = new Mock<IFactory<TestDto>>();
+            _mockTestDtoFactory.Setup(f => f.Create(It.IsAny<Farm>())).Returns(new TestDto());
         }
 
         #endregion
@@ -56,15 +64,17 @@ namespace H.Core.Test.Services.Animals
         {
             // Display units are metric
             _mockUnitsCalculator.Setup(x => x.GetUnitsOfMeasurement()).Returns(MeasurementSystemType.Metric);
-            ITransferService<CropViewItem, CropDto> service = new TransferService<CropViewItem, CropDto>(_mockUnitsCalculator.Object);
+            ITransferService<CropViewItem, CropDto> service = new TransferService<CropViewItem, CropDto>(
+                _mockUnitsCalculator.Object,
+                _mockCropDtoFactory.Object
+            );
 
             var cropViewItem = new CropViewItem()
             {
                 AmountOfIrrigation = 100,
             };
 
-
-            var result = service.TransferToDto(cropViewItem);
+            var result = service.TransferDomainObjectToDto(cropViewItem);
 
             Assert.AreEqual(100, result.AmountOfIrrigation);
         }
@@ -74,15 +84,17 @@ namespace H.Core.Test.Services.Animals
         {
             // Display units are imperial
             _mockUnitsCalculator.Setup(x => x.GetUnitsOfMeasurement()).Returns(MeasurementSystemType.Imperial);
-            ITransferService<CropViewItem, CropDto> service = new TransferService<CropViewItem, CropDto>(_mockUnitsCalculator.Object);
+            ITransferService<CropViewItem, CropDto> service = new TransferService<CropViewItem, CropDto>(
+                _mockUnitsCalculator.Object,
+                _mockCropDtoFactory.Object
+            );
 
             var cropViewItem = new CropViewItem()
             {
                 AmountOfIrrigation = 100,
             };
 
-
-            var result = service.TransferToDto(cropViewItem);
+            var result = service.TransferDomainObjectToDto(cropViewItem);
 
             // Convert 100 millimeters to inches
             var expected = 100 / 25.4;
@@ -94,11 +106,14 @@ namespace H.Core.Test.Services.Animals
         public void TransferToAnimalComponentDto_MapsPropertiesCorrectly()
         {
             // Arrange
-            ITransferService<TestModel, TestDto> service = new TransferService<TestModel, TestDto>(_mockUnitsCalculator.Object);
+            ITransferService<TestModel, TestDto> service = new TransferService<TestModel, TestDto>(
+                _mockUnitsCalculator.Object,
+                _mockTestDtoFactory.Object
+            );
             var component = new TestModel { Name = "Cow", Weight = 500.0 };
 
             // Act
-            var dto = service.TransferToDto(component);
+            var dto = service.TransferDomainObjectToDto(component);
 
             // Assert
             Assert.IsNotNull(dto);
@@ -110,11 +125,14 @@ namespace H.Core.Test.Services.Animals
         public void TransferToAnimalComponentDto_HandlesNullProperties()
         {
             // Arrange
-            ITransferService<TestModel, TestDto> service = new TransferService<TestModel, TestDto>(_mockUnitsCalculator.Object);
+            ITransferService<TestModel, TestDto> service = new TransferService<TestModel, TestDto>(
+                _mockUnitsCalculator.Object,
+                _mockTestDtoFactory.Object
+            );
             var component = new TestModel { Name = null, Weight = 0.0 };
 
             // Act
-            var dto = service.TransferToDto(component);
+            var dto = service.TransferDomainObjectToDto(component);
 
             // Assert
             Assert.IsNull(dto.Name);
@@ -127,13 +145,14 @@ namespace H.Core.Test.Services.Animals
             // Arrange
             ITransferService<CropViewItem, CropDto> service = new TransferService<CropViewItem, CropDto>(
                 _mockUnitsCalculator.Object,
+                _mockCropDtoFactory.Object,
                 cfg => cfg.CreateMap<CropViewItem, CropDto>()
                     .ForMember(d => d.Name, opt => opt.MapFrom(s => s.Name + "_Mapped"))
             );
             var component = new CropViewItem() { Name = "Corn", Year = 1999 };
 
             // Act
-            var dto = service.TransferToDto(component);
+            var dto = service.TransferDomainObjectToDto(component);
 
             // Assert
             Assert.AreEqual("Corn_Mapped", dto.Name);

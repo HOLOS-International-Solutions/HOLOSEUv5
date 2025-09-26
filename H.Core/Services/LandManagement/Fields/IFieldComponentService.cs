@@ -4,9 +4,8 @@ using H.Core.Models.LandManagement.Fields;
 
 namespace H.Core.Services.LandManagement.Fields;
 
-public interface IFieldComponentService :  IFieldComponentDtoFactory, ICropFactory
+public interface IFieldComponentService 
 {
-
     /// <summary>
     /// When adding a new crop to the field, the year must be the next in order so that all years of the field history are consecutive.
     /// </summary>
@@ -40,7 +39,7 @@ public interface IFieldComponentService :  IFieldComponentDtoFactory, ICropFacto
     /// <param name="fieldComponentDto">The object that is bound to the view and collects user input</param>
     /// <param name="fieldSystemComponent">The internal domain object that is used as the basis for input to GHG calculations</param>
     /// <returns>The <see cref="FieldSystemComponent"/> once all values have been transferred</returns>
-    FieldSystemComponent TransferFieldDtoToSystem(IFieldComponentDto fieldComponentDto,
+    FieldSystemComponent TransferFieldDtoToSystem(FieldSystemComponentDto fieldComponentDto,
         FieldSystemComponent fieldSystemComponent);
 
     /// <summary>

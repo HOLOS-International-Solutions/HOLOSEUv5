@@ -41,7 +41,7 @@ public class FieldComponentViewModelDesign : FieldComponentViewModel
         base.SelectedCropDto.AmountOfIrrigation = 100;
     }
 
-    public FieldComponentViewModelDesign(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService, IFieldComponentDtoFactory fieldComponentDtoFactory, ICropFactory cropFactory, IFieldComponentService fieldComponentService, ILogger logger) : base(regionManager, eventAggregator, storageService, fieldComponentService, logger)
+    public FieldComponentViewModelDesign(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService, IFieldComponentDtoFactory fieldComponentDtoFactory, ICropFactory cropFactory, IFieldComponentService fieldComponentService, ILogger logger) : base(regionManager, eventAggregator, storageService, fieldComponentService, logger, cropFactory)
     {
     }
 }
