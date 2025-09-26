@@ -41,6 +41,7 @@ using H.Core.Enumerations;
 using H.Core.Factories;
 using H.Core.Factories.FarmFactory;
 using H.Core.Mappers;
+using H.Core.Models.Animals;
 using H.Core.Models.LandManagement.Fields;
 using H.Core.Providers;
 using H.Core.Providers.Energy;
@@ -232,14 +233,15 @@ namespace H.Avalonia
             // Factories
             containerRegistry.RegisterSingleton<IDietFactory, DietFactory>();
             containerRegistry.RegisterSingleton<IFarmFactory, FarmFactory>();
-            containerRegistry.RegisterSingleton<IAnimalComponentFactory, AnimalComponentFactory>();
             containerRegistry.RegisterSingleton<IManagementPeriodFactory, ManagementPeriodFactory>();
 
             containerRegistry.Register(typeof(IFactory<CropDto>), typeof(CropFactory));
             containerRegistry.Register(typeof(IFactory<FieldSystemComponentDto>), typeof(FieldFactory));
+            containerRegistry.Register(typeof(IFactory<AnimalComponentDto>), typeof(AnimalComponentFactory));
 
             containerRegistry.Register(typeof(ICropFactory), typeof(CropFactory));
             containerRegistry.Register(typeof(IFieldFactory), typeof(FieldFactory));
+            containerRegistry.RegisterSingleton<IAnimalComponentFactory, AnimalComponentFactory>();
 
             // Tables
             containerRegistry.RegisterSingleton<ITable50FuelEnergyEstimatesProvider, Table50FuelEnergyEstimatesProvider>();

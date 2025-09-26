@@ -31,6 +31,11 @@ public class AnimalComponentFactory : IAnimalComponentFactory
 
     #region Public Methods
 
+    public AnimalComponentDto CreateDto()
+    {
+        return new AnimalComponentDto();
+    }
+
     public AnimalComponentDto CreateDto(Farm farm)
     {
         return new AnimalComponentDto();

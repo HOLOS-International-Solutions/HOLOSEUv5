@@ -55,6 +55,11 @@ public class FieldFactory : IFieldFactory
         return new FieldSystemComponentDto();
     }
 
+    public FieldSystemComponentDto CreateDto()
+    {
+        return new FieldSystemComponentDto();
+    }
+
     public FieldSystemComponentDto CreateDto(Farm farm)
     {
         return new FieldSystemComponentDto();

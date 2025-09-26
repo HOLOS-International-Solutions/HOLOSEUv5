@@ -3,6 +3,7 @@ using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Converters;
 using H.Core.Factories;
 using H.Core.Mappers;
+using H.Core.Models;
 using H.Core.Models.Animals;
 using H.Core.Models.LandManagement.Fields;
 using H.Infrastructure;
@@ -16,7 +17,7 @@ namespace H.Core.Services.Animals
     /// <typeparam name="TModelBase">The type of the domain model, must inherit from ModelBase.</typeparam>
     /// <typeparam name="TDto">The type of the Data Transfer Object, must implement IDto.</typeparam>
     public class TransferService<TModelBase, TDto> : ITransferService<TModelBase, TDto>
-        where TModelBase : ModelBase, new()
+        where TModelBase : ModelBase
         where TDto : IDto, new()
     {
         #region Fields
@@ -87,7 +88,7 @@ namespace H.Core.Services.Animals
         /// <returns>A DTO instance with values mapped and converted for external use.</returns>
         public TDto TransferDomainObjectToDto(TModelBase model)
         {
-            var dto = new TDto();
+            var dto = _dtoFactory.CreateDto(new Farm());
 
             // Use the internal mapper
             _modelToDtoMapper.Map(model, dto);
@@ -135,7 +136,7 @@ namespace H.Core.Services.Animals
             // Map values from the copy of the DTO to the internal system object
             _dtoToModelMapper.Map(copy, model);
 
-            return new TModelBase();
+            return model;
         }
 
         #endregion
