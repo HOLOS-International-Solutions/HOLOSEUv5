@@ -9,6 +9,7 @@ using H.Core.Models;
 using H.Core.Services;
 using H.Core.Services.LandManagement.Fields;
 using H.Core.Services.StorageService;
+using Microsoft.Extensions.Logging;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Regions;
@@ -34,7 +35,7 @@ public class MyComponentsViewModel : ViewModelBase
         this.MyComponents = new ObservableCollection<ComponentBase>();
     }
 
-    public MyComponentsViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService, IComponentInitializationService componentInitializationService) : base(regionManager, eventAggregator, storageService)
+    public MyComponentsViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService, IComponentInitializationService componentInitializationService, ILogger logger) : base(regionManager, eventAggregator, storageService, logger)
     {
         if (componentInitializationService != null)
         {

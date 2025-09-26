@@ -5,6 +5,7 @@ using H.Core.Models;
 using H.Core.Models.LandManagement.Fields;
 using H.Core.Services;
 using H.Core.Services.StorageService;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Prism.Events;
 using Prism.Regions;
@@ -86,13 +87,15 @@ public partial class MyComponentsViewModelTests
         var mockEditingComponentsCompletedEvent = new Mock<EditingComponentsCompletedEvent>();
         _mockEventAggregator.Setup(x => x.GetEvent<ComponentAddedEvent>()).Returns(mockComponentAddedEvent.Object);
         _mockEventAggregator.Setup(x => x.GetEvent<EditingComponentsCompletedEvent>()).Returns(mockEditingComponentsCompletedEvent.Object);
+        var mockLogger = new Mock<ILogger>();
 
         // Create view model
         _viewModel = new MyComponentsViewModel(
             _mockRegionManager.Object,
             _mockEventAggregator.Object,
             _mockStorageService.Object,
-            _mockComponentInitializationService.Object);
+            _mockComponentInitializationService.Object, 
+            mockLogger.Object);
 
         // Initialize the view model to populate components
         _viewModel.InitializeViewModel();

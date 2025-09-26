@@ -10,6 +10,7 @@ using Prism.Regions;
 using H.Avalonia.Views.FarmCreationViews;
 using System.ComponentModel;
 using Avalonia.Controls.Notifications;
+using Microsoft.Extensions.Logging;
 
 namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
 {
@@ -23,7 +24,7 @@ namespace H.Avalonia.ViewModels.OptionsViews.FileMenuViews
 
         #region Constructors
 
-        public FarmManagementViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService) : base(regionManager, eventAggregator, storageService)
+        public FarmManagementViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IStorageService storageService, ILogger logger) : base(regionManager, eventAggregator, storageService, logger)
         {
             RemoveFarm = new DelegateCommand(OnRemoveFarmExecute, OnRemoveFarmCanExecute);
             Farms = new ObservableCollection<Farm>();

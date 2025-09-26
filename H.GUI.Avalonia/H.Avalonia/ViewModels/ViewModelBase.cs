@@ -111,11 +111,19 @@ namespace H.Avalonia.ViewModels
             }
         }
 
-        protected ViewModelBase(
-            IRegionManager regionManager, 
+        protected ViewModelBase(IRegionManager regionManager,
             IEventAggregator eventAggregator,
-            IStorageService storageService) : this(regionManager, storageService)
+            IStorageService storageService, ILogger logger) : this(regionManager, storageService)
         {
+            if (logger != null)
+            {
+                this.Logger = logger;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(logger));
+            }
+
             if (storageService != null)
             {
                 this.StorageService = storageService;
@@ -213,6 +221,7 @@ namespace H.Avalonia.ViewModels
 
         public virtual void InitializeViewModel(ComponentBase component)
         {
+            Logger.LogDebug("initializing " + component);
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)

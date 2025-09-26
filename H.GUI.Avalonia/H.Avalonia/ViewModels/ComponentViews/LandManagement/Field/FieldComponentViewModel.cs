@@ -76,7 +76,7 @@ public class FieldComponentViewModel : ViewModelBase
         IStorageService storageService,
         IFieldComponentService fieldComponentService,
         ILogger logger,
-        ICropFactory cropFactory) : base(regionManager, eventAggregator, storageService)
+        ICropFactory cropFactory) : base(regionManager, eventAggregator, storageService, logger)
     {
         if (cropFactory != null)
         {
@@ -152,10 +152,10 @@ public class FieldComponentViewModel : ViewModelBase
     /// <param name="component">The <see cref="FieldSystemComponent"/> to display to the user</param>
     public override void InitializeViewModel(ComponentBase component)
     {
-        _logger.LogDebug("initializing " + component);
-
         if (component is FieldSystemComponent fieldSystemComponent)
         {
+            base.InitializeViewModel(fieldSystemComponent);
+
             this.PropertyChanged += OnPropertyChanged;
 
             // Hold a reference to the selected field system object

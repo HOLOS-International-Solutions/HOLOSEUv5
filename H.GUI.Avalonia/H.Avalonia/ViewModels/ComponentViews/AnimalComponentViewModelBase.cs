@@ -119,7 +119,6 @@ public abstract class AnimalComponentViewModelBase : ViewModelBase
 
     private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        
     }
 
     #endregion
