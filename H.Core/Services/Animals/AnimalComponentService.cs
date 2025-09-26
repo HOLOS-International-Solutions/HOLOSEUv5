@@ -68,9 +68,9 @@ public class AnimalComponentService : ComponentServiceBase, IAnimalComponentServ
     public IAnimalComponentDto TransferAnimalComponentDtoToSystem(IAnimalComponentDto animalComponentDto, AnimalComponentBase animalComponent)
     {
         // Create a copy of the DTO since we don't want to change values on the original that is still bound to the GUI
-        var copy = _animalComponentFactory.CreateAnimalComponentDto(animalComponentDto);
+        var copy = _animalComponentFactory.CreateDtoFromDtoTemplate(animalComponentDto);
 
-        var propertyConverter = new PropertyConverter<IAnimalComponentDto>(copy);
+        var propertyConverter = new PropertyConverter<IAnimalComponentDto>((IAnimalComponentDto) copy);
 
         // Get all properties that might need to be converted to imperial units before being shown to the user
         foreach (var property in propertyConverter.PropertyInfos)
@@ -85,7 +85,7 @@ public class AnimalComponentService : ComponentServiceBase, IAnimalComponentServ
         // Map values from the copy of the DTO to the internal system object
         _animalComponentDtoToAnimalComponentMapper.Map(copy, animalComponent);
 
-        return copy;
+        return (IAnimalComponentDto) copy;
     }
 
     #endregion

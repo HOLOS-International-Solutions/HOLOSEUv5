@@ -62,7 +62,7 @@ public class AnimalComponentFactoryTests
         var inputDto = new AnimalComponentDto();
 
         // Act
-        var dto = _sut.CreateAnimalComponentDto(inputDto);
+        var dto = _sut.CreateDtoFromDtoTemplate(inputDto);
 
         // Assert
         Assert.IsNotNull(dto);
@@ -75,8 +75,8 @@ public class AnimalComponentFactoryTests
         var inputDto = new AnimalComponentDto();
 
         // Act
-        var dto1 = _sut.CreateAnimalComponentDto(inputDto);
-        var dto2 = _sut.CreateAnimalComponentDto(inputDto);
+        var dto1 = _sut.CreateDtoFromDtoTemplate(inputDto);
+        var dto2 = _sut.CreateDtoFromDtoTemplate(inputDto);
 
         // Assert
         Assert.AreNotSame(dto1, dto2);
@@ -89,7 +89,7 @@ public class AnimalComponentFactoryTests
         var inputDto = new AnimalComponentDto();
 
         // Act
-        var dto = _sut.CreateAnimalComponentDto(inputDto);
+        var dto = _sut.CreateDtoFromDtoTemplate(inputDto);
 
         // Assert
         Assert.IsInstanceOfType(dto, typeof(IAnimalComponentDto));

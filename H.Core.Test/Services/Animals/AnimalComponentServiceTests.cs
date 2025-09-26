@@ -104,7 +104,7 @@ public class AnimalComponentServiceTests
         var expectedCopy = new Mock<IAnimalComponentDto>().Object;
 
         _mockAnimalComponentFactory
-            .Setup(f => f.CreateAnimalComponentDto(originalDto))
+            .Setup(f => f.CreateDtoFromDtoTemplate(originalDto))
             .Returns(expectedCopy);
 
         // Act
@@ -112,6 +112,6 @@ public class AnimalComponentServiceTests
 
         // Assert
         Assert.AreSame(expectedCopy, result);
-        _mockAnimalComponentFactory.Verify(f => f.CreateAnimalComponentDto(originalDto), Times.Once);
+        _mockAnimalComponentFactory.Verify(f => f.CreateDtoFromDtoTemplate(originalDto), Times.Once);
     }
 }

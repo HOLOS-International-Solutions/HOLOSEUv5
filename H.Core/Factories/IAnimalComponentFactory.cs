@@ -1,6 +1,7 @@
-﻿namespace H.Core.Factories;
+﻿using H.Core.Models;
 
-public interface IAnimalComponentFactory
+namespace H.Core.Factories;
+
+public interface IAnimalComponentFactory : IFactory<AnimalComponentDto>
 {
-    IAnimalComponentDto CreateAnimalComponentDto(IAnimalComponentDto animalComponentDto);
 }
