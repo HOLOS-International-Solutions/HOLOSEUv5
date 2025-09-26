@@ -19,6 +19,7 @@ public class CropFactory : ICropFactory
     private readonly IMapper _cropViewItemToDtoMapper;
     private readonly IMapper _cropDtoToDtoMapper;
     private readonly IMapper _cropDtoToViewItemMapper;
+
     private readonly ICropInitializationService _cropInitializationService;
 
     #endregion

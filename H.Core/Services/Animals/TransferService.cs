@@ -9,21 +9,36 @@ using H.Infrastructure;
 
 namespace H.Core.Services.Animals
 {
+    /// <summary>
+    /// Provides functionality to transfer data between domain model objects and their corresponding Data Transfer Objects (DTOs).
+    /// Handles mapping, unit conversion, and property value transformation between internal system models and external-facing DTOs.
+    /// </summary>
+    /// <typeparam name="TModelBase">The type of the domain model, must inherit from ModelBase.</typeparam>
+    /// <typeparam name="TDto">The type of the Data Transfer Object, must implement IDto.</typeparam>
     public class TransferService<TModelBase, TDto> : ITransferService<TModelBase, TDto>
         where TModelBase : ModelBase, new()
         where TDto : IDto, new()
     {
         #region Fields
 
-        private readonly IMapper _modelToDtoMapper;
         private readonly IUnitsOfMeasurementCalculator _unitsOfMeasurementCalculator;
-        private IFactory<TDto> _dtoFactory;
-        private IMapper? _dtoToModelMapper;
+        private readonly IFactory<TDto> _dtoFactory;
+        private readonly IMapper _dtoToModelMapper;
+        private readonly IMapper _modelToDtoMapper;
 
         #endregion
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TransferService{TModelBase, TDto}"/> class.
+        /// Configures mapping and unit conversion between model and DTO types.
+        /// </summary>
+        /// <param name="unitsOfMeasurementCalculator">Calculator for handling unit conversions.</param>
+        /// <param name="dtoFactory">Factory for creating DTO instances.</param>
+        /// <param name="additionalModelToDtoConfig">Optional additional mapping configuration from model to DTO.</param>
+        /// <param name="additionalDtoToModelConfig">Optional additional mapping configuration from DTO to model.</param>
+        /// <exception cref="ArgumentNullException">Thrown if required dependencies are null.</exception>
         public TransferService(IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator, IFactory<TDto> dtoFactory, Action<IMapperConfigurationExpression> additionalModelToDtoConfig = null, Action<IMapperConfigurationExpression> additionalDtoToModelConfig = null)
         {
             if (dtoFactory != null)
@@ -65,6 +80,11 @@ namespace H.Core.Services.Animals
 
         #region Public Methods
 
+        /// <summary>
+        /// Transfers a domain model object to its corresponding DTO, applying property mapping and unit conversion as needed.
+        /// </summary>
+        /// <param name="model">The domain model instance to transfer.</param>
+        /// <returns>A DTO instance with values mapped and converted for external use.</returns>
         public TDto TransferDomainObjectToDto(TModelBase model)
         {
             var dto = new TDto();
@@ -88,6 +108,12 @@ namespace H.Core.Services.Animals
             return dto;
         }
 
+        /// <summary>
+        /// Transfers a DTO to its corresponding domain model object, applying property mapping and unit conversion as needed.
+        /// </summary>
+        /// <param name="dto">The DTO instance to transfer.</param>
+        /// <param name="model">The domain model instance to update.</param>
+        /// <returns>A new domain model instance with values mapped and converted for internal use.</returns>
         public TModelBase TransferDtoToDomainObject(TDto dto, TModelBase model)
         {
             // Create a copy of the DTO since we don't want to change values on the original that is still bound to the GUI
