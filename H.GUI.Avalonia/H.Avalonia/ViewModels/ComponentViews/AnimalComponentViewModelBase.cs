@@ -113,7 +113,7 @@ public abstract class AnimalComponentViewModelBase : ViewModelBase
         if (sender is IAnimalComponentDto dto)
         {
             // A property on the DTO has been changed by the user, assign the new value to the system object after any unit conversion (if necessary)
-            this.AnimalComponentService.TransferAnimalComponentDtoToSystem(dto, _selectedAnimalComponent);
+            this.AnimalComponentService.TransferAnimalComponentDtoToSystem((AnimalComponentDto) dto, _selectedAnimalComponent);
         }
     }
 

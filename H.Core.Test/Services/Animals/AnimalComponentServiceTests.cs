@@ -24,6 +24,7 @@ public class AnimalComponentServiceTests
 
     private AnimalComponentService _service;
     private Mock<IAnimalComponentFactory> _mockAnimalComponentFactory;
+    private Mock<ITransferService<AnimalComponentBase, AnimalComponentDto>> _mockTransferService;
 
     #endregion
 
@@ -43,6 +44,7 @@ public class AnimalComponentServiceTests
     public void TestInitialize()
     {
         _mockAnimalComponentFactory = new Mock<IAnimalComponentFactory>();
+        _mockTransferService = new Mock<ITransferService<AnimalComponentBase, AnimalComponentDto>>();
         var mockLogger = new Mock<ILogger>();
         var mockContainerProvider = new Mock<IContainerProvider>();
 
@@ -51,7 +53,12 @@ public class AnimalComponentServiceTests
             cfg.AddProfile<AnimalComponentDtoToAnimalComponentMapper>();
         }).CreateMapper());
 
-        _service = new AnimalComponentService(mockLogger.Object, mockContainerProvider.Object, _mockAnimalComponentFactory.Object);
+        // Updated constructor to include the transfer service
+        _service = new AnimalComponentService(
+            mockLogger.Object,
+            _mockAnimalComponentFactory.Object,
+            _mockTransferService.Object
+        );
     }
 
     [TestCleanup]
@@ -91,27 +98,5 @@ public class AnimalComponentServiceTests
 
         // Assert
         Assert.IsTrue(mockAnimalComponent.Object.IsInitialized); // Remains true
-    }
-
-    [TestMethod]
-    public void TransferToAnimalComponentDtoToSystem_CallsFactoryAndReturnsCopy()
-    {
-        var originalDto = new Mock<IAnimalComponentDto>().Object;
-        var mockAnimalComponent = new Mock<AnimalComponentBase>();
-        mockAnimalComponent.CallBase = true;
-
-        var animalComponent = mockAnimalComponent.Object;
-        var expectedCopy = new Mock<IAnimalComponentDto>().Object;
-
-        _mockAnimalComponentFactory
-            .Setup(f => f.CreateDtoFromDtoTemplate(originalDto))
-            .Returns(expectedCopy);
-
-        // Act
-        var result = _service.TransferAnimalComponentDtoToSystem(originalDto, animalComponent);
-
-        // Assert
-        Assert.AreSame(expectedCopy, result);
-        _mockAnimalComponentFactory.Verify(f => f.CreateDtoFromDtoTemplate(originalDto), Times.Once);
     }
 }
