@@ -6,34 +6,45 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="H.Avalonia.SelectedCropGeneralTabView">
 
-    <Design.DataContext>
-        <field:FieldComponentViewModelDesign/>
-    </Design.DataContext>
+	<Design.DataContext>
+		<field:FieldComponentViewModelDesign/>
+	</Design.DataContext>
 
-    <StackPanel>
+	<ContentControl Content="{Binding SelectedCropDto}">
+		<ContentControl.ContentTemplate>
+			<DataTemplate>
+				<StackPanel>
+					<Grid VerticalAlignment="Top" HorizontalAlignment="Left">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition MinWidth="160"/>
+							<ColumnDefinition MinWidth="120"/>
+							<ColumnDefinition MinWidth="120"/>
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+						</Grid.RowDefinitions>
 
-        <Grid VerticalAlignment="Top" HorizontalAlignment="Left">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition MinWidth="160"/>
-                <ColumnDefinition MinWidth="120"/>
-                <ColumnDefinition MinWidth="120"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <!-- Add more rows as needed -->
-            </Grid.RowDefinitions>
+						<!-- Yield Row -->
+						<Label Grid.Row="0" Grid.Column="0" Content="Yield (wet weight):" VerticalContentAlignment="Center"/>
+						<NumericUpDown Name="YieldNumericUpDown" Grid.Row="0" Grid.Column="1" Minimum="0" Value="{Binding WetYield}"/>
+						<Label
+    Grid.Row="0"
+    Grid.Column="2"
+    Content="{Binding DataContext.StorageService.Storage.ApplicationData.DisplayUnitStrings.KilogramsPerHectareString, RelativeSource={RelativeSource AncestorType=UserControl}}"
+    VerticalContentAlignment="Center"/>
 
-            <!-- Yield Row -->
-            <Label Grid.Row="0" Grid.Column="0" Content="Yield (wet weight):" VerticalContentAlignment="Center"/>
-            <NumericUpDown Grid.Row="0" Grid.Column="1" Minimum="0" Value="{Binding Path=SelectedCropDto.WetYield}"/>
-            <Label Grid.Row="0" Grid.Column="2" Content="{Binding Path=StorageService.Storage.ApplicationData.DisplayUnitStrings.KilogramsPerHectareString}" VerticalContentAlignment="Center"/>
-
-            <!-- Irrigation Row -->
-            <Label Grid.Row="1" Grid.Column="0" Content="Amount of irrigation:" VerticalContentAlignment="Center"/>
-            <NumericUpDown Grid.Row="1" Grid.Column="1" Minimum="0" Value="{Binding Path=SelectedCropDto.AmountOfIrrigation}"/>
-            <Label Grid.Row="1" Grid.Column="2" Content="{Binding Path=StorageService.Storage.ApplicationData.DisplayUnitStrings.MillimetersPerHectareString}" VerticalContentAlignment="Center"/>
-        </Grid>
-
-    </StackPanel>
+						<!-- Irrigation Row -->
+						<Label Grid.Row="1" Grid.Column="0" Content="Amount of irrigation:" VerticalContentAlignment="Center"/>
+						<NumericUpDown Name="IrrigationNumericUpDown" Grid.Row="1" Grid.Column="1" Minimum="0" Value="{Binding AmountOfIrrigation}"/>
+						<Label
+    Grid.Row="1"
+    Grid.Column="2"
+    Content="{Binding DataContext.StorageService.Storage.ApplicationData.DisplayUnitStrings.MillimetersPerHectareString, RelativeSource={RelativeSource AncestorType=UserControl}}"
+    VerticalContentAlignment="Center"/>
+					</Grid>
+				</StackPanel>
+			</DataTemplate>
+		</ContentControl.ContentTemplate>
+	</ContentControl>
 </UserControl>

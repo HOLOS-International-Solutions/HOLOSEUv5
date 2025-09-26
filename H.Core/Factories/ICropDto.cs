@@ -33,7 +33,6 @@ public interface ICropDto : IDto
     /// </summary>
     double AmountOfIrrigation { get; set; }
 
-
     /// <summary>
     /// Total wet weight yield of the crop
     ///

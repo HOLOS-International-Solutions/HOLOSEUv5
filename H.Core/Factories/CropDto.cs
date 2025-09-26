@@ -31,6 +31,8 @@ public class CropDto : DtoBase, ICropDto
         this.ValidCropTypes = new ObservableCollection<CropType>() { CropType.NotSelected, CropType.Oats, CropType.Wheat, CropType.Barley };
         this.CropType = this.ValidCropTypes.ElementAt(0);
         this.Year = DateTime.Now.Year;
+        this.AmountOfIrrigation = 0;
+        this.WetYield = 0;
 
         this.PropertyChanged += OnPropertyChanged;
     }

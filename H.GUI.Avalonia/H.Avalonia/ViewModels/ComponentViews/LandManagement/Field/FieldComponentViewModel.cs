@@ -60,14 +60,19 @@ public class FieldComponentViewModel : ViewModelBase
     /// </summary>
     private readonly ILogger _logger;
 
-    private ICropFactory _cropFactory;
+    private readonly ICropFactory _cropFactory;
 
     #endregion
 
     #region Constructors
 
+    private void Construct()
+    {
+    }
+
     public FieldComponentViewModel()
     {
+        this.Construct();
     }
 
     public FieldComponentViewModel(
@@ -104,6 +109,8 @@ public class FieldComponentViewModel : ViewModelBase
         {
             throw new ArgumentNullException(nameof(fieldComponentService));
         }
+
+        this.Construct();
 
         this.AddCropCommand = new DelegateCommand<object>(OnAddCropExecute, AddCropCanExecute);
         this.RemoveCropCommand = new DelegateCommand<object>(OnRemoveCropExecute, RemoveCropCanExecute);
