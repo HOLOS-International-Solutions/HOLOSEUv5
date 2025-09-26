@@ -25,12 +25,12 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
 
         public OtherAnimalsViewModelBase()
         {
+            this.Construct();
         }
 
         public OtherAnimalsViewModelBase(ILogger logger, IAnimalComponentService animalComponentService, IStorageService storageService, IManagementPeriodService managementPeriodService) : base(animalComponentService, logger, storageService, managementPeriodService)
         {
-            ManagementPeriodDtos = new ObservableCollection<ManagementPeriodDto>();
-            Groups = new ObservableCollection<AnimalGroup>();
+this.Construct();
         }
 
         #endregion
@@ -95,6 +95,12 @@ namespace H.Avalonia.ViewModels.ComponentViews.OtherAnimals
         #endregion
 
         #region Private Methods
+
+        private void Construct()
+        {
+            ManagementPeriodDtos = new ObservableCollection<ManagementPeriodDto>();
+            Groups = new ObservableCollection<AnimalGroup>();
+        }
 
         #endregion
     }
