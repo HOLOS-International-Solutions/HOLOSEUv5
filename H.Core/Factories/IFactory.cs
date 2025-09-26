@@ -4,6 +4,6 @@ namespace H.Core.Factories;
 
 public interface IFactory<T>
 {
-    T Create(Farm farm);
-    IDto CreateFromTemplate(IDto template);
+    T CreateDto(Farm farm);
+    IDto CreateDtoFromDtoTemplate(IDto template);
 }

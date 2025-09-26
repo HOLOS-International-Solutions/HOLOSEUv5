@@ -49,10 +49,10 @@ namespace H.Core.Test.Services.Animals
                 .Returns(MeasurementSystemType.Metric);
 
             _mockCropDtoFactory = new Mock<IFactory<CropDto>>();
-            _mockCropDtoFactory.Setup(f => f.Create(It.IsAny<Farm>())).Returns(new CropDto());
+            _mockCropDtoFactory.Setup(f => f.CreateDto(It.IsAny<Farm>())).Returns(new CropDto());
 
             _mockTestDtoFactory = new Mock<IFactory<TestDto>>();
-            _mockTestDtoFactory.Setup(f => f.Create(It.IsAny<Farm>())).Returns(new TestDto());
+            _mockTestDtoFactory.Setup(f => f.CreateDto(It.IsAny<Farm>())).Returns(new TestDto());
         }
 
         #endregion

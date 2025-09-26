@@ -18,10 +18,8 @@ public class FieldComponentService : ComponentServiceBase, IFieldComponentServic
 {
     #region Fields
     
-    private readonly IFieldComponentDtoFactory _fieldComponentDtoFactory;
+    private readonly IFieldFactory _fieldFactory;
     private readonly ICropFactory _cropFactory;
-
-    private readonly IMapper _fieldDtoToComponentMapper;
 
     private readonly ITransferService<CropViewItem, CropDto> _cropTransferService;
     private readonly ITransferService<FieldSystemComponent, FieldSystemComponentDto> _fieldTransferService;
@@ -30,7 +28,7 @@ public class FieldComponentService : ComponentServiceBase, IFieldComponentServic
 
     #region Constructors
 
-    public FieldComponentService(IFieldComponentDtoFactory fieldComponentDtoFactory, ICropFactory cropFactory, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator, IContainerProvider containerProvider, ILogger logger, ITransferService<CropViewItem, CropDto> cropTransferService, ITransferService<FieldSystemComponent, FieldSystemComponentDto> fieldTransferService) : base(logger, containerProvider, unitsOfMeasurementCalculator)
+    public FieldComponentService(IFieldFactory fieldFactory, ICropFactory cropFactory, ILogger logger, ITransferService<CropViewItem, CropDto> cropTransferService, ITransferService<FieldSystemComponent, FieldSystemComponentDto> fieldTransferService) : base(logger)
     {
         if (fieldTransferService != null)
         {
@@ -59,16 +57,14 @@ public class FieldComponentService : ComponentServiceBase, IFieldComponentServic
             throw new ArgumentNullException(nameof(cropFactory));
         }
 
-        if (fieldComponentDtoFactory != null)
+        if (fieldFactory != null)
         {
-            _fieldComponentDtoFactory = fieldComponentDtoFactory;
+            _fieldFactory = fieldFactory;
         }
         else
         {
-            throw new ArgumentNullException(nameof(fieldComponentDtoFactory));
+            throw new ArgumentNullException(nameof(fieldFactory));
         }
-
-        _fieldDtoToComponentMapper = base.ContainerProvider.Resolve<IMapper>(nameof(FieldDtoToFieldComponentMapper));
     }
 
     #endregion
@@ -123,22 +119,22 @@ public class FieldComponentService : ComponentServiceBase, IFieldComponentServic
     }
 
 
-    public IFieldComponentDto Create(FieldSystemComponent template)
-    {
-        IFieldComponentDto fieldDto;
+    //public IFieldComponentDto Create(FieldSystemComponent template)
+    //{
+    //    IFieldComponentDto fieldDto;
 
-        if (template.IsInitialized)
-        {
-            fieldDto = TransferToFieldComponentDto(template: template);
-        }
-        else
-        {
-            fieldDto = _fieldComponentDtoFactory.Create();
-            template.IsInitialized = true;
-        }
+    //    if (template.IsInitialized)
+    //    {
+    //        fieldDto = TransferToFieldComponentDto(template: template);
+    //    }
+    //    else
+    //    {
+    //        fieldDto = _fieldFactory.CreateDto();
+    //        template.IsInitialized = true;
+    //    }
 
-        return fieldDto;
-    }
+    //    return fieldDto;
+    //}
 
     public ICropDto TransferCropViewItemToCropDto(CropViewItem cropViewItem)
     {
@@ -154,27 +150,6 @@ public class FieldComponentService : ComponentServiceBase, IFieldComponentServic
         FieldSystemComponent fieldSystemComponent)
     {
         return _fieldTransferService.TransferDtoToDomainObject(fieldComponentDto, fieldSystemComponent);
-
-        // Create a copy of the DTO since we don't want to change values on the original that is still bound to the GUI
-        var copy = _fieldComponentDtoFactory.CreateFieldDto(fieldComponentDto);
-
-        // All numerical values are stored internally as metric values
-        var fieldComponentDtoPropertyConverter = new PropertyConverter<IFieldComponentDto>(copy);
-
-        // Get all properties that might need to be converted
-        foreach (var property in fieldComponentDtoPropertyConverter.PropertyInfos)
-        {
-            // Convert the value from imperial to metric as needed (no conversion will occur if display is using metric)
-            var bindingValue = fieldComponentDtoPropertyConverter.GetSystemValueFromBinding(property, base.UnitsOfMeasurementCalculator.GetUnitsOfMeasurement());
-
-            // Set the value on the copy of the DTO
-            property.SetValue(copy, bindingValue);
-        }
-
-        // Map values from the copy of the DTO to the internal system object
-        _fieldDtoToComponentMapper.Map(copy, fieldSystemComponent);
-
-        return fieldSystemComponent;
     }
 
     public IFieldComponentDto TransferToFieldComponentDto(FieldSystemComponent template)
@@ -237,7 +212,7 @@ public class FieldComponentService : ComponentServiceBase, IFieldComponentServic
 
     public CropDto Create(Farm farm)
     {
-        return _cropFactory.Create(farm);
+        return _cropFactory.CreateDto(farm);
     }
 
     #endregion

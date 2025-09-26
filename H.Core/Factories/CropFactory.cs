@@ -45,7 +45,7 @@ public class CropFactory : ICropFactory
 
     #region Public Methods
 
-    public CropDto Create(Farm farm)
+    public CropDto CreateDto(Farm farm)
     {
         var cropViewItem = new CropViewItem();
 
@@ -60,7 +60,7 @@ public class CropFactory : ICropFactory
         return dto;
     }
 
-    public IDto CreateFromTemplate(IDto template)
+    public IDto CreateDtoFromDtoTemplate(IDto template)
     {
         var cropDto = new CropDto();
 

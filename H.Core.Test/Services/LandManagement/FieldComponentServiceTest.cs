@@ -20,7 +20,7 @@ public class FieldComponentServiceTest
 
     private IFieldComponentService _fieldComponentService;
     
-    private Mock<IFieldComponentDtoFactory> _mockFieldComponentDtoFactory;
+    private Mock<IFieldFactory> _mockFieldComponentDtoFactory;
     private Mock<ICropFactory> _mockCropFactory;
     private Mock<IUnitsOfMeasurementCalculator> _mockUnitsOfMeasurementCalculator;
     private Mock<ITransferService<CropViewItem, CropDto>> _mockCropTransferService;
@@ -43,7 +43,7 @@ public class FieldComponentServiceTest
     [TestInitialize]
     public void TestInitialize()
     {
-        _mockFieldComponentDtoFactory = new Mock<IFieldComponentDtoFactory>();
+        _mockFieldComponentDtoFactory = new Mock<IFieldFactory>();
         _mockCropFactory = new Mock<ICropFactory>();
         _mockUnitsOfMeasurementCalculator = new Mock<IUnitsOfMeasurementCalculator>();
         _mockCropTransferService = new Mock<ITransferService<CropViewItem, CropDto>>();
@@ -85,8 +85,6 @@ public class FieldComponentServiceTest
         _fieldComponentService = new FieldComponentService(
             _mockFieldComponentDtoFactory.Object,
             _mockCropFactory.Object,
-            _mockUnitsOfMeasurementCalculator.Object,
-            mockContainerProvider.Object,
             mockLogger.Object,
             _mockCropTransferService.Object,
             _mockFieldTransferService.Object
@@ -180,7 +178,7 @@ public class FieldComponentServiceTest
 
         var dto = new CropDto() { Guid = guid, AmountOfIrrigation = 200 };
 
-        _mockCropFactory.Setup(x => x.CreateFromTemplate(It.IsAny<ICropDto>())).Returns(dto);
+        _mockCropFactory.Setup(x => x.CreateDtoFromDtoTemplate(It.IsAny<ICropDto>())).Returns(dto);
 
         var fieldComponent = new FieldSystemComponent()
         {

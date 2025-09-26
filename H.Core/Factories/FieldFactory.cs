@@ -12,44 +12,22 @@ namespace H.Core.Factories;
 /// <summary>
 /// A class used to create new <see cref="FieldSystemComponentDto"/> instances. The class will provide basic initialization of a new instance before returning the result to the caller.
 /// </summary>
-public class FieldComponentDtoFactory : IFieldComponentDtoFactory
+public class FieldFactory : IFieldFactory
 {
     #region Fields
 
     private readonly IMapper _fieldComponentToDtoMapper;
     private readonly IMapper _fieldDtoToDtoMapper;
 
-    private readonly ICropFactory _cropFactory;
-    private PropertyConverter<IFieldComponentDto> _fieldComponentDtoPropertyConverter;
-    private readonly IUnitsOfMeasurementCalculator _unitsOfMeasurementCalculator;
-
     #endregion
 
     #region Constructors
 
-    public FieldComponentDtoFactory(ICropFactory cropFactory, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator, IContainerProvider containerProvider)
+    public FieldFactory(IContainerProvider containerProvider)
     {
         if (containerProvider == null)
         {
             throw new ArgumentNullException(nameof(containerProvider));
-        }
-
-        if (unitsOfMeasurementCalculator != null)
-        {
-            _unitsOfMeasurementCalculator = unitsOfMeasurementCalculator;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(unitsOfMeasurementCalculator));
-        }
-
-        if (cropFactory != null)
-        {
-            _cropFactory = cropFactory;
-        }
-        else
-        {
-            throw new ArgumentNullException(nameof(cropFactory));
         }
 
         _fieldComponentToDtoMapper = containerProvider.Resolve<IMapper>(nameof(FieldComponentToDtoMapper));
@@ -60,6 +38,15 @@ public class FieldComponentDtoFactory : IFieldComponentDtoFactory
 
     #region Public Methods
 
+    public IDto CreateDtoFromDtoTemplate(IDto template)
+    {
+        var fieldComponentDto = new FieldSystemComponentDto();
+
+        _fieldDtoToDtoMapper.Map(template, fieldComponentDto);
+
+        return fieldComponentDto;
+    }
+
     /// <summary>
     /// Create a new instance with no additional configuration to a default instance.
     /// </summary>
@@ -68,7 +55,7 @@ public class FieldComponentDtoFactory : IFieldComponentDtoFactory
         return new FieldSystemComponentDto();
     }
 
-    public FieldSystemComponentDto Create(Farm farm)
+    public FieldSystemComponentDto CreateDto(Farm farm)
     {
         return new FieldSystemComponentDto();
     }
@@ -87,15 +74,4 @@ public class FieldComponentDtoFactory : IFieldComponentDtoFactory
     #region Private Methods
 
     #endregion
-
-
-
-    public IDto CreateFromTemplate(IDto template)
-    {
-        var fieldComponentDto = new FieldSystemComponentDto();
-
-        _fieldDtoToDtoMapper.Map(template, fieldComponentDto);
-
-        return fieldComponentDto;
-    }
 }

@@ -230,14 +230,16 @@ namespace H.Avalonia
             containerRegistry.RegisterDialog<DeleteRowDialog, DeleteRowDialogViewModel>();
 
             // Factories
-            containerRegistry.RegisterSingleton<IFieldComponentDtoFactory, FieldComponentDtoFactory>();
             containerRegistry.RegisterSingleton<IDietFactory, DietFactory>();
             containerRegistry.RegisterSingleton<IFarmFactory, FarmFactory>();
             containerRegistry.RegisterSingleton<IAnimalComponentFactory, AnimalComponentFactory>();
             containerRegistry.RegisterSingleton<IManagementPeriodFactory, ManagementPeriodFactory>();
+
             containerRegistry.Register(typeof(IFactory<CropDto>), typeof(CropFactory));
+            containerRegistry.Register(typeof(IFactory<FieldSystemComponentDto>), typeof(FieldFactory));
+
             containerRegistry.Register(typeof(ICropFactory), typeof(CropFactory));
-            containerRegistry.Register(typeof(IFieldComponentDtoFactory), typeof(FieldComponentDtoFactory));
+            containerRegistry.Register(typeof(IFieldFactory), typeof(FieldFactory));
 
             // Tables
             containerRegistry.RegisterSingleton<ITable50FuelEnergyEstimatesProvider, Table50FuelEnergyEstimatesProvider>();

@@ -91,7 +91,7 @@ namespace H.Core.Services.Animals
         public TModelBase TransferDtoToDomainObject(TDto dto, TModelBase model)
         {
             // Create a copy of the DTO since we don't want to change values on the original that is still bound to the GUI
-            var copy = _dtoFactory.CreateFromTemplate(dto);
+            var copy = _dtoFactory.CreateDtoFromDtoTemplate(dto);
 
             // All numerical values are stored internally as metric values
             var propertyConverter = new PropertyConverter<IDto>(copy);

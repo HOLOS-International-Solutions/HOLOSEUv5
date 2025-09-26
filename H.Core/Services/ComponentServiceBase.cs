@@ -45,6 +45,39 @@ public abstract class ComponentServiceBase : IComponentService
         }
     }
 
+    protected ComponentServiceBase(ILogger logger, IContainerProvider containerProvider)
+    {
+        if (containerProvider != null)
+        {
+            ContainerProvider = containerProvider;
+        }
+        else
+        {
+            throw new ArgumentNullException(nameof(containerProvider));
+        }
+
+        if (logger != null)
+        {
+            Logger = logger;
+        }
+        else
+        {
+            throw new ArgumentNullException(nameof(logger));
+        }
+    }
+
+    protected ComponentServiceBase(ILogger logger)
+    {
+        if (logger != null)
+        {
+            Logger = logger;
+        }
+        else
+        {
+            throw new ArgumentNullException(nameof(logger));
+        }
+    }
+
     #region Public Methods
     
     public string GetUniqueComponentName(Farm farm, ComponentBase component)

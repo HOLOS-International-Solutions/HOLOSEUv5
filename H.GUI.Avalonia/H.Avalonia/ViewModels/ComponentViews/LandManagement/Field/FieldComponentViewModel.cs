@@ -315,7 +315,7 @@ public class FieldComponentViewModel : ViewModelBase
     /// </summary>
     private void AddCropDto()
     {
-        CropDto dto = _cropFactory.Create(base.ActiveFarm);
+        CropDto dto = _cropFactory.CreateDto(base.ActiveFarm);
         _fieldComponentService.InitializeCropDto(this.SelectedFieldSystemComponentDto, dto);
 
         // Use this as the new selected instance
