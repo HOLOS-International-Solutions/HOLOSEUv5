@@ -118,7 +118,6 @@ public class FieldComponentService : ComponentServiceBase, IFieldComponentServic
         }
     }
 
-
     //public IFieldComponentDto Create(FieldSystemComponent template)
     //{
     //    IFieldComponentDto fieldDto;
@@ -208,11 +207,6 @@ public class FieldComponentService : ComponentServiceBase, IFieldComponentServic
     public CropViewItem GetCropViewItemFromDto(ICropDto cropDto, FieldSystemComponent fieldSystemComponent)
     {
         return fieldSystemComponent.CropViewItems.SingleOrDefault(x => x.Guid.Equals(cropDto.Guid));
-    }
-
-    public CropDto Create(Farm farm)
-    {
-        return _cropFactory.CreateDto(farm);
     }
 
     #endregion

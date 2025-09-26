@@ -45,14 +45,13 @@ public class AnimalComponentServiceTests
         _mockAnimalComponentFactory = new Mock<IAnimalComponentFactory>();
         var mockLogger = new Mock<ILogger>();
         var mockContainerProvider = new Mock<IContainerProvider>();
-        var mockUnitsOfMeasurementCalculator = new Mock<IUnitsOfMeasurementCalculator>();
 
         mockContainerProvider.Setup(x => x.Resolve(typeof(IMapper), It.IsAny<string>())).Returns(new MapperConfiguration(cfg =>
         {
             cfg.AddProfile<AnimalComponentDtoToAnimalComponentMapper>();
         }).CreateMapper());
 
-        _service = new AnimalComponentService(mockLogger.Object, mockContainerProvider.Object, _mockAnimalComponentFactory.Object, mockUnitsOfMeasurementCalculator.Object);
+        _service = new AnimalComponentService(mockLogger.Object, mockContainerProvider.Object, _mockAnimalComponentFactory.Object);
     }
 
     [TestCleanup]

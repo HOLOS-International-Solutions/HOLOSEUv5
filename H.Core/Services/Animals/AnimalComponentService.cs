@@ -23,7 +23,7 @@ public class AnimalComponentService : ComponentServiceBase, IAnimalComponentServ
 
     #region Constructors
 
-    public AnimalComponentService(ILogger logger, IContainerProvider containerProvider, IAnimalComponentFactory animalComponentFactory, IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator) : base(logger, containerProvider, unitsOfMeasurementCalculator)
+    public AnimalComponentService(ILogger logger, IContainerProvider containerProvider, IAnimalComponentFactory animalComponentFactory) : base(logger, containerProvider)
     {
         if (animalComponentFactory != null)
         {
