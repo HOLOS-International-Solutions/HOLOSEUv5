@@ -18707,7 +18707,7 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Biomass Coefficient Product (R_p):.
+        ///   Looks up a localized string similar to Biomass Coefficient Product:.
         /// </summary>
         public static string LabelBiomassCoefficientProduct {
             get {
@@ -18716,7 +18716,7 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Biomass Coefficient Straw (R_s):.
+        ///   Looks up a localized string similar to Biomass Coefficient Straw:.
         /// </summary>
         public static string LabelBiomassCoefficientStraw {
             get {
@@ -18725,7 +18725,7 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Biomass Coefficient Roots (R_r):.
+        ///   Looks up a localized string similar to Biomass Coefficient Roots:.
         /// </summary>
         public static string LabelBiomassCoefficientRoots {
             get {
@@ -18734,7 +18734,7 @@ namespace H.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Biomass Coefficient Extraroots (R_e):.
+        ///   Looks up a localized string similar to Biomass Coefficient Extraroots:.
         /// </summary>
         public static string LabelBiomassCoefficientExtraroots {
             get {
