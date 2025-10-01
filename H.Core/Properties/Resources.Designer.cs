@@ -18750,5 +18750,32 @@ namespace H.Core.Properties {
                 return ResourceManager.GetString("LabelUnitless", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General.
+        /// </summary>
+        public static string TabHeaderGeneral {
+            get {
+                return ResourceManager.GetString("TabHeaderGeneral", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Residues.
+        /// </summary>
+        public static string TabHeaderResidues {
+            get {
+                return ResourceManager.GetString("TabHeaderResidues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fertilizer.
+        /// </summary>
+        public static string TabHeaderFertilizer {
+            get {
+                return ResourceManager.GetString("TabHeaderFertilizer", resourceCulture);
+            }
+        }
     }
 }

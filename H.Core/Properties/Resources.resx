@@ -6375,4 +6375,13 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="LabelUnitless" xml:space="preserve">
     <value>(unitless)</value>
   </data>
+  <data name="TabHeaderGeneral" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="TabHeaderResidues" xml:space="preserve">
+    <value>Residues</value>
+  </data>
+  <data name="TabHeaderFertilizer" xml:space="preserve">
+    <value>Fertilizer</value>
+  </data>
 </root>
