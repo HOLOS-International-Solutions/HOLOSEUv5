@@ -144,4 +144,17 @@
 				</DataTemplate>
 			</Setter>
 		</Style>
+
+	<!-- Label Styles -->
+	<!-- Style for labels that appear before input boxes -->
+	<Style Selector="Label.input-label">
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="MinWidth" Value="220"/>
+	</Style>
+	
+	<!-- Style for unit labels -->
+	<Style Selector="Label.unit-label">
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="MinWidth" Value="120"/>
+	</Style>
 </Styles>

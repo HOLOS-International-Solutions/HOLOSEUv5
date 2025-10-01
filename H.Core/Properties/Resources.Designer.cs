@@ -18705,5 +18705,77 @@ namespace H.Core.Properties {
                 return ResourceManager.GetString("LabelMethaneConversionFactor", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Biomass Coefficient Product:.
+        /// </summary>
+        public static string LabelBiomassCoefficientProduct {
+            get {
+                return ResourceManager.GetString("LabelBiomassCoefficientProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Biomass Coefficient Straw:.
+        /// </summary>
+        public static string LabelBiomassCoefficientStraw {
+            get {
+                return ResourceManager.GetString("LabelBiomassCoefficientStraw", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Biomass Coefficient Roots:.
+        /// </summary>
+        public static string LabelBiomassCoefficientRoots {
+            get {
+                return ResourceManager.GetString("LabelBiomassCoefficientRoots", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Biomass Coefficient Extraroots:.
+        /// </summary>
+        public static string LabelBiomassCoefficientExtraroots {
+            get {
+                return ResourceManager.GetString("LabelBiomassCoefficientExtraroots", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (unitless).
+        /// </summary>
+        public static string LabelUnitless {
+            get {
+                return ResourceManager.GetString("LabelUnitless", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General.
+        /// </summary>
+        public static string TabHeaderGeneral {
+            get {
+                return ResourceManager.GetString("TabHeaderGeneral", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Residues.
+        /// </summary>
+        public static string TabHeaderResidues {
+            get {
+                return ResourceManager.GetString("TabHeaderResidues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fertilizer.
+        /// </summary>
+        public static string TabHeaderFertilizer {
+            get {
+                return ResourceManager.GetString("TabHeaderFertilizer", resourceCulture);
+            }
+        }
     }
 }
