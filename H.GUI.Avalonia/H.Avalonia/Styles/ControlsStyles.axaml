@@ -144,4 +144,17 @@
 				</DataTemplate>
 			</Setter>
 		</Style>
+
+	<!-- Label Styles -->
+	<!-- Style for biomass coefficient field labels -->
+	<Style Selector="Label.biomass-coefficient-label">
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="MinWidth" Value="220"/>
+	</Style>
+	
+	<!-- Style for unit labels -->
+	<Style Selector="Label.unit-label">
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="MinWidth" Value="120"/>
+	</Style>
 </Styles>
