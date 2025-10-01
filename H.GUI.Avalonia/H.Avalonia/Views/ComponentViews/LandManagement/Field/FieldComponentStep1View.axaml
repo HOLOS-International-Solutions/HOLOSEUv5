@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:field="clr-namespace:H.Avalonia.ViewModels.ComponentViews.LandManagement.Field"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="H.Avalonia.Views.ComponentViews.LandManagement.Field.FieldComponentStep1View">
+
+    <Design.DataContext>
+        <field:FieldComponentViewModelDesign/>
+    </Design.DataContext>
+
+    <Grid HorizontalAlignment="Left">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth="120"/>
+            <ColumnDefinition MinWidth="120"/>
+            <ColumnDefinition MinWidth="100"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Column="0" Content="Field size:" VerticalContentAlignment="Center"/>
+        <NumericUpDown Grid.Column="1" Minimum="0" Value="{Binding Path=SelectedFieldSystemComponentDto.FieldArea}"></NumericUpDown>
+        <Label Grid.Column="2" Content="{Binding Path=StorageService.Storage.ApplicationData.DisplayUnitStrings.HectaresString}" VerticalContentAlignment="Center"/>
+    </Grid>
+</UserControl>
