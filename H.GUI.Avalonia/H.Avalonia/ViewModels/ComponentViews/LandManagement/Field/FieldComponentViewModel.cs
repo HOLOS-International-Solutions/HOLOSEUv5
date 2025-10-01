@@ -10,6 +10,7 @@ using H.Avalonia.Views.ComponentViews.LandManagement.Field;
 using H.Core.Calculators.UnitsOfMeasurement;
 using H.Core.Enumerations;
 using H.Core.Factories;
+using H.Core.Factories.Crops;
 using H.Core.Models;
 using H.Core.Models.LandManagement.Fields;
 using H.Core.Providers.Plants;

@@ -65,6 +65,7 @@ using Prism.Regions;
 using System;
 using System.Text.RegularExpressions;
 using System.Threading;
+using H.Core.Factories.Crops;
 using ClimateResultsView = H.Avalonia.Views.ResultViews.ClimateResultsView;
 using KmlHelpers = H.Avalonia.Infrastructure.KmlHelpers;
 using SoilResultsView = H.Avalonia.Views.ResultViews.SoilResultsView;

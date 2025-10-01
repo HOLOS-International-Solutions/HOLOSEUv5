@@ -9,6 +9,7 @@ using H.Core.Services.LandManagement.Fields;
 using Moq;
 using Prism.Ioc;
 using System.Collections.ObjectModel;
+using H.Core.Factories.Crops;
 using Microsoft.Extensions.Logging;
 
 namespace H.Core.Test.Services.LandManagement;

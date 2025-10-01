@@ -4,10 +4,9 @@ using H.Core.Mappers;
 using H.Core.Models;
 using H.Core.Models.LandManagement.Fields;
 using H.Core.Services.Initialization;
-using H.Infrastructure;
 using Prism.Ioc;
 
-namespace H.Core.Factories;
+namespace H.Core.Factories.Crops;
 
 /// <summary>
 /// A class used to create new <see cref="CropDto"/> and <see cref="CropViewItem"/> instances. The class will provide basic initialization of a new instance before returning the result to the caller.

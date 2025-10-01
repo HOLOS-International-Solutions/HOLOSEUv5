@@ -1,7 +1,6 @@
-﻿using H.Core.Models;
-using H.Core.Models.LandManagement.Fields;
+﻿using H.Core.Models.LandManagement.Fields;
 
-namespace H.Core.Factories;
+namespace H.Core.Factories.Crops;
 
 public interface ICropFactory : IFactory<CropDto>
 {

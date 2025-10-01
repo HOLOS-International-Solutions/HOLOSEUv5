@@ -2,17 +2,15 @@
 using System.ComponentModel;
 using H.Core.CustomAttributes;
 using H.Core.Enumerations;
-using H.Core.Models;
 using H.Core.Models.LandManagement.Fields;
-using Prism.Mvvm;
 
-namespace H.Core.Factories;
+namespace H.Core.Factories.Crops;
 
 /// <summary>
 /// A class used to validate input as it relates to a <see cref="CropViewItem"/>. This class is used to valid input before any input
 /// is transferred to the <see cref="CropViewItem"/>
 /// </summary>
-public class CropDto : DtoBase, ICropDto
+public partial class CropDto : DtoBase, ICropDto
 {
     #region Fields
 

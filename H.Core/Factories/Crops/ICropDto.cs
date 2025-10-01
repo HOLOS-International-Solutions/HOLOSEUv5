@@ -1,10 +1,8 @@
 ﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using H.Core.CustomAttributes;
 using H.Core.Enumerations;
 using H.Core.Models.LandManagement.Fields;
 
-namespace H.Core.Factories;
+namespace H.Core.Factories.Crops;
 
 /// <summary>
 /// A data transfer object used to validate and collection information about a <see cref="CropViewItem"/>
