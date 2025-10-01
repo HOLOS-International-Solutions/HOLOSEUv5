@@ -146,8 +146,8 @@
 		</Style>
 
 	<!-- Label Styles -->
-	<!-- Style for field labels (left column labels in forms) -->
-	<Style Selector="Label.field-label">
+	<!-- Style for labels that appear before input boxes -->
+	<Style Selector="Label.input-label">
 		<Setter Property="VerticalContentAlignment" Value="Center"/>
 		<Setter Property="MinWidth" Value="220"/>
 	</Style>

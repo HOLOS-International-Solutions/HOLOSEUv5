@@ -29,22 +29,22 @@
 						</Grid.RowDefinitions>
 
 						<!-- Biomass Coefficient Product Row -->
-						<Label Grid.Row="0" Grid.Column="0" Classes="field-label" Content="{x:Static properties:Resources.LabelBiomassCoefficientProduct}"/>
+						<Label Grid.Row="0" Grid.Column="0" Classes="input-label" Content="{x:Static properties:Resources.LabelBiomassCoefficientProduct}"/>
 						<NumericUpDown Name="BiomassCoefficientProductNumericUpDown" Grid.Row="0" Grid.Column="1" Minimum="0" Value="{Binding BiomassCoefficientProduct}"/>
 						<Label Grid.Row="0" Grid.Column="2" Classes="unit-label" Content="{x:Static properties:Resources.LabelUnitless}"/>
 
 						<!-- Biomass Coefficient Straw Row -->
-						<Label Grid.Row="1" Grid.Column="0" Classes="field-label" Content="{x:Static properties:Resources.LabelBiomassCoefficientStraw}"/>
+						<Label Grid.Row="1" Grid.Column="0" Classes="input-label" Content="{x:Static properties:Resources.LabelBiomassCoefficientStraw}"/>
 						<NumericUpDown Name="BiomassCoefficientStrawNumericUpDown" Grid.Row="1" Grid.Column="1" Minimum="0" Value="{Binding BiomassCoefficientStraw}"/>
 						<Label Grid.Row="1" Grid.Column="2" Classes="unit-label" Content="{x:Static properties:Resources.LabelUnitless}"/>
 
 						<!-- Biomass Coefficient Roots Row -->
-						<Label Grid.Row="2" Grid.Column="0" Classes="field-label" Content="{x:Static properties:Resources.LabelBiomassCoefficientRoots}"/>
+						<Label Grid.Row="2" Grid.Column="0" Classes="input-label" Content="{x:Static properties:Resources.LabelBiomassCoefficientRoots}"/>
 						<NumericUpDown Name="BiomassCoefficientRootsNumericUpDown" Grid.Row="2" Grid.Column="1" Minimum="0" Value="{Binding BiomassCoefficientRoots}"/>
 						<Label Grid.Row="2" Grid.Column="2" Classes="unit-label" Content="{x:Static properties:Resources.LabelUnitless}"/>
 
 						<!-- Biomass Coefficient Extraroots Row -->
-						<Label Grid.Row="3" Grid.Column="0" Classes="field-label" Content="{x:Static properties:Resources.LabelBiomassCoefficientExtraroots}"/>
+						<Label Grid.Row="3" Grid.Column="0" Classes="input-label" Content="{x:Static properties:Resources.LabelBiomassCoefficientExtraroots}"/>
 						<NumericUpDown Name="BiomassCoefficientExtrarootsNumericUpDown" Grid.Row="3" Grid.Column="1" Minimum="0" Value="{Binding BiomassCoefficientExtraroots}"/>
 						<Label Grid.Row="3" Grid.Column="2" Classes="unit-label" Content="{x:Static properties:Resources.LabelUnitless}"/>
 					</Grid>
