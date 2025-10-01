@@ -146,8 +146,8 @@
 		</Style>
 
 	<!-- Label Styles -->
-	<!-- Style for biomass coefficient field labels -->
-	<Style Selector="Label.biomass-coefficient-label">
+	<!-- Style for field labels (left column labels in forms) -->
+	<Style Selector="Label.field-label">
 		<Setter Property="VerticalContentAlignment" Value="Center"/>
 		<Setter Property="MinWidth" Value="220"/>
 	</Style>
