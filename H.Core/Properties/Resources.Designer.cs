@@ -18705,5 +18705,50 @@ namespace H.Core.Properties {
                 return ResourceManager.GetString("LabelMethaneConversionFactor", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Biomass Coefficient Product (R_p):.
+        /// </summary>
+        public static string LabelBiomassCoefficientProduct {
+            get {
+                return ResourceManager.GetString("LabelBiomassCoefficientProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Biomass Coefficient Straw (R_s):.
+        /// </summary>
+        public static string LabelBiomassCoefficientStraw {
+            get {
+                return ResourceManager.GetString("LabelBiomassCoefficientStraw", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Biomass Coefficient Roots (R_r):.
+        /// </summary>
+        public static string LabelBiomassCoefficientRoots {
+            get {
+                return ResourceManager.GetString("LabelBiomassCoefficientRoots", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Biomass Coefficient Extraroots (R_e):.
+        /// </summary>
+        public static string LabelBiomassCoefficientExtraroots {
+            get {
+                return ResourceManager.GetString("LabelBiomassCoefficientExtraroots", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (unitless).
+        /// </summary>
+        public static string LabelUnitless {
+            get {
+                return ResourceManager.GetString("LabelUnitless", resourceCulture);
+            }
+        }
     }
 }

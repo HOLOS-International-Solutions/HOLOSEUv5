@@ -6360,4 +6360,19 @@ Please note: emissions related to the deposition or application of livestock man
   <data name="LabelMethaneConversionFactor" xml:space="preserve">
     <value>Methane Conversion Factor</value>
   </data>
+  <data name="LabelBiomassCoefficientProduct" xml:space="preserve">
+    <value>Biomass Coefficient Product (R_p):</value>
+  </data>
+  <data name="LabelBiomassCoefficientStraw" xml:space="preserve">
+    <value>Biomass Coefficient Straw (R_s):</value>
+  </data>
+  <data name="LabelBiomassCoefficientRoots" xml:space="preserve">
+    <value>Biomass Coefficient Roots (R_r):</value>
+  </data>
+  <data name="LabelBiomassCoefficientExtraroots" xml:space="preserve">
+    <value>Biomass Coefficient Extraroots (R_e):</value>
+  </data>
+  <data name="LabelUnitless" xml:space="preserve">
+    <value>(unitless)</value>
+  </data>
 </root>
