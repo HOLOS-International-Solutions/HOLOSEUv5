@@ -10,6 +10,9 @@
         <TabItem Header="General">
             <avalonia:SelectedCropGeneralTabView/>
         </TabItem>
+        <TabItem Header="Residues">
+            <avalonia:SelectedCropResiduesTabView/>
+        </TabItem>
         <TabItem Header="Fertilizer"></TabItem>
     </TabControl>
 </UserControl>
