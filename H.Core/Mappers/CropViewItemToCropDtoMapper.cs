@@ -9,6 +9,6 @@ public class CropViewItemToCropDtoMapper : Profile
 {
     public CropViewItemToCropDtoMapper()
     {
-        CreateMap<CropViewItem, ICropDto>();
+        CreateMap<CropViewItem, CropDto>();
     }
 }

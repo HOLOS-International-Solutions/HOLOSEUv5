@@ -10,7 +10,7 @@ public partial class CropDto
     private double _biomassCoefficientProduct;
     private double _biomassCoefficientStraw;
     private double _biomassCoefficientRoots;
-    private double _biomassCoefficientExtraroots;
+    private double _biomassCoefficientExtraroot;
 
     #endregion
 
@@ -62,10 +62,10 @@ public partial class CropDto
     /// (unitless)
     /// </summary>
     [Units(MetricUnitsOfMeasurement.None)]
-    public double BiomassCoefficientExtraroots
+    public double BiomassCoefficientExtraroot
     {
-        get => _biomassCoefficientExtraroots;
-        set => SetProperty(ref _biomassCoefficientExtraroots, value);
+        get => _biomassCoefficientExtraroot;
+        set => SetProperty(ref _biomassCoefficientExtraroot, value);
     } 
 
     #endregion

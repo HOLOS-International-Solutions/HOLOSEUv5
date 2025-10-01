@@ -9,6 +9,6 @@ public class CropDtoToCropDtoMapper : Profile
 {
     public CropDtoToCropDtoMapper()
     {
-        CreateMap<ICropDto, ICropDto>();
+        CreateMap<CropDto, CropDto>();
     }
 }

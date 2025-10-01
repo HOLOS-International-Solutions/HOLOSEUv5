@@ -45,7 +45,7 @@
 
 						<!-- Biomass Coefficient Extraroots Row -->
 						<Label Grid.Row="3" Grid.Column="0" Classes="input-label" Content="{x:Static properties:Resources.LabelBiomassCoefficientExtraroots}"/>
-						<NumericUpDown Name="BiomassCoefficientExtrarootsNumericUpDown" Grid.Row="3" Grid.Column="1" Minimum="0" Value="{Binding BiomassCoefficientExtraroots}"/>
+						<NumericUpDown Name="BiomassCoefficientExtrarootsNumericUpDown" Grid.Row="3" Grid.Column="1" Minimum="0" Value="{Binding BiomassCoefficientExtraroot}"/>
 						<Label Grid.Row="3" Grid.Column="2" Classes="unit-label" Content="{x:Static properties:Resources.LabelUnitless}"/>
 					</Grid>
 				</StackPanel>
