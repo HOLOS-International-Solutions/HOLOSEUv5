@@ -28,16 +28,13 @@
             <Border Classes="title-underline"/>
         </StackPanel>
 
-        <Grid Grid.Row="1">
-			<Grid.RowDefinitions>
-				<RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-
-            <StackPanel Grid.Row="0">
+        <StackPanel Grid.Row="1">
+            <StackPanel>
 				<!-- Begin step 1 -->
 
 				<fieldViews:FieldComponentStep1View/>
+
+                <Border Classes="control-separator"/>
 
 				<!-- End step 1 -->
 
@@ -53,7 +50,7 @@
 						  AutoGenerateColumns="False"
 						  Margin="10,20,0,0"
 						  HorizontalAlignment="Left"
-						  Height="600"
+						  Height="300"
 						  BorderThickness="1"
 						  GridLinesVisibility="All">
 
@@ -78,12 +75,13 @@
 
 				<!-- End step 2 -->
 
+                <Border Classes="control-separator"/>
+
+				<!-- Begin step 3 -->
+                <avalonia:SelectedCropTabView/>
+
+                <!-- End step 3 -->
 			</StackPanel>
-
-			<!-- Begin step 3 -->
-			<avalonia:SelectedCropTabView Grid.Row="1"/>
-
-			<!-- End step 3 -->
-        </Grid>
+        </StackPanel>
 	</Grid>
 </UserControl>
