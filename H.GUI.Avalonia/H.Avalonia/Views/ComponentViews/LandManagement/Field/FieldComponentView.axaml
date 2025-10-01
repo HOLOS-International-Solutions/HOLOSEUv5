@@ -34,7 +34,9 @@
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Row="0">
-				<Grid HorizontalAlignment="Left">
+				<!-- Begin step 1 -->
+
+                <Grid HorizontalAlignment="Left">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition MinWidth="120"/>
 						<ColumnDefinition MinWidth="120"/>
@@ -45,6 +47,10 @@
 					<NumericUpDown Grid.Column="1" Minimum="0" Value="{Binding Path=SelectedFieldSystemComponentDto.FieldArea}"></NumericUpDown>
 					<Label Grid.Column="2" Content="{Binding Path=StorageService.Storage.ApplicationData.DisplayUnitStrings.HectaresString}" VerticalContentAlignment="Center"/>
 				</Grid>
+
+				<!-- End step 1 -->
+
+				<!-- Begin step 2 -->
 
 				<StackPanel Orientation="Horizontal">
 					<Button Command="{Binding AddCropCommand}" Classes="add-group" Content="Add Crop"/>
@@ -79,9 +85,14 @@
 					</DataGrid.Columns>
 				</DataGrid>
 
+				<!-- End step 2 -->
+
 			</StackPanel>
 
+			<!-- Begin step 3 -->
 			<avalonia:SelectedCropTabView Grid.Row="1"/>
+
+			<!-- End step 3 -->
         </Grid>
 	</Grid>
 </UserControl>
