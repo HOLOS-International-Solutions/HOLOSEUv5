@@ -5,7 +5,8 @@
             <!-- Add Controls for Previewer Here -->
         </Border>
     </Design.PreviewWith>
-    
+
+
     <!-- Button Styles -->
     <Style Selector="Button">
         <Setter Property="Cursor" Value="Hand"/>
@@ -96,6 +97,7 @@
         <Setter Property="BorderThickness" Value="1" />
     </Style>
 
+
 	<!-- TextBlock Styles -->
 	<Style Selector="TextBlock.title-textblock">
 		<Setter Property="FontWeight" Value="Bold"/>
@@ -136,7 +138,7 @@
 	
 	<!-- Border Styles -->
 	<Style Selector="Border.title-underline">
-		<Setter Property="BorderBrush" Value="#D7D7D7"/>
+		<Setter Property="BorderBrush" Value="DarkGray"/>
 		<Setter Property="BorderThickness" Value="0,0,0,3"/>
 		<Setter Property="Margin" Value="0,10,0,0"/>
 	</Style>
@@ -145,6 +147,14 @@
         <Setter Property="BorderBrush" Value="#D7D7D7"/>
         <Setter Property="BorderThickness" Value="0,0,0,3"/>
         <Setter Property="Margin" Value="0,10,0,0"/>
+    </Style>
+
+    <Style Selector="GridSplitter.default-horizontal-style">
+        <Setter Property="ResizeDirection" Value="Rows"/>
+        <Setter Property="Height" Value="1"/>
+        <Setter Property="Background" Value="LightGray"/>
+        <Setter Property="BorderThickness" Value="0,0,0,3"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
     </Style>
 
 	<!-- DataValidationErrors Styles-->

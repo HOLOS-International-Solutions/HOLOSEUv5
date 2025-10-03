@@ -28,17 +28,27 @@
             <Border Classes="title-underline"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="1">
-            <StackPanel>
-				<!-- Begin step 1 -->
+        <Grid Grid.Row="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            
+            <!-- Begin step 1 -->
 
-				<fieldViews:FieldComponentStep1View/>
-
-                <Border Classes="control-separator"/>
+				<fieldViews:FieldComponentStep1View Grid.Row="0" Margin="{StaticResource DefaultUserControlMargin}"/>
 
 				<!-- End step 1 -->
 
+            <GridSplitter Grid.Row="1" Classes="default-horizontal-style"/>
+
 				<!-- Begin step 2 -->
+
+			<StackPanel Grid.Row="2">
 
 				<StackPanel Orientation="Horizontal">
 					<Button Command="{Binding AddCropCommand}" Classes="add-group" Content="Add Crop"/>
@@ -72,16 +82,16 @@
 						</DataGridTemplateColumn>
 					</DataGrid.Columns>
 				</DataGrid>
+            </StackPanel>
 
 				<!-- End step 2 -->
 
-                <Border Classes="control-separator"/>
+            <GridSplitter Grid.Row="3" Classes="default-horizontal-style"/>
 
 				<!-- Begin step 3 -->
-                <avalonia:SelectedCropTabView/>
+                <avalonia:SelectedCropTabView Grid.Row="4"/>
 
                 <!-- End step 3 -->
-			</StackPanel>
-        </StackPanel>
+        </Grid>
 	</Grid>
 </UserControl>
