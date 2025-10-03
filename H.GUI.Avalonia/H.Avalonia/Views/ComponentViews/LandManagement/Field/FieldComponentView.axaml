@@ -9,89 +9,55 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="950"
              x:Class="H.Avalonia.Views.ComponentViews.LandManagement.Field.FieldComponentView">
 
-    <Design.DataContext>
-        <field:FieldComponentViewModelDesign/>
-    </Design.DataContext>
+	<Design.DataContext>
+		<field:FieldComponentViewModelDesign/>
+	</Design.DataContext>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <!-- Title -->
-            <RowDefinition Height="Auto"/>
-            <!-- Content -->
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+	<Grid>
+		<Grid.RowDefinitions>
+			<!-- Title -->
+			<RowDefinition Height="Auto"/>
+			<!-- Content -->
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
 
 
-        <StackPanel Grid.Row="0">
-            <!-- Title -->
-            <TextBox Classes="view-title" Text="{Binding Path=SelectedFieldSystemComponentDto.Name}"/>
-            <Border Classes="title-underline"/>
-        </StackPanel>
+		<StackPanel Grid.Row="0">
+			<!-- Title -->
+			<TextBox Classes="view-title" Text="{Binding Path=SelectedFieldSystemComponentDto.Name}"/>
+			<Border Classes="title-underline"/>
+		</StackPanel>
 
-        <Grid Grid.Row="1">
+		<Grid Grid.Row="1">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto"/>
 				<RowDefinition Height="Auto"/>
 				<RowDefinition/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            
-            <!-- Begin step 1 -->
+				<RowDefinition Height="Auto"/>
+				<RowDefinition/>
+				<RowDefinition/>
+			</Grid.RowDefinitions>
 
-				<fieldViews:FieldComponentStep1View Grid.Row="0" Margin="{StaticResource DefaultUserControlMargin}"/>
+			<!-- Begin step 1 -->
 
-				<!-- End step 1 -->
+			<fieldViews:FieldComponentStep1View Grid.Row="0" Margin="{StaticResource DefaultUserControlMargin}"/>
 
-            <GridSplitter Grid.Row="1" Classes="default-horizontal-style"/>
+			<!-- End step 1 -->
 
-				<!-- Begin step 2 -->
+			<GridSplitter Grid.Row="1" Classes="default-horizontal-style"/>
 
-			<StackPanel Grid.Row="2">
+			<!-- Begin step 2 -->
 
-				<StackPanel Orientation="Horizontal">
-					<Button Command="{Binding AddCropCommand}" Classes="add-group" Content="Add Crop"/>
-					<Button Command="{Binding RemoveCropCommand}" Classes="add-group" Content="Remove Crop"/>
-				</StackPanel>
+			<avalonia:FieldComponentStep2View Grid.Row="2" Margin="{StaticResource DefaultUserControlMargin}"/>
 
-				<DataGrid ItemsSource="{Binding Path= SelectedFieldSystemComponentDto.CropDtos}"
-						  SelectedItem="{Binding Path=SelectedCropDto}"
-						  AutoGenerateColumns="False"
-						  Margin="10,20,0,0"
-						  HorizontalAlignment="Left"
-						  Height="300"
-						  BorderThickness="1"
-						  GridLinesVisibility="All">
+			<!-- End step 2 -->
 
-					<DataGrid.Columns>
-						<DataGridTextColumn Width="Auto"
-											Header="Year"
-											Binding="{Binding Path=Year}"
-											IsReadOnly="True"/>
+			<GridSplitter Grid.Row="3" Classes="default-horizontal-style"/>
 
-						<DataGridTemplateColumn MinWidth="120"  Header="Crop" IsReadOnly="False">
-							<DataGridTemplateColumn.CellTemplate>
-								<DataTemplate>
-									<ComboBox x:Name="combo"
-											  MinWidth="200"
-											  ItemsSource="{Binding Path=ValidCropTypes}"
-											  SelectedItem="{Binding Path=CropType}"/>
-								</DataTemplate>
-							</DataGridTemplateColumn.CellTemplate>
-						</DataGridTemplateColumn>
-					</DataGrid.Columns>
-				</DataGrid>
-            </StackPanel>
+			<!-- Begin step 3 -->
+			<avalonia:SelectedCropTabView Grid.Row="4"/>
 
-				<!-- End step 2 -->
-
-            <GridSplitter Grid.Row="3" Classes="default-horizontal-style"/>
-
-				<!-- Begin step 3 -->
-                <avalonia:SelectedCropTabView Grid.Row="4"/>
-
-                <!-- End step 3 -->
-        </Grid>
+			<!-- End step 3 -->
+		</Grid>
 	</Grid>
 </UserControl>

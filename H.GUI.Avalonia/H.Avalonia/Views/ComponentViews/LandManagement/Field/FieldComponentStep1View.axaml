@@ -19,7 +19,7 @@
                        Classes="step-number-description">Enter basic information for this field</TextBlock>
         </StackPanel>
 
-		<Grid HorizontalAlignment="Left" Margin="0,20,0,0">
+		<Grid HorizontalAlignment="Left">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition MinWidth="120"/>
 				<ColumnDefinition MinWidth="120"/>

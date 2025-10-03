@@ -6,7 +6,6 @@
         </Border>
     </Design.PreviewWith>
 
-
     <!-- Button Styles -->
     <Style Selector="Button">
         <Setter Property="Cursor" Value="Hand"/>
@@ -179,7 +178,9 @@
 	<!-- Style for labels that appear before input boxes -->
 	<Style Selector="Label.input-label">
 		<Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="Foreground" Value="RoyalBlue"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Foreground" Value="RoyalBlue"/>
 		<Setter Property="MinWidth" Value="220"/>
         <Setter Property="FontWeight" Value="Medium"/>
 	</Style>
