@@ -113,10 +113,11 @@
 	</Style>
 
     <Style Selector="TextBlock.step-number">
-        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontSize" Value="22"/>
         <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="Foreground" Value="#605D5D"/>
-        <Setter Property="Margin" Value="0,0,0,4"/>
+        <Setter Property="Foreground" Value="DarkGreen"/>
+        <Setter Property="TextDecorations" Value="Underline"/>
+        <Setter Property="Margin" Value="0,0,0,14"/>
     </Style>
 
     <Style Selector="TextBlock.step-number-description">
@@ -130,7 +131,7 @@
 	<Style Selector="TextBox.view-title">
 		<Setter Property="FontSize" Value="36"/>
 		<Setter Property="FontWeight" Value="Bold"/>
-		<Setter Property="Margin" Value="10,10,0,0"/>
+		<Setter Property="Margin" Value="0,10,0,0"/>
 		<Setter Property="Foreground" Value="#605D5D"/>
 		<Setter Property="BorderThickness" Value="0"/>
 	</Style>
