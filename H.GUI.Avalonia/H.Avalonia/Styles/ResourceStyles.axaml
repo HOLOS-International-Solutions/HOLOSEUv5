@@ -12,9 +12,10 @@
 		  <Thickness x:Key="DefaultUserControlMargin">6,6,6,6</Thickness>
 
 		  <!-- Brushes -->
-		<SolidColorBrush x:Key="DefaultForegroundTextBrush" Color="DimGray" />        
-        
-          <FontFamily x:Key="RobotoFontFamily">/Assets/Fonts/Roboto-Slab*.ttf#Roboto Slab</FontFamily>
+		<SolidColorBrush x:Key="DefaultForegroundTextBrush" Color="DimGray" />
+		  <SolidColorBrush x:Key="DefaultHighlightBrush" Color="DarkGreen" />
+
+		  <FontFamily x:Key="RobotoFontFamily">/Assets/Fonts/Roboto-Slab*.ttf#Roboto Slab</FontFamily>
           <FontFamily x:Key="MonaSansFontFamily">/Assets/Fonts/Mona-Sans*.ttf#Mona Sans</FontFamily>
           <DrawingImage x:Key="CanadaLogo">
               <DrawingImage.Drawing>

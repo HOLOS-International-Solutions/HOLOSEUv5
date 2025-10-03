@@ -30,12 +30,21 @@
 
 		<Grid Grid.Row="1">
 			<Grid.RowDefinitions>
+				<!-- Step 1 row -->
+                <RowDefinition Height="Auto"/>
+
+                <!-- Step 1 GridSplitter row -->
 				<RowDefinition Height="Auto"/>
+
+                <!-- Step 2 row -->
+				<RowDefinition/>
+
+                <!-- Step 2 GridSplitter row -->
 				<RowDefinition Height="Auto"/>
+
+                <!-- Step 3 row -->
 				<RowDefinition/>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition/>
-				<RowDefinition/>
+				
 			</Grid.RowDefinitions>
 
 			<!-- Begin step 1 -->

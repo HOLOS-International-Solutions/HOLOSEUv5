@@ -7,9 +7,13 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="H.Avalonia.SelectedCropTabView">
 
-    <StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <StackPanel Margin="10,8,0,0">
+        <StackPanel Grid.Row="0" Margin="10,8,0,0">
             <TextBlock Name="HeaderTextBlock"
                        Classes="step-number">Step #3</TextBlock>
 
@@ -17,7 +21,7 @@
                        Classes="step-number-description">Define management</TextBlock>
         </StackPanel>
 
-        <TabControl Margin="0,10,0,0">
+        <TabControl Grid.Row="1" Margin="0,10,0,0">
         <TabItem Header="{x:Static properties:Resources.TabHeaderGeneral}">
             <avalonia:SelectedCropGeneralTabView/>
         </TabItem>
@@ -26,5 +30,6 @@
         </TabItem>
         <TabItem Header="{x:Static properties:Resources.TabHeaderFertilizer}"></TabItem>
     </TabControl>
-</StackPanel>
+        
+    </Grid>
 </UserControl>
