@@ -26,22 +26,38 @@
 						</Grid.RowDefinitions>
 
 						<!-- Yield Row -->
-						<Label Grid.Row="0" Grid.Column="0" Content="Yield (wet weight):" VerticalContentAlignment="Center"/>
-						<NumericUpDown Name="YieldNumericUpDown" Grid.Row="0" Grid.Column="1" Minimum="0" Value="{Binding WetYield}"/>
-						<Label
-    Grid.Row="0"
-    Grid.Column="2"
-    Content="{Binding DataContext.StorageService.Storage.ApplicationData.DisplayUnitStrings.KilogramsPerHectareString, RelativeSource={RelativeSource AncestorType=UserControl}}"
-    VerticalContentAlignment="Center"/>
+						<Label Grid.Row="0" 
+                               Grid.Column="0" 
+                               Content="Yield (wet weight):"  
+                               Classes="input-label" />
+
+						<NumericUpDown Name="YieldNumericUpDown" 
+                                       Grid.Row="0" 
+                                       Grid.Column="1" 
+                                       Minimum="0" 
+                                       Value="{Binding WetYield}"/>
+
+						<Label Grid.Row="0"
+                               Grid.Column="2"
+                               Content="{Binding DataContext.StorageService.Storage.ApplicationData.DisplayUnitStrings.KilogramsPerHectareString, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                               Classes="unit-label"/>
 
 						<!-- Irrigation Row -->
-						<Label Grid.Row="1" Grid.Column="0" Content="Amount of irrigation:" VerticalContentAlignment="Center"/>
-						<NumericUpDown Name="IrrigationNumericUpDown" Grid.Row="1" Grid.Column="1" Minimum="0" Value="{Binding AmountOfIrrigation}"/>
-						<Label
-    Grid.Row="1"
-    Grid.Column="2"
-    Content="{Binding DataContext.StorageService.Storage.ApplicationData.DisplayUnitStrings.MillimetersPerHectareString, RelativeSource={RelativeSource AncestorType=UserControl}}"
-    VerticalContentAlignment="Center"/>
+						<Label Grid.Row="1" 
+                               Grid.Column="0" 
+                               Content="Amount of irrigation:" 
+                               Classes="input-label" />
+
+						<NumericUpDown Name="IrrigationNumericUpDown" 
+                                       Grid.Row="1" 
+                                       Grid.Column="1" 
+                                       Minimum="0" 
+                                       Value="{Binding AmountOfIrrigation}"/>
+
+						<Label Grid.Row="1"
+                               Grid.Column="2"
+                               Content="{Binding DataContext.StorageService.Storage.ApplicationData.DisplayUnitStrings.MillimetersPerHectareString, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                               Classes="unit-label"/>
 					</Grid>
 				</StackPanel>
 			</DataTemplate>
