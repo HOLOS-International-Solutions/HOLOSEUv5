@@ -9,6 +9,7 @@ public class CropViewItemToCropDtoMapper : Profile
 {
     public CropViewItemToCropDtoMapper()
     {
-        CreateMap<CropViewItem, CropDto>();
+        CreateMap<CropViewItem, CropDto>()
+            .ForMember(destinationMember: dto => dto.WetYield, memberOptions: options => options.MapFrom(cropViewItem => cropViewItem.Yield));
     }
 }

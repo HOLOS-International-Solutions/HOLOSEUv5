@@ -105,6 +105,24 @@ namespace H.Avalonia
         /// <param name="containerRegistry"></param>
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            #region Storage Registrations
+
+            // V5 object
+            containerRegistry.RegisterSingleton<Storage>();
+
+            // V4 object
+            containerRegistry.RegisterSingleton<IStorage, H.Core.Storage>();
+
+            containerRegistry.RegisterSingleton<IStorageService, DefaultStorageService>();
+
+
+            var storage = Container.Resolve<IStorage>();
+            storage.Load();
+            var b = base.Container.Resolve<IStorageService>();
+            var c = b.GetActiveFarm();
+
+            #endregion
+
             // Logging
             this.SetUpLogging(containerRegistry);
 
@@ -190,17 +208,7 @@ namespace H.Avalonia
 
             //containerRegistry.RegisterSingleton<ResultsViewModelBase>();
 
-            #region Storage Registrations
 
-            // V5 object
-            containerRegistry.RegisterSingleton<Storage>();
-
-            // V4 object
-            containerRegistry.RegisterSingleton<IStorage, H.Core.Storage>();
-
-            containerRegistry.RegisterSingleton<IStorageService, DefaultStorageService>();
-
-            #endregion
 
             // Providers
             containerRegistry.RegisterSingleton<GeographicDataProvider>();
@@ -223,10 +231,11 @@ namespace H.Avalonia
             containerRegistry.RegisterSingleton<ICropInitializationService, CropInitializationService>();
             containerRegistry.RegisterSingleton<IAnimalComponentService, AnimalComponentService>();
             containerRegistry.RegisterSingleton<IManagementPeriodService, ManagementPeriodService>();
-            containerRegistry.Register(typeof(ITransferService<,>), typeof(TransferService<,>));
 
             // Unit conversion
             containerRegistry.RegisterSingleton<IUnitsOfMeasurementCalculator, UnitsOfMeasurementCalculator>();
+
+            var a = Container.Resolve<IUnitsOfMeasurementCalculator>();
             
             // Dialogs
             containerRegistry.RegisterDialog<DeleteRowDialog, DeleteRowDialogViewModel>();
@@ -251,6 +260,8 @@ namespace H.Avalonia
             this.SetupMappers(containerRegistry);
 
             this.SetUpCaching(containerRegistry);
+
+            this.SetupTransferServices(containerRegistry);
         }
 
         protected override AvaloniaObject CreateShell()
@@ -277,11 +288,8 @@ namespace H.Avalonia
             regionManager.RegisterViewWithRegion(UiRegions.ContentRegion, typeof(FarmOpenExistingView));
 
             var geographicProvider = Container.Resolve<GeographicDataProvider>();
-            geographicProvider.Initialize();
+            geographicProvider.Initialize(); 
             Container.Resolve<KmlHelpers>();
-
-            var storage = Container.Resolve<IStorage>();
-            storage.Load();
         }
 
         private void SetLanguage()
@@ -321,6 +329,69 @@ namespace H.Avalonia
 
             // Register the ILogger instance as a singleton in the Prism container
             containerRegistry.RegisterInstance(typeof(ILogger), logger);
+        }
+
+        private void SetupTransferServices(IContainerRegistry containerRegistry)
+        {
+            containerRegistry.Register(typeof(ITransferService<,>), typeof(TransferService<,>));
+
+            // Register TransferService for CropViewItem and CropDto using the named mapper
+            containerRegistry.Register<ITransferService<CropViewItem, CropDto>>(() =>
+            {
+                var unitsCalculator = base.Container.Resolve<IUnitsOfMeasurementCalculator>();
+                var cropDtoFactory = base.Container.Resolve<IFactory<CropDto>>();
+                var dtoToModelMapper = base.Container.Resolve<IMapper>(nameof(CropDtoToCropViewItemMapper));
+                var modelToDtoMapper = base.Container.Resolve<IMapper>(nameof(CropViewItemToCropDtoMapper));
+
+                // If TransferService supports injecting IMapper, pass it here.
+                // If not, you may need to refactor TransferService to accept IMapper via constructor.
+                return new TransferService<CropViewItem, CropDto>(
+                    unitsOfMeasurementCalculator: unitsCalculator,
+                    dtoFactory: cropDtoFactory,
+                    dtoToModelMapper: dtoToModelMapper,
+                    modelToDtoMapper: modelToDtoMapper
+                );
+            });
+
+            // Register TransferService for CropViewItem and CropDto using the named mapper
+            containerRegistry.Register<ITransferService<FieldSystemComponent, FieldSystemComponentDto>>(() =>
+            {
+                var unitsCalculator = base.Container.Resolve<IUnitsOfMeasurementCalculator>();
+                var cropDtoFactory = base.Container.Resolve<IFactory<FieldSystemComponentDto>>();
+                var dtoToModelMapper = base.Container.Resolve<IMapper>(nameof(FieldDtoToFieldComponentMapper));
+                var modelToDtoMapper = base.Container.Resolve<IMapper>(nameof(FieldComponentToDtoMapper));
+
+                // If TransferService supports injecting IMapper, pass it here.
+                // If not, you may need to refactor TransferService to accept IMapper via constructor.
+                return new TransferService<FieldSystemComponent, FieldSystemComponentDto>(
+                    unitsOfMeasurementCalculator: unitsCalculator,
+                    dtoFactory: cropDtoFactory,
+                    dtoToModelMapper: dtoToModelMapper,
+                    modelToDtoMapper: modelToDtoMapper
+                );
+            });
+
+
+            // Register TransferService for CropViewItem and CropDto using the named mapper
+            containerRegistry.Register<ITransferService<AnimalComponentBase, AnimalComponentDto>>(() =>
+            {
+                var unitsCalculator = base.Container.Resolve<IUnitsOfMeasurementCalculator>();
+                var animalDtoFactory = base.Container.Resolve<IFactory<AnimalComponentDto>>();
+                var dtoToModelMapper = base.Container.Resolve<IMapper>(nameof(AnimalComponentDtoToAnimalComponentMapper));
+                var modelToDtoMapper = base.Container.Resolve<IMapper>(nameof(AnimalComponentBaseToAnimalComponentDtoMapper));
+
+                // If TransferService supports injecting IMapper, pass it here.
+                // If not, you may need to refactor TransferService to accept IMapper via constructor.
+                return new TransferService<AnimalComponentBase, AnimalComponentDto>(
+                    unitsOfMeasurementCalculator: unitsCalculator,
+                    dtoFactory: animalDtoFactory,
+                    dtoToModelMapper: dtoToModelMapper,
+                    modelToDtoMapper: modelToDtoMapper
+                );
+            });
+
+
+            var ld = base.Container.Resolve< IComponentInitializationService> ();
         }
 
         private void SetupMappers(IContainerRegistry containerRegistry)

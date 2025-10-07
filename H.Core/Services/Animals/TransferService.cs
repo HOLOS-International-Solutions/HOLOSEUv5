@@ -37,10 +37,10 @@ namespace H.Core.Services.Animals
         /// </summary>
         /// <param name="unitsOfMeasurementCalculator">Calculator for handling unit conversions.</param>
         /// <param name="dtoFactory">Factory for creating DTO instances.</param>
-        /// <param name="additionalModelToDtoConfig">Optional additional mapping configuration from model to DTO.</param>
-        /// <param name="additionalDtoToModelConfig">Optional additional mapping configuration from DTO to model.</param>
+        /// <param name="dtoToModelMapper"></param>
+        /// <param name="modelToDtoMapper"></param>
         /// <exception cref="ArgumentNullException">Thrown if required dependencies are null.</exception>
-        public TransferService(IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator, IFactory<TDto> dtoFactory, Action<IMapperConfigurationExpression> additionalModelToDtoConfig = null, Action<IMapperConfigurationExpression> additionalDtoToModelConfig = null)
+        public TransferService(IUnitsOfMeasurementCalculator unitsOfMeasurementCalculator, IFactory<TDto> dtoFactory, IMapper dtoToModelMapper, IMapper modelToDtoMapper)
         {
             if (dtoFactory != null)
             {
@@ -60,21 +60,23 @@ namespace H.Core.Services.Animals
                 throw new ArgumentNullException(nameof(unitsOfMeasurementCalculator));
             }
 
-            var modelToDtoConfiguration = new MapperConfiguration(cfg =>
+            if (modelToDtoMapper != null)
             {
-                cfg.CreateMap<TModelBase, TDto>();
-                additionalModelToDtoConfig?.Invoke(cfg);
-            });
-
-            _modelToDtoMapper = modelToDtoConfiguration.CreateMapper();
-
-            var dtoToModelConfiguration = new MapperConfiguration(cfg =>
+                _modelToDtoMapper = modelToDtoMapper; 
+            }
+            else
             {
-                cfg.CreateMap<TDto, TModelBase>();
-                additionalDtoToModelConfig?.Invoke(cfg);
-            });
+                throw new ArgumentNullException(nameof(modelToDtoMapper));
+            }
 
-            _dtoToModelMapper = dtoToModelConfiguration.CreateMapper();
+            if (dtoToModelMapper != null)
+            {
+                _dtoToModelMapper = dtoToModelMapper;
+            }
+            else 
+            {
+                throw new ArgumentNullException(nameof(dtoToModelMapper));
+            }
         }
 
         #endregion

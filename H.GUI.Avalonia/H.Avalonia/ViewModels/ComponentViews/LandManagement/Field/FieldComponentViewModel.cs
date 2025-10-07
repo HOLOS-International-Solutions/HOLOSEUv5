@@ -170,18 +170,26 @@ public class FieldComponentViewModel : ViewModelBase
             _selectedFieldSystemComponent = fieldSystemComponent;
 
             // Build a DTO to represent the model/domain object
-            var dto = _fieldComponentService.TransferToFieldComponentDto(_selectedFieldSystemComponent);
+            var fieldComponentDto = _fieldComponentService.TransferToFieldComponentDto(_selectedFieldSystemComponent);
 
             // Listen for changes on the DTO
-            dto.PropertyChanged += FieldSystemComponentDtoOnPropertyChanged;
+            fieldComponentDto.PropertyChanged += FieldSystemComponentDtoOnPropertyChanged;
 
             // Assign the DTO to the property that is bound to the view
-            this.SelectedFieldSystemComponentDto = dto;
+            this.SelectedFieldSystemComponentDto = fieldComponentDto;
 
             // If there are any crops associated with the field, select the first one by default
             if (this.SelectedFieldSystemComponentDto.CropDtos.Any())
             {
-                this.SelectedCropDto = this.SelectedFieldSystemComponentDto.CropDtos.First();
+                // Check if we can restore last selected item
+                if (this.SelectedFieldSystemComponentDto.CropDtos.Contains(this.SelectedCropDto))
+                {
+                    this.SelectedCropDto = this.SelectedCropDto;
+                }
+                else
+                {
+                    this.SelectedCropDto = this.SelectedFieldSystemComponentDto.CropDtos.First();
+                }
             }
             else
             {
